@@ -1,0 +1,39 @@
+    <%- include ../partials/portfolio_header.ejs %>
+    <%- include ../partials/nav_main.ejs %>
+
+    <!-- Content for the Add page -->
+    <div class="container content-container">
+        <div class="row">
+            <div class="offset-md-3 col-md-6">
+                <h1><%= title %></h1>
+
+                <form class="form" method="POST">
+                    <div class="form-group">
+                        <label for="surveyNameTextField">Survey Name</label>
+                        <input type="text" class="form-control"
+                        id="surveyNameTextField"
+                        placeholder="Enter the survey name"
+                        name="surveyName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="surveyNumTextField">Category</label>
+                        <input type="text" class="form-control"
+                        id="surveyNumTextField"
+                        placeholder="Enter the survey category"
+                        name="surveyCategory" required>
+                    </div>
+
+                    <br><br>
+                    <button class="btn btn-info btn-edit-submit" type="submit"><i class="fas fa-edit"></i> Submit</button>
+                    <a href="/" class="btn btn-secondary btn-edit-cancel">Cancel</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <%- include ../partials/nav_bottom.ejs %>
+    <%- include ../partials/portfolio_footer.ejs %>

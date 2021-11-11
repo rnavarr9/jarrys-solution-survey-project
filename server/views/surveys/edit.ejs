@@ -1,0 +1,43 @@
+
+    <%- include ../partials/portfolio_header.ejs %>
+    <%- include ../partials/nav_main.ejs %>
+
+    <div class="container content-container">
+        <div class="row">
+            <div class="offset-md-3 col-md-6">
+                <h1><%= title %></h1>
+
+                <form class="form" method="POST">
+                    <div class="form-group">
+                        <label for="surveyNameTextField">Survey Name</label>
+                        <input type="text" class="form-control"
+                        id="surveyNameTextField"
+                        placeholder=""
+                        name="surveyName" 
+                        value="<%= survey.name %>"
+                        required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="surveyCategoryTextField">Category</label>
+                        <input type="text" class="form-control"
+                        id="surveyCategoryTextField"
+                        placeholder=""
+                        name="surveyCategory" 
+                        value="<%= survey.category %>"
+                        required>
+                    </div>
+
+
+                    <br><br>
+                    <button class="btn btn-info btn-edit-submit" type="submit"><i class="fas fa-edit"></i> Submit</button>
+                    <a href="/" class="btn btn-secondary btn-edit-cancel">Cancel</a>
+                    <a href="/surveys/delete/<%= survey._id %>" class="btn btn-danger btn-edit-delete">Delete</i></a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+      
+    <%- include ../partials/nav_bottom.ejs %>
+    <%- include ../partials/portfolio_footer.ejs %>
