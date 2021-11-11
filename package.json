@@ -26,7 +26,6 @@
     "popper.js": "^1.16.1"
   },
   "description": "Jarry's Solution.",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rnavarr9/jarrys-solution-survey-project.git"

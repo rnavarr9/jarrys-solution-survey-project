@@ -13,7 +13,7 @@
                             <h1><%=title %></h1>
                         </td>
                         <td>
-                            <a href="/surveys/add" class="btn btn-primary" style="margin-top:7px;" role="button">
+                            <a href="/surveys/" class="btn btn-primary" style="margin-top:7px;" role="button">
                             <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Create new</a>
                         </td>
                     </tr>
@@ -32,8 +32,8 @@
                         <tr class="d-flex">
                             <td class="text-center col-7"><%= surveyList[count].name %></td>
                             <td class="text-center col-4"><%= surveyList[count].category %></td>
-                            <td class="text-center col-1"><a href="/surveys/edit/<%= surveyList[count]._id %>" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a></td>
-                            <td class="text-center col-1"><a href="/surveys/delete/<%= surveyList[count]._id %>" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a></td>
+                            <td class="text-center col-1"><a href="/surveys/" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a></td>
+                            <td class="text-center col-1"><a href="/surveys/" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                     <% } %>
                 </table>
