@@ -1,0 +1,69 @@
+
+.site-logo{
+  height: 56px;
+  width: 249px;
+}
+
+
+
+.content-container{
+  padding-top: 100px;
+}
+
+/* styling for links in the portfolio (sets default color to black on all states) */
+a.portfolio-link:link {color: black;}      /* unvisited link */
+a.portfolio-link:visited {color: black;}   /* visited link */
+a.portfolio-link:hover {color: black;}     /* mouse over link */
+a.portfolio-link:active {color: black;}    /* selected link */
+
+
+
+[type="submit"] {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  width: 100%;
+  background:#818181;
+  border-radius:5px;
+  border:0;
+  cursor:pointer;
+  color:white;
+  font-size:24px;
+  padding-top:10px;
+  padding-bottom:10px;
+  transition: all 0.3s;
+  margin-top:-4px;
+  font-weight:700;
+}
+[type="submit"]:hover { background:rgb(104, 178, 207); }
+
+.login-container{
+  padding-left: 50px;
+  padding-top: 200px;
+}
+
+.btn-login{
+  width:317px;
+}
+
+.btn-login-cancel{
+  width:80px;
+  height: 56px !important;
+  margin-top: -5px !important;
+}
+
+.btn-edit-submit{
+  width:467px;
+}
+
+.btn-edit-cancel{
+  width:80px;
+  height: 56px !important;
+  margin-top: -5px !important;
+  text-align: center; line-height: 40px;
+}
+
+.btn-edit-delete{
+  width:80px;
+  height: 56px !important;
+  margin-top: -5px !important;
+  text-align: center; line-height: 40px;
+}
