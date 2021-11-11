@@ -18,11 +18,11 @@ module.exports.displayList = (req, res, next) => {
     });
 }
 
-module.exports.displayAddPage = (req, res, next) => {
+module.exports.displayAddSurvey = (req, res, next) => {
     res.render('surveys/add', {title: 'Create a survey', bodyClass: ""})          
 }
 
-module.exports.processAddPage = (req, res, next) => {
+module.exports.processAddSurvey = (req, res, next) => {
     let newSurvey = surveyItem({
         "name": req.body.surveyName,
         "category": req.body.surveyCategory,
@@ -44,7 +44,7 @@ module.exports.processAddPage = (req, res, next) => {
 }
 
 
-module.exports.displayEditPage = (req, res, next) => {
+module.exports.displayEditSurvey = (req, res, next) => {
     let id = req.params.id;
 
     surveyItem.findById(id, (err, itemToEdit) => {
@@ -61,7 +61,7 @@ module.exports.displayEditPage = (req, res, next) => {
     });
 }
 
-module.exports.processEditPage = (req, res, next) => {
+module.exports.processEditSurvey = (req, res, next) => {
     let id = req.params.id
 
     let updatedSurvey = surveyItem({
