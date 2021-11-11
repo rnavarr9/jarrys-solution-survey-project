@@ -11,16 +11,16 @@ let surveyController = require('../controllers/survey');
 router.get('/', surveyController.displayList);
 
 /* GET Route for displaying the Add page - CREATE Operation */
-router.get('/add', surveyController.displayAddPage);
+router.get('/add', surveyController.displayAddSurvey);
 
 /* POST Route for processing the Add page - CREATE Operation */
-router.post('/add', surveyController.processAddPage);
+router.post('/add', surveyController.processAddSurvey);
 
 /* GET Route for displaying the Edit page - UPDATE Operation */
-router.get('/edit/:id', surveyController.displayEditPage);
+router.get('/edit/:id', surveyController.displayEditSurvey);
 
 /* POST Route for processing the Edit page - UPDATE Operation */
-router.post('/edit/:id', surveyController.processEditPage);
+router.post('/edit/:id', surveyController.processEditSurvey);
 
 /* GET to perform  Deletion - DELETE Operation */
 router.get('/delete/:id', surveyController.performDelete);
