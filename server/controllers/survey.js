@@ -18,3 +18,83 @@ module.exports.displayList = (req, res, next) => {
     });
 }
 
+module.exports.displayAddSurvey = (req, res, next) => {
+    res.render('surveys/add', {title: 'Create a survey', bodyClass: ""})          
+}
+
+module.exports.processAddSurvey = (req, res, next) => {
+    let newSurvey = surveyItem({
+        "name": req.body.surveyName,
+        "category": req.body.surveyCategory,
+    });
+
+    surveyItem.create(newSurvey, (err, survey) =>{
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+            // refresh the list
+            res.redirect('/');
+        }
+    });
+
+}
+
+
+module.exports.displayEditSurvey = (req, res, next) => {
+    let id = req.params.id;
+
+    surveyItem.findById(id, (err, itemToEdit) => {
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+            //show the edit view
+            res.render('surveys/edit', {title: 'Edit Survey', bodyClass: "", survey: itemToEdit})
+        }
+    });
+}
+
+module.exports.processEditSurvey = (req, res, next) => {
+    let id = req.params.id
+
+    let updatedSurvey = surveyItem({
+        "_id": id,
+        "name": req.body.surveyName,
+        "category": req.body.surveyCategory
+    });
+
+    surveyItem.updateOne({_id: id}, updatedSurvey, (err) => {
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+            res.redirect('/');
+        }
+    });
+}
+
+module.exports.performDelete = (req, res, next) => {
+    let id = req.params.id;
+
+    surveyItem.remove({_id: id}, (err) => {
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+             res.redirect('/');
+        }
+    });
+}
