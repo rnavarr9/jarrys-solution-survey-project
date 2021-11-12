@@ -1,0 +1,57 @@
+<main class="container content-container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-8">
+            <table class="table table-borderless">
+                <tr>
+                    <td class="text-left col-1">
+                        <h1>{{title}}</h1>
+                    </td>
+                    <td>
+                        <a href="/surveys/add" class="btn btn-primary" style="margin-top:7px;" role="button">
+                            <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Create new</a>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-hover">
+                <!-- Header Row-->
+                <tr class="d-flex">
+                    <th class="text-center col-7">Survey Name</th>
+                    <th class="text-center col-4">Category</th>
+                    <th class="text-center col-1">&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th class="text-center col-1">&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                </tr>
+
+                <tr *ngFor='let item of surveys' class="d-flex">
+                    <td class="text-center col-7">{{ item.surveyName }}</td>
+                    <td class="text-center col-4">{{ item.category }}</td>
+                    <td class="text-center col-1"><a href="/surveys/edit/{{ item._id }}"
+                            class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a></td>
+                    <td class="text-center col-1"><a href="/surveys/delete/{{ item._id }}"
+                            class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="col-md-offset-3 col-md-8">
+            <div class="form-inline float-left mr-1">
+                <select class="form-control" [value]='booksPerPage' (change)='changePageSize($event.target.value)'>
+                    <option value="3">3 per Page</option>
+                    <option value="4">4 per Page</option>
+                    <option value="6">6 per Page</option>
+                    <option value="8">8 per Page</option>
+                </select>
+            </div>
+
+            <div class="btn-group float-right">
+                <button *counter='let page of pageCount' (click)='changePage(page)' class="btn btn-outline-primary"
+                    [class.active]='page == selectedPage'>
+                    {{ page }}
+                </button>
+            </div>
+        </div>
+    </div>-->
+</main>
+
