@@ -1,15 +1,10 @@
-/*
-an IIFE (Immediately Invoked Function Expression) or
-a JavaScript function that runs as soon as it is defined
-*/
-(function(){
+// IIFE 
 
-    function Start(){
-        console.log("App started...");
+(()=>{
+    function Start()
+    {
+        console.log('App started...')
+    };
 
-    }
-
-    window.addEventListener("load",Start);
-
-
+    window.addEventListener('load', Start);
 })();

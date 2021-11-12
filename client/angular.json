@@ -3,9 +3,30 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "jarrys-solution-survey-project": {
+    "SurveyProject": {
       "projectType": "application",
       "schematics": {
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:component": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        },
         "@schematics/angular:application": {
           "strict": true
         }
@@ -17,7 +38,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/jarrys-solution-survey-project",
+            "outputPath": "dist/SurveyProject",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -27,11 +48,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "src/Content/styles.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/Scripts/app.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -70,10 +95,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "jarrys-solution-survey-project:build:production"
+              "browserTarget": "SurveyProject:build:production"
             },
             "development": {
-              "browserTarget": "jarrys-solution-survey-project:build:development"
+              "browserTarget": "SurveyProject:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +106,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jarrys-solution-survey-project:build"
+            "browserTarget": "SurveyProject:build"
           }
         },
         "test": {
@@ -104,5 +129,5 @@
       }
     }
   },
-  "defaultProject": "jarrys-solution-survey-project"
+  "defaultProject": "SurveyProject"
 }
