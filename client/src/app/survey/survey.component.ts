@@ -23,11 +23,11 @@ export class SurveyComponent extends BasePageComponent {
     return this.repository.getSurveys();
   }
 
-  deleteBook(id?: number): void
+  deleteSurvey(id?: number): void
   {
     if (confirm('Are you sure?') && (id !== undefined))
     {
-      this.repository.deleteBook(id);
+      this.repository.deleteSurvey(id);
     }
     else
     {
@@ -36,12 +36,12 @@ export class SurveyComponent extends BasePageComponent {
     }
   }
 
-  addBook(): void
+  addSurvey(): void
   {
     this.router.navigateByUrl('/survey/list/item/add');
   }
 
-  editBook(id?: number): void
+  editSurvey(id?: number): void
   {
     this.router.navigateByUrl('/survey/list/item/edit/' + id);
   }

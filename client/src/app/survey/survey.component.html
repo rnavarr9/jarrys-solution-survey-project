@@ -8,7 +8,7 @@
                             <h1>{{title}}</h1>
                         </td>
                         <td>
-                            <button (click)='addBook()' class="btn btn-primary" style="margin-top:7px;">
+                            <button (click)='addSurvey()' class="btn btn-primary" style="margin-top:7px;">
                                 <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Create new</button>
                         </td>
                     </tr>
@@ -26,9 +26,9 @@
                     <tr *ngFor='let item of surveys' class="d-flex">
                         <td class="text-center col-5">{{ item.name }}</td>
                         <td class="text-center col-4">{{ item.category }}</td>
-                        <td class="text-center col-2"><button (click)='editBook(item._id)'
+                        <td class="text-center col-2"><button (click)='editSurvey(item._id)'
                                 class="btn btn-primary btn-sm"><i class="far fa-edit"></i></button></td>
-                        <td class="text-center col-2"><button (click)='deleteBook(item._id)'
+                        <td class="text-center col-2"><button (click)='deleteSurvey(item._id)'
                                 class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button></td>
                     </tr>
                 </table>

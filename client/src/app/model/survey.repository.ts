@@ -42,10 +42,10 @@ export class SurveyRepository
     }
   }
 
-  deleteBook(deletedBookID: number): void
+  deleteSurvey(surveyID: number): void
   {
-    this.dataSource.deleteSurvey(deletedBookID).subscribe(item => {
-      this.surveys.splice(this.surveys.findIndex(b => b._id === deletedBookID), 1);
+    this.dataSource.deleteSurvey(surveyID).subscribe(item => {
+      this.surveys.splice(this.surveys.findIndex(b => b._id === surveyID), 1);
     });
   }
 }

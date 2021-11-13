@@ -14,8 +14,8 @@ import { SurveyHolderComponent } from './survey-holder/survey-holder.component';
 const routing = RouterModule.forChild([
   { path: 'list', component: SurveyComponent, data: {title: 'Surveys'},
    children: [
-      { path: 'item/:mode/:id', component: SurveyDetailComponent, data: {title: 'Edit Book'}},
-      { path: 'item/:mode', component: SurveyDetailComponent, data: {title: 'Add Book'}},
+      { path: 'item/:mode/:id', component: SurveyDetailComponent, data: {title: 'Edit Survey'}},
+      { path: 'item/:mode', component: SurveyDetailComponent, data: {title: 'Add Survey'}},
       { path: '**', redirectTo: 'list' }]
   },
   { path: '**', redirectTo: 'auth' },
