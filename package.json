@@ -43,5 +43,8 @@
   "bugs": {
     "url": "https://github.com/rnavarr9/jarrys-solution-survey-project/issues"
   },
-  "homepage": "https://github.com/rnavarr9/jarrys-solution-survey-project#readme"
+  "homepage": "https://github.com/rnavarr9/jarrys-solution-survey-project#readme",
+  "devDependencies": {
+    "cors": "^2.8.5"
+  }
 }

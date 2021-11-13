@@ -5,11 +5,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { SurveyComponent } from './survey/survey.component';
 
 const routes: Routes = [
-  //{path:'home', component: HomeComponent, data: {title:'Home'}},
-  {path:'home', component: SurveyComponent, data: {title:'Surveys'}},
+  {path:'home', component: HomeComponent, data: {title:'Home'}},
   {path:'about', component: AboutComponent, data: {title:'About'}},
   {path:'surveys', component: SurveyComponent, data: {title:'Surveys'}},
-  {path:'', redirectTo:'/home', pathMatch:'full'}
+  {path:'', redirectTo:'/surveys', pathMatch:'full'}
 ];
 
 @NgModule({

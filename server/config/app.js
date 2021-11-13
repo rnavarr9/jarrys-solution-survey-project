@@ -3,6 +3,8 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+let cors = require('cors');
+
 
 let indexRouter = require('../routes/index');
 let surveyRouter = require('../routes/survey');
@@ -37,6 +39,7 @@ app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 
+app.use(cors());
 app.use('/', indexRouter);
 app.use('/surveys', surveyRouter);
 
