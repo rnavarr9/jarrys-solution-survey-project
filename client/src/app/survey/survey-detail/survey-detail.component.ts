@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Survey } from 'src/app/model/survey.model';
@@ -13,19 +13,20 @@ export class SurveyDetailComponent implements OnInit {
   editing = false;
   item: Survey = new Survey(0,"","");
 
-  constructor(private repository: SurveyRepository,
+  constructor(private cd: ChangeDetectorRef,
+    private repository: SurveyRepository,
     private router: Router,
-    activeRoute: ActivatedRoute) 
+    private activeRoute: ActivatedRoute) 
   { 
-    this.editing = activeRoute.snapshot.params['mode'] === 'edit';
-
-    if (this.editing)
-    {
-      Object.assign(this.item, repository.getSurvey(activeRoute.snapshot.params['id']));
-    }
   }
 
   ngOnInit(): void {
+    this.editing = this.activeRoute.snapshot.params['mode'] === 'edit';
+    this.cd.detectChanges();
+    if (this.editing)
+    {
+      Object.assign(this.item, this.repository.getSurvey(this.activeRoute.snapshot.params['id']));
+    }
   }
 
   

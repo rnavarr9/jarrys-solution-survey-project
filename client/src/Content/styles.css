@@ -9,9 +9,16 @@
   
   .content-container{
     padding-top: 100px;
+    max-width: 100vw !important;
   }
-
-
+  
+  /* styling for links in the portfolio (sets default color to black on all states) */
+  a.portfolio-link:link {color: black;}      /* unvisited link */
+  a.portfolio-link:visited {color: black;}   /* visited link */
+  a.portfolio-link:hover {color: black;}     /* mouse over link */
+  a.portfolio-link:active {color: black;}    /* selected link */
+  
+  
   
   [type="submit"] {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
@@ -30,21 +37,22 @@
   }
   [type="submit"]:hover { background:rgb(104, 178, 207); }
   
-  
   .btn-edit-submit{
     width:467px;
+    margin: 2.5px !important;
   }
   
   .btn-edit-cancel{
     width:80px;
-    height: 56px !important;
-    margin-top: -5px !important;
-    text-align: center; line-height: 40px;
+    height: 38px !important;
+    text-align: center;     
+    margin: 2.5px !important;
   }
   
   .btn-edit-delete{
     width:80px;
-    height: 56px !important;
+    height: 38px !important;
     margin-top: -5px !important;
     text-align: center; line-height: 40px;
-  } 
+    margin: 2.5px !important;
+  }

@@ -1,46 +1,25 @@
-<!--<div class="bg-primary p-2 text-white"
-  [class.bg-warning]='editing'
-  [class.text-dark]='editing'>
-  <h5>{{ editing ? 'Edit' : 'Add'}} Survey</h5>
-</div>
-<form novalidate #form='ngForm' (ngSubmit)='save(form)'>
+<div class="container content-container" style="padding: 0px; margin: 0px; ;">
+  <div class="row">
+    <div class="offset-md-0.5 col-md-6 px-5">
+      <h3>{{ editing ? 'Edit' : 'Add'}} Survey</h3>
 
-  <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" name="name" [(ngModel)]='item.name'>
-  </div>
+      <form #form='ngForm' (ngSubmit)='save(form)'>
+        <div class="form-group">
+          <label for="surveyNameTextField">Survey Name</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]='item.name'>
+        </div>
 
-  <div class="form-group">
-    <label>Category</label>
-    <input type="text" class="form-control" name="author" [(ngModel)]='item.category'>
-  </div>
-
-  <button type='submit' class="btn btn-primary m-1" [class.btn-warning]='editing'>
-    <i class="{{editing ? 'fas fa-save' : 'fas fa-plus-circle' }}"></i> {{ editing ? "Save" : "Add" }}
-  </button>
-  <a type='reset' class="btn btn-secondary" href='survey/list/'>
-    <i class="fas fa-undo"></i> Cancel
-  </a>
-</form>-->
-
-    <div class="offset-md-3 col-md-6">
-        <h3>{{ editing ? 'Edit' : 'Add'}} Survey</h3>
-
-        <form #form='ngForm' (ngSubmit)='save(form)'>
-            <div class="form-group">
-                <label for="surveyNameTextField">Survey Name</label>
-                <input type="text" class="form-control" name="name" [(ngModel)]='item.name'>
-            </div>
-
-            <div class="form-group">
-                <label for="surveyCategoryTextField">Category</label>
-                <input type="text" class="form-control" name="author" [(ngModel)]='item.category'>
-            </div>
+        <div class="form-group">
+          <label for="surveyCategoryTextField">Category</label>
+          <input type="text" class="form-control" name="author" [(ngModel)]='item.category'>
+        </div>
 
 
-            <br><br>
-            <button class="btn btn-info btn-edit-submit" type="submit"><i class="fas fa-edit"></i> Submit</button>
-            <a href="/" class="btn btn-secondary btn-edit-cancel">Cancel</a>
-            <button class="btn btn-danger btn-edit-delete"><i class="far fa-trash-alt"></i></button>
-        </form>
+        <br><br>
+        <button class="btn btn-info btn-edit-submit" type="submit"><i class="fas fa-edit"></i> Submit</button>
+        <a href="/" class="btn btn-secondary btn-edit-cancel">Cancel</a>
+        <button *ngIf="editing" class="btn btn-danger btn-edit-delete"><i class="far fa-trash-alt"></i></button>
+      </form>
     </div>
+  </div>
+</div>
