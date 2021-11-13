@@ -10,23 +10,8 @@
   .content-container{
     padding-top: 100px;
   }
-  
-  /* styling for links in the portfolio (sets default color to black on all states) */
-  /* a.portfolio-link:link {color: black;}       unvisited link 
-  a.portfolio-link:visited {color: black;}    visited link 
-  a.portfolio-link:hover {color: black;}      mouse over link 
-  a.portfolio-link:active {color: black;}     selected link  */
-/*   
-.btn-primary{
-    color: #ffff !important;
-    background-color: #0b5ed7 !important;
-    border-color: #0b5ed7 !important;
-  }
-.btn-danger{
-    color: #fff !important;
-    background-color: #bb2d3b !important;
-    border-color: #bb2d3b !important;
-}
+
+
   
   [type="submit"] {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
@@ -45,20 +30,6 @@
   }
   [type="submit"]:hover { background:rgb(104, 178, 207); }
   
-  .login-container{
-    padding-left: 50px;
-    padding-top: 200px;
-  } */
-/*   
-  .btn-login{
-    width:317px;
-  }
-  
-  .btn-login-cancel{
-    width:80px;
-    height: 56px !important;
-    margin-top: -5px !important;
-  }
   
   .btn-edit-submit{
     width:467px;
@@ -76,4 +47,4 @@
     height: 56px !important;
     margin-top: -5px !important;
     text-align: center; line-height: 40px;
-  } */
+  } 

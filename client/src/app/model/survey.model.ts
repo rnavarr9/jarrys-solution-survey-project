@@ -2,7 +2,7 @@ export class Survey{
 
     constructor(
         public _id?: number,
-        public surveyName?: string,
+        public name?: string,
         public category?: string)
     { }
     

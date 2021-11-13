@@ -16,5 +16,18 @@ export class StaticDataSource
     {
         return from([this.surveys]);
     }
+
+    
+    addSurvey(survey: Survey): Observable<Survey> {
+        return from([this.surveys[0]]);        
+    }
+
+    updateSurvey(survey: Survey): Observable<Survey> {
+        return from([this.surveys[0]]);        
+    }
+
+    deleteSurvey(id: number): Observable<Survey> {
+        return from([this.surveys[0]]);        
+    }
 }
 
