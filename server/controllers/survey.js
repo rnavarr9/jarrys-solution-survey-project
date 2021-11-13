@@ -19,15 +19,14 @@ module.exports.displayList = (req, res, next) => {
     });
 }
 
-module.exports.displayAddSurvey = (req, res, next) => {
-    //res.render('surveys/add', {title: 'Create a survey', bodyClass: ""})    
-    res.json({success: true, msg: 'Succesfully Displayed Add Page'});  
+module.exports.displayAddSurvey = (req, res, next) => {   
+    res.json({success: true, msg: ''});  
 }
 
 module.exports.processAddSurvey = (req, res, next) => {
     let newSurvey = surveyItem({
-        "name": req.body.surveyName,
-        "category": req.body.surveyCategory,
+        "name": req.body.name,
+        "category": req.body.category,
     });
 
     surveyItem.create(newSurvey, (err, survey) =>{
@@ -39,8 +38,7 @@ module.exports.processAddSurvey = (req, res, next) => {
         else
         {
             // refresh the list
-            res.redirect('/');
-            res.json({success: true, msg: 'Successfully Added New Book'});
+            res.json({success: true, msg: 'New survey added.'});
         }
     });
 
@@ -58,9 +56,7 @@ module.exports.displayEditSurvey = (req, res, next) => {
         }
         else
         {
-            //show the edit view
-            //res.render('surveys/edit', {title: 'Edit Survey', bodyClass: "", survey: itemToEdit})
-            res.json({success: true, msg: 'Successfully Displayed Book to Edit', survey: itemToEdit});
+            res.json({success: true, msg: '', survey: itemToEdit});
         }
     });
 }
@@ -70,8 +66,8 @@ module.exports.processEditSurvey = (req, res, next) => {
 
     let updatedSurvey = surveyItem({
         "_id": id,
-        "name": req.body.surveyName,
-        "category": req.body.surveyCategory
+        "name": req.body.name,
+        "category": req.body.category
     });
 
     surveyItem.updateOne({_id: id}, updatedSurvey, (err) => {
@@ -83,7 +79,7 @@ module.exports.processEditSurvey = (req, res, next) => {
         else
         {
             //res.redirect('/');
-            res.json({success: true, msg: 'Successfully Edited Book', survey: updatedSurvey});
+            res.json({success: true, msg: 'Survey updated.', survey: updatedSurvey});
         }
     });
 }
@@ -100,7 +96,7 @@ module.exports.performDelete = (req, res, next) => {
         else
         {
             //res.redirect('/');
-            res.json({success: true, msg: 'Successfully Deleted Book'});
+            res.json({success: true, msg: 'Survey deleted.'});
         }
     });
 }
