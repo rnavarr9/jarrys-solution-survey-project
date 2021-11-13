@@ -40,8 +40,8 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 
 app.use(cors());
-app.use('/', indexRouter);
-app.use('/surveys', surveyRouter);
+app.use('/api', indexRouter);
+app.use('/api/surveys', surveyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
