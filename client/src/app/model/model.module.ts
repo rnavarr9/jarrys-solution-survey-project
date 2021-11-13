@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [HttpClientModule],
-  providers: [SurveyRepository, StaticDataSource,
-    { provide: StaticDataSource, useClass: RestDataSource }]
+  providers: [SurveyRepository, RestDataSource ]
 })
 export class ModelModule { }

@@ -3,12 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SurveyComponent } from './survey/survey.component';
+import { SurveyDetailComponent } from './survey/survey-detail/survey-detail.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent, data: {title:'Home'}},
+  //{path:'home', component: SurveyComponent, data: {title:'Surveys'}},
   {path:'about', component: AboutComponent, data: {title:'About'}},
-  {path:'surveys', component: SurveyComponent, data: {title:'Surveys'}},
-  {path:'', redirectTo:'/surveys', pathMatch:'full'}
+  {path:'survey', loadChildren: () => import('./survey/survey.module').then(m => m.SurveyModule)},
+  {path:'', redirectTo:'/survey/list', pathMatch:'full'}
 ];
 
 @NgModule({

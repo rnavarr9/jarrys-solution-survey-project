@@ -10,22 +10,34 @@ const PORT = 3000;
 export class RestDataSource {
     baseUrl: string;
 
+    private httpOptions =
+    {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      })
+    };
 
     constructor(private http: HttpClient) {
         this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
     }
 
     getSurveys(): Observable<Survey[]> {
-        const headerDict = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Origin': this.baseUrl
-        }
-        const requestOptions = {
-            headers: new HttpHeaders(headerDict),
-        };
+        return this.http.get<Survey[]>(this.baseUrl + 'surveys');
+    }
 
-        return this.http.get<Survey[]>(this.baseUrl + 'surveys',requestOptions);
+
+    addSurvey(survey: Survey): Observable<Survey> {
+
+        return this.http.post<Survey>(this.baseUrl + 'surveys/add', survey);
+    }
+
+    updateSurvey(survey: Survey): Observable<Survey> {
+        return this.http.post<Survey>(`${this.baseUrl}surveys/edit/${survey._id}`, survey, this.httpOptions);
+    }
+
+    deleteSurvey(id: number): Observable<Survey> {
+        return this.http.get<Survey>(`${this.baseUrl}surveys/delete/${id}`);
     }
 }
