@@ -6,20 +6,22 @@ let mongoose = require('mongoose');
 let surveyItem = require('../models/survey');
 
 module.exports.displayList = (req, res, next) => {
-    surveyItem.find((err, cList) => {
+    surveyItem.find((err, surveyList) => {
         if(err)
         {
             return console.error(err);
         }
         else
         {
-            res.render('surveys/list', {title: 'Surveys', bodyClass: "", surveyList: cList});      
+            //res.render('surveys/list', {title: 'Surveys', bodyClass: "", surveyList: cList});      
+            res.json(surveyList)
         }
     });
 }
 
 module.exports.displayAddSurvey = (req, res, next) => {
-    res.render('surveys/add', {title: 'Create a survey', bodyClass: ""})          
+    //res.render('surveys/add', {title: 'Create a survey', bodyClass: ""})    
+    res.json({success: true, msg: 'Succesfully Displayed Add Page'});  
 }
 
 module.exports.processAddSurvey = (req, res, next) => {
@@ -38,6 +40,7 @@ module.exports.processAddSurvey = (req, res, next) => {
         {
             // refresh the list
             res.redirect('/');
+            res.json({success: true, msg: 'Successfully Added New Book'});
         }
     });
 
@@ -56,7 +59,8 @@ module.exports.displayEditSurvey = (req, res, next) => {
         else
         {
             //show the edit view
-            res.render('surveys/edit', {title: 'Edit Survey', bodyClass: "", survey: itemToEdit})
+            //res.render('surveys/edit', {title: 'Edit Survey', bodyClass: "", survey: itemToEdit})
+            res.json({success: true, msg: 'Successfully Displayed Book to Edit', survey: itemToEdit});
         }
     });
 }
@@ -78,7 +82,8 @@ module.exports.processEditSurvey = (req, res, next) => {
         }
         else
         {
-            res.redirect('/');
+            //res.redirect('/');
+            res.json({success: true, msg: 'Successfully Edited Book', survey: updatedSurvey});
         }
     });
 }
@@ -94,7 +99,8 @@ module.exports.performDelete = (req, res, next) => {
         }
         else
         {
-             res.redirect('/');
+            //res.redirect('/');
+            res.json({success: true, msg: 'Successfully Deleted Book'});
         }
     });
 }

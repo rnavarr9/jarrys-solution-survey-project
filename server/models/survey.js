@@ -1,24 +1,11 @@
-let mongoose = require("mongoose");
+let mongoose = require('mongoose');
 
-let surveyModel = mongoose.Schema(
-  {
-    name: String,
-    description: String,
-    questions: [
-      {
-        question: String,
-        answers: [
-          {
-            answer: String,
-          },
-        ],
-      },
-    ],
-    category: String,
-  },
-  {
-    collection: "survey",
-  }
-);
+let surveyModel = mongoose.Schema({
+    surveyName: String,
+    category: String
+},
+{
+    collection: "survey"
+})
 
-module.exports = mongoose.model("Survey", surveyModel);
+module.exports = mongoose.model('Survey', surveyModel);

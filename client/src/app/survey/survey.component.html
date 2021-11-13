@@ -23,7 +23,7 @@
                 </tr>
 
                 <tr *ngFor='let item of surveys' class="d-flex">
-                    <td class="text-center col-7">{{ item.surveyName }}</td>
+                    <td class="text-center col-7">{{ item.name }}</td>
                     <td class="text-center col-4">{{ item.category }}</td>
                     <td class="text-center col-1"><a href="/surveys/edit/{{ item._id }}"
                             class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a></td>
