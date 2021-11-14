@@ -35,7 +35,7 @@ export class SurveyDetailComponent implements OnInit {
   save(form: NgForm): void
   {
     this.repository.updateSurvey(this.item);
-    
+    this.repository.loadSurveys()
     this.router.navigateByUrl('/survey/list');
   }
   
