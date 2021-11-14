@@ -23,25 +23,24 @@ export class SurveyComponent extends BasePageComponent {
     return this.repository.getSurveys();
   }
 
-  deleteBook(id?: number): void
+  deleteSurvey(id?: number, name?:string): void
   {
-    if (confirm('Are you sure?') && (id !== undefined))
+    if (confirm('Are you sure you want to delete this survey('+name+')?') && (id !== undefined))
     {
-      this.repository.deleteBook(id);
+      this.repository.deleteSurvey(id);
     }
     else
     {
-      window.location.reload(); // refresh fix
-      this.router.navigateByUrl('/surveys');
+      this.router.navigateByUrl('/survey/list');
     }
   }
 
-  addBook(): void
+  addSurvey(): void
   {
     this.router.navigateByUrl('/survey/list/item/add');
   }
 
-  editBook(id?: number): void
+  editSurvey(id?: number): void
   {
     this.router.navigateByUrl('/survey/list/item/edit/' + id);
   }

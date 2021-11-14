@@ -1,39 +1,42 @@
 <main class="container content-container">
     <div class="row">
-        <div class="col-md-offset-3 col-md-8">
-            <table class="table table-borderless">
-                <tr>
-                    <td class="text-left col-1">
-                        <h1>{{title}}</h1>
-                    </td>
-                    <td>
-                        <button (click)='addBook()' class="btn btn-primary" style="margin-top:7px;">
-                            <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Create new</button>
-                    </td>
-                </tr>
-            </table>
+        <div class="column border-right" style="min-height:80vh">
+            <div class="col-md-offset-3 col-md-8">
+                <table class="table table-borderless">
+                    <tr>
+                        <td class="text-left" style="vertical-align: middle;">
+                            <h1>{{title}}</h1>
+                        </td>
+                        <td>
+                            <button (click)='addSurvey()' class="btn btn-primary" style="margin-top:7px;">
+                                <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Create new</button>
+                        </td>
+                    </tr>
+                </table>
 
-            <table class="table table-hover">
-                <!-- Header Row-->
-                <tr class="d-flex">
-                    <th class="text-center col-7">Survey Name</th>
-                    <th class="text-center col-4">Category</th>
-                    <th class="text-center col-1">&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="text-center col-1">&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                </tr>
+                <table class="table table-hover">
+                    <!-- Header Row-->
+                    <tr class="d-flex">
+                        <th class="text-center col-5">Survey Name</th>
+                        <th class="text-center col-4">Category</th>
+                        <th class="text-center col-2">&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th class="text-center col-2">&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </tr>
 
-                <tr *ngFor='let item of surveys' class="d-flex">
-                    <td class="text-center col-7">{{ item.name }}</td>
-                    <td class="text-center col-4">{{ item.category }}</td>
-                    <td class="text-center col-1"><button (click)='editBook(item._id)'
-                            class="btn btn-primary btn-sm"><i class="far fa-edit"></i></button></td>
-                    <td class="text-center col-1"><button (click)='deleteBook(item._id)'
-                            class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button></td>
-                </tr>
-            </table>
+                    <tr *ngFor='let item of surveys' class="d-flex">
+                        <td class="text-center col-5">{{ item.name }}</td>
+                        <td class="text-center col-4">{{ item.category }}</td>
+                        <td class="text-center col-2"><button (click)='editSurvey(item._id)'
+                                class="btn btn-primary btn-sm"><i class="far fa-edit"></i></button></td>
+                        <td class="text-center col-2"><button (click)='deleteSurvey(item._id, item.name)'
+                                class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="column" style="width:80vw;">
+            <router-outlet></router-outlet>
         </div>
     </div>
 
-    <router-outlet></router-outlet>
 </main>
-
