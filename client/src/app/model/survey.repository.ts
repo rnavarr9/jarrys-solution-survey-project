@@ -8,6 +8,7 @@ import { RestDataSource } from "./rest.datasource";
 export class SurveyRepository
 {
   private surveys: Survey[] = [];
+  private loaded= false;
 
   constructor(private dataSource: RestDataSource)
   {
@@ -18,7 +19,11 @@ export class SurveyRepository
 
   getSurveys(): Survey[]
   {
-    return this.surveys
+    if(!this.loaded){
+      console.log({loaded:this.loaded,surveys:this.surveys})
+      this.loadSurveys();
+    };
+    return this.surveys;
   }
 
   getSurvey(id: number): Survey
@@ -47,5 +52,13 @@ export class SurveyRepository
     this.dataSource.deleteSurvey(surveyID).subscribe(item => {
       this.surveys.splice(this.surveys.findIndex(b => b._id === surveyID), 1);
     });
+  }
+
+  loadSurveys():void
+  {
+    this.loaded=true;
+    this.dataSource.getSurveys()
+      .subscribe(surveys => this.surveys=surveys);
+
   }
 }

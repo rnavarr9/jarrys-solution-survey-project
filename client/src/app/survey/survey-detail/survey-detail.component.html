@@ -17,8 +17,8 @@
 
         <br><br>
         <button class="btn btn-info btn-edit-submit" type="submit"><i class="fas fa-edit"></i> Submit</button>
-        <a href="/" class="btn btn-secondary btn-edit-cancel">Cancel</a>
-        <button *ngIf="editing" class="btn btn-danger btn-edit-delete"><i class="far fa-trash-alt"></i></button>
+        <a href="/" class="btn btn-secondary btn-edit-cancel" #cancel>Cancel</a>
+        <button *ngIf="editing" class="btn btn-danger btn-edit-delete" (click)='deleteSurvey(item._id)'><i class="far fa-trash-alt"></i></button>
       </form>
     </div>
   </div>

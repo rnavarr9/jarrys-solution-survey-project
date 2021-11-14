@@ -28,7 +28,7 @@
                         <td class="text-center col-4">{{ item.category }}</td>
                         <td class="text-center col-2"><button (click)='editSurvey(item._id)'
                                 class="btn btn-primary btn-sm"><i class="far fa-edit"></i></button></td>
-                        <td class="text-center col-2"><button (click)='deleteSurvey(item._id)'
+                        <td class="text-center col-2"><button (click)='deleteSurvey(item._id, item.name)'
                                 class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button></td>
                     </tr>
                 </table>
