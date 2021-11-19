@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "proxy": "http://localhost:3000",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "server": "nodemon server.js",
+    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +21,12 @@
   "bugs": {
     "url": "https://github.com/rnavarr9/jarrys-solution-survey-project/issues"
   },
-  "homepage": "https://github.com/rnavarr9/jarrys-solution-survey-project#readme"
+  "homepage": "https://github.com/rnavarr9/jarrys-solution-survey-project#readme",
+  "engines": {
+    "node": "15.12.0",
+    "npm": "7.6.3"
+  },
+  "dependencies": {
+    "mongoose": "^6.0.13"
+  }
 }
