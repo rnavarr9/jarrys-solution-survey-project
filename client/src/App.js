@@ -1,7 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
+import React, {useEffect} from "react"
 
 function App() {
+  useEffect(() => {
+    fetchSurveys();
+  }, []);
+  
+  const fetchSurveys = () => {
+    axios.get('/surveys').then(response => {
+      if(response && response.data) {
+        console.log({data: response.data})
+      }
+    }).catch(err => {
+      console.log({err})
+    })
+  }
   return (
     <div className="App">
       <header className="App-header">
