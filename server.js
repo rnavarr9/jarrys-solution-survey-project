@@ -39,7 +39,7 @@ mongoose
   .catch((err) => console.log(err));
 
 //import routes
-require("./routes/surveyRoute.js")(app);
+require("./routes/surveyRoutes.js")(app);
 
 app.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "client", "build", "index.html"));
