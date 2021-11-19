@@ -14,6 +14,7 @@ var corsOptions = {
   origin: [
     `http://localhost:${PORT}`,
     "https://test-survey-project.herokuapp.com",
+    "https://jarrys-solution-survey-project.herokuapp.com"
   ],
   credentials: true,
 };
