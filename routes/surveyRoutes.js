@@ -12,6 +12,18 @@ module.exports = (app) => {
     }
   });
 
+  app.get(`/surveys/:id`, async (req, res) => {
+    let id = req.params.id;
+    console.log({ id });
+    try {
+      const survey = await Surveys.findById(id).exec();
+      console.log({ survey });
+      return res.json(survey);
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
   app.post(`/surveys/add`, async (req, res) => {
     let newSurvey = Surveys({
       title: req.body.title,
