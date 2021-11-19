@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import { Home, Surveys, Users, Login, Register } from "./Components";
+import { DisplaySurvey, UpdateSurvey, CreateSurvey } from "./Components/Surveys";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
@@ -38,6 +39,15 @@ function App() {
           </Route>
           <Route path="/surveys">
             <Surveys />
+          </Route>
+          <Route path="/displaySurvey/:id">
+            <DisplaySurvey />
+          </Route>
+          <Route path="/updateSurvey/:id">
+            <UpdateSurvey />
+          </Route>
+          <Route path="/createSurvey">
+            <CreateSurvey />
           </Route>
           <Route path="/">
             <Home />
