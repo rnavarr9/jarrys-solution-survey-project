@@ -30,7 +30,7 @@ router.get("/add", (req, res, next) => {
 
 /* POST Route for processing the Add survey - CREATE Operation */
 router.post("/add", surveyController.createSurvey);
-S;
+
 /* GET Route for displaying the Edit survey view - UPDATE Operation */
 router.get("/edit/:id", (req, res, next) => {
   let id = req.params.id;
