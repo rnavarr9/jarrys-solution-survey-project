@@ -1,90 +1,51 @@
-#!/usr/bin/env node
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const path = require("path");
+const cors = require("cors");
 
-/**
- * Module dependencies.
- */
+require("dotenv").config();
 
-var app = require('./server/config/app');
-var debug = require('debug')('jarrys-solution-survey-project:server');
-var http = require('http');
+const app = express();
+const PORT = process.env.PORT || 5000;
+console.log("this is the port", PORT); //REMOVE
 
-/**
- * Get port from environment and store in Express.
- */
+var corsOptions = {
+  origin: [
+    `http://localhost:${PORT}`,
+    "https://test-survey-project.herokuapp.com",
+    "https://jarrys-solution-survey-project.herokuapp.com"
+  ],
+  credentials: true,
+};
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+app.use(cors(corsOptions));
 
-/**
- * Create HTTP server.
- */
+app.use("/", express.static(path.join(__dirname, "client", "build")));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-var server = http.createServer(app);
+//import your models
+require("./models/survey");
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.yospw.mongodb.net/comp229?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log("MongoDB has been connected"))
+  .catch((err) => console.log(err));
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+//import routes
+require("./routes/surveyRoutes.js")(app);
 
-/**
- * Normalize a port into a number, string, or false.
- */
+app.get("*", function (request, response) {
+  response.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+app.listen(PORT, () => {
+  console.log(`server running on port ${PORT}`);
+});
