@@ -1,39 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios'
-import React, {useEffect} from "react"
+import "./App.css";
+import React from "react";
+import { Home, Surveys, Users, Login, Register } from "./Components";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
-  useEffect(() => {
-    fetchSurveys();
-  }, []);
-  
-  const fetchSurveys = () => {
-    axios.get('/surveys').then(response => {
-      if(response && response.data) {
-        console.log({data: response.data})
-      }
-    }).catch(err => {
-      console.log({err})
-    })
-  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+            <li>
+              <Link to="/surveys">Surveys</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/surveys">
+            <Surveys />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
