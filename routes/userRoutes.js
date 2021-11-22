@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Users = mongoose.model('Users');
+const jwt = require("jsonwebtoken");
 
 const bcrypt = require('bcrypt');
 module.exports = (app) => {
@@ -88,10 +89,11 @@ module.exports = (app) => {
   });
 
   app.post('/register', (req, res) => {
-    const { name, email, password } = req.body;
+    const { name = "Define Username", username, email="Define email", password } = req.body;
     bcrypt.hash(password, 10).then((hash) => {
       Users.create({
         name,
+        username,
         email,
         password: hash,
       })
@@ -108,9 +110,10 @@ module.exports = (app) => {
   });
 
   app.post('/login', async (req, res) => {
-    const { name, email, password } = req.body;
+    console.log({req:req.body})
+    const { username, password } = req.body;
 
-    const user = await Users.findOne({ where: { name } });
+    const user = await Users.findOne({ where: { username } });
 
     if (!user) res.json({ auth: false, message: "User Doesn't Exist" });
 
