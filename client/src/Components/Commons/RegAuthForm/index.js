@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { regAuth } from "../../../Helpers/copies";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import Auth from "../../../Contexts/Auth";
 
 const RegAuthForm = ({ login }) => {
+  const { setAuth } = useContext(Auth);
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -17,11 +19,12 @@ const RegAuthForm = ({ login }) => {
 
   const handleLogin = () => {
     axios.post("/login", credentials).then((response) => {
-      console.log(response);
       if (!response.data.auth) {
         console.log("auth failed");
       } else {
+        setAuth(response.data.auth);
         localStorage.setItem("token", response.data.token);
+        history.push("/home");
       }
     });
   };
@@ -37,14 +40,6 @@ const RegAuthForm = ({ login }) => {
         console.log("Error saving user", err);
       });
   };
-
-  const userAuthenticated = () => {
-    axios.get('/isUserAuth', {
-      headers: {
-        "x-access-token": localStorage.getItem("token")
-      }
-    }).then(response => console.log(response))
-  }
 
   return (
     <div>
@@ -86,7 +81,6 @@ const RegAuthForm = ({ login }) => {
       <button onClick={login ? handleLogin : handleRegister}>
         {login ? regAuth.loginLabel : regAuth.registerLabel}
       </button>
-      <button onClick={userAuthenticated}>IsAuth</button>
     </div>
   );
 };

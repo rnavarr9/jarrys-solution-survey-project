@@ -1,74 +1,61 @@
 import "./App.css";
-import React from "react";
-import { Home, Surveys, Users, Login, Register } from "./Components";
+import React, { useState, useEffect } from "react";
+import {
+  Home,
+  Surveys,
+  Users,
+  Login,
+  Register,
+  // ProtectedRoute,
+  NavBarMenu,
+} from "./Components";
 import {
   DisplaySurvey,
   UpdateSurvey,
   CreateSurvey,
 } from "./Components/Surveys";
 import { CreateUser, DisplayUser, UpdateUser } from "./Components/Users";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { AuthProvider } from "./Contexts/Auth";
+
+import axios from "axios"
 
 function App() {
+  const [auth, setAuth] = useState(null);
+  
+  useEffect(() => {
+    userAuthenticated();
+  }, []);
+
+  const userAuthenticated = () => {
+    axios
+      .get("/isUserAuth", {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
+      .then((response) => setAuth(response.data.auth));
+  };
+
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/surveys">Surveys</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-          </ul>
-        </nav>
+    <AuthProvider value={{auth, setAuth}}>
+      <Router>
+        <NavBarMenu />
         <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/displayUser/:id">
-            <DisplayUser />
-          </Route>
-          <Route path="/createUser">
-            <CreateUser />
-          </Route>
-          <Route path="/updateUser/:id">
-            <UpdateUser />
-          </Route>
-          <Route path="/surveys">
-            <Surveys />
-          </Route>
-          <Route path="/displaySurvey/:id">
-            <DisplaySurvey />
-          </Route>
-          <Route path="/updateSurvey/:id">
-            <UpdateSurvey />
-          </Route>
-          <Route path="/createSurvey">
-            <CreateSurvey />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/users" component={Users} />
+          <Route path="/displayUser/:id" component={DisplayUser} />
+          <Route path="/createUser" component={CreateUser} />
+          <Route path="/updateUser/:id" component={UpdateUser} />
+          <Route path="/surveys" component={Surveys} />
+          <Route path="/displaySurvey/:id" component={DisplaySurvey} />
+          <Route path="/updateSurvey/:id" component={UpdateSurvey} />
+          <Route path="/createSurvey" component={CreateSurvey} />
+          <Route path="/" component={Home} />
         </Switch>
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
