@@ -14,7 +14,8 @@ var corsOptions = {
   origin: [
     `http://localhost:${PORT}`,
     "https://test-survey-project.herokuapp.com",
-    "https://jarrys-solution-survey-project.herokuapp.com"
+    "https://jarrys-solution-survey-project.herokuapp.com",
+    "*",
   ],
   credentials: true,
 };
@@ -27,10 +28,11 @@ app.use(bodyParser.json());
 
 //import your models
 require("./models/survey");
+require("./models/user")
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.yospw.mongodb.net/comp229?retryWrites=true&w=majority`,
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ymrhl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -41,9 +43,10 @@ mongoose
 
 //import routes
 require("./routes/surveyRoutes.js")(app);
+require("./routes/userRoutes.js")(app);
 
 app.get("*", function (request, response) {
-  response.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  response.sendFile(path.join(__dirname, "client", "public", "index.html"));
 });
 
 app.listen(PORT, () => {

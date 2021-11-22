@@ -12,12 +12,25 @@ module.exports = (app) => {
       return res.send(error);
     }
   });
+
+  app.get(`/users/:id`, async (req, res) => {
+    let id = req.params.id;
+    try {
+      const user = await Users.findById(id);
+      console.log({ user });
+      return res.json(user);
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
   app.post(`/users/add`, async (req, res) => {
     let newUser = Users({
       name: req.body.name,
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
+      //add bcrypt to password
     });
     Users.create(newUser, (err, user) => {
       if (err) {
