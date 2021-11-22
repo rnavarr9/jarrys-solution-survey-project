@@ -2,22 +2,25 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import UserList, { DisplaySurvey } from "./UserList";
-import { users } from "./fakeUsers";
+// import { users } from "./fakeUsers";
 
 const Users = () => {
-  // useEffect(() => {
-  //   renderUsers();
-  // }, []);
-  // const renderUsers = () => {
-  //   axios
-  //     .get(`/users`)
-  //     .then((res) => {
-  //       setUsers(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("ERR", err);
-  //     });
-  // };
+const [users, setUsers] = useState(null)
+
+  useEffect(() => {
+    renderUsers();
+  }, []);
+
+  const renderUsers = () => {
+    axios
+      .get(`/users`)
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        console.log("ERR", err);
+      });
+  };
 
   const handleDeleteUser = async (id) => {
     await axios

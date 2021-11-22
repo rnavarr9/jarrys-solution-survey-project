@@ -2,9 +2,9 @@ import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 
-const DisplayUser = ({ user }) => {
-//   const { id } = useParams();
-  const [localUser, setLocalUser] = useState(user);
+const DisplayUser = () => {
+  const { id } = useParams();
+  const [localUser, setLocalUser] = useState(null);
 
   useEffect(() => {
     if (user === null) {
@@ -12,18 +12,23 @@ const DisplayUser = ({ user }) => {
     }
   }, []);
 
-//   const renderUser = () => {
-//     if (id) {
-//       axios
-//         .get(`/users/${id}`)
-//         .then((response) => {
-//           setLocalUser(response.data);
-//         })
-//         .catch((err) => {
-//           console.log("Error fetching user!");
-//         });
-//     }
-//   };
+  const renderUser = () => {
+    if (id) {
+      axios
+        .get(`/users/${id}`)
+        .then((response) => {
+          console.log({res: response.data})
+          setLocalUser(response.data);
+        })
+        .catch((err) => {
+          console.log("Error fetching user!");
+        });
+    }
+  };
+
+  if (!localUser) {
+    return <div>...Loading user data</div>;
+  }
 
   return (
     <>
