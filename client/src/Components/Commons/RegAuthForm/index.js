@@ -38,6 +38,14 @@ const RegAuthForm = ({ login }) => {
       });
   };
 
+  const userAuthenticated = () => {
+    axios.get('/isUserAuth', {
+      headers: {
+        "x-access-token": localStorage.getItem("token")
+      }
+    }).then(response => console.log(response))
+  }
+
   return (
     <div>
       <h1>{login ? regAuth.loginLabel : regAuth.registerLabel} Form</h1>
@@ -78,6 +86,7 @@ const RegAuthForm = ({ login }) => {
       <button onClick={login ? handleLogin : handleRegister}>
         {login ? regAuth.loginLabel : regAuth.registerLabel}
       </button>
+      <button onClick={userAuthenticated}>IsAuth</button>
     </div>
   );
 };
