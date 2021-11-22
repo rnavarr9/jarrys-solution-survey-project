@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const DisplayUser = () => {
   const { id } = useParams();
   const [localUser, setLocalUser] = useState(null);
 
   useEffect(() => {
-    if (user === null) {
+    if (!localUser) {
       renderUser();
     }
   }, []);
@@ -17,7 +18,6 @@ const DisplayUser = () => {
       axios
         .get(`/users/${id}`)
         .then((response) => {
-          console.log({res: response.data})
           setLocalUser(response.data);
         })
         .catch((err) => {
@@ -34,12 +34,30 @@ const DisplayUser = () => {
     <>
       <h1>User Profile</h1>
 
-      <label>Name</label>
-      <h5>{localUser.name}</h5>
-      <label>Username</label>
-      <h5>{localUser.username}</h5>
-      <label>Email</label>
-      <h5>{localUser.email}</h5>
+      <div style={{ display: "flex" }}>
+        <label>
+          <b>Name:</b>{" "}
+        </label>
+        <span>{localUser.name}</span>
+      </div>
+
+      <div style={{ display: "flex" }}>
+        <label>
+          <b>Username:</b>{" "}
+        </label>
+        <span>{localUser.username}</span>
+      </div>
+
+      <div style={{ display: "flex" }}>
+        <label>
+          <b>Email:</b>{" "}
+        </label>
+        <span>{localUser.email}</span>
+      </div>
+      <br />
+      <Link to="/users">
+        <button>Back</button>
+      </Link>
     </>
   );
 };

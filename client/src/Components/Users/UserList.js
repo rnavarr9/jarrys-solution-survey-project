@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const UserList = ({ users, deleteUser }) => {
-console.log({users})
+  console.log({ users });
   if (users === null || !users.length) {
     return <div>No users have been created</div>;
   }
@@ -25,9 +25,11 @@ console.log({users})
                   <td>{user.name}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <Link to={`/displayUser/${user._id}`}>
-                    <button>Show</button>
-                  </Link>
+                  <td>
+                    <Link to={`/displayUser/${user._id}`}>
+                      <button>Show</button>
+                    </Link>
+                  </td>
                   <td>
                     <Link to={`/updateUser/${user._id}`}>
                       <button>Update</button>

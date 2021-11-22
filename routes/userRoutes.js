@@ -30,6 +30,7 @@ module.exports = (app) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
+      //add bcrypt to password
     });
     Users.create(newUser, (err, user) => {
       if (err) {

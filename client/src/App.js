@@ -1,7 +1,12 @@
 import "./App.css";
 import React from "react";
 import { Home, Surveys, Users, Login, Register } from "./Components";
-import { DisplaySurvey, UpdateSurvey, CreateSurvey } from "./Components/Surveys";
+import {
+  DisplaySurvey,
+  UpdateSurvey,
+  CreateSurvey,
+} from "./Components/Surveys";
+import { CreateUser, DisplayUser, UpdateUser } from "./Components/Users";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
@@ -36,6 +41,15 @@ function App() {
           </Route>
           <Route path="/users">
             <Users />
+          </Route>
+          <Route path="/displayUser/:id">
+            <DisplayUser />
+          </Route>
+          <Route path="/createUser">
+            <CreateUser />
+          </Route>
+          <Route path="/updateUser/:id">
+            <UpdateUser />
           </Route>
           <Route path="/surveys">
             <Surveys />

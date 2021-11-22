@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import UserList, { DisplaySurvey } from "./UserList";
-// import { users } from "./fakeUsers";
+import UserList from "./UserList";
 
 const Users = () => {
 const [users, setUsers] = useState(null)
@@ -34,7 +33,7 @@ const [users, setUsers] = useState(null)
     axios
       .get(`/users`)
       .then((res) => {
-        // setUsers(res.data);
+        setUsers(res.data);
       })
       .catch((err) => {
         console.log("ERR", err);
@@ -50,9 +49,12 @@ const [users, setUsers] = useState(null)
       <Link to="/createUser">
         <button>AddUser</button>
       </Link>
-      <UserList users={users} />
+      <UserList users={users} deleteUser={handleDeleteUser}/>
     </div>
   );
 };
 
 export default Users;
+export {default as DisplayUser } from "./DisplayUser";
+export {default as CreateUser } from "./CreateUser";
+export {default as UpdateUser } from "./UpdateUser";
