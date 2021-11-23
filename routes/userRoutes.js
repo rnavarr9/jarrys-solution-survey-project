@@ -143,7 +143,6 @@ module.exports = (app) => {
 
   const verifyJWT = (req, res, next) => {
     const token = req.headers['x-access-token'];
-    console.log(token);
     if (token === null) {
       res.send({ auth: false, message: 'There is no token!' });
     } else {
