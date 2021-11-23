@@ -6,7 +6,7 @@ import {
   Users,
   Login,
   Register,
-  // ProtectedRoute,
+  ProtectedRoute,
   NavBarMenu,
 } from "./Components";
 import {
@@ -49,14 +49,14 @@ function App() {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/users" component={Users} />
-          <Route path="/displayUser/:id" component={DisplayUser} />
-          <Route path="/createUser" component={CreateUser} />
-          <Route path="/updateUser/:id" component={UpdateUser} />
+          <ProtectedRoute path="/users" component={Users} />
+          <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
+          <ProtectedRoute path="/createUser" component={CreateUser} />
+          <ProtectedRoute path="/updateUser/:id" component={UpdateUser} />
           <Route path="/surveys" component={Surveys} />
           <Route path="/displaySurvey/:id" component={DisplaySurvey} />
-          <Route path="/updateSurvey/:id" component={UpdateSurvey} />
-          <Route path="/createSurvey" component={CreateSurvey} />
+          <ProtectedRoute path="/updateSurvey/:id" component={UpdateSurvey} />
+          <ProtectedRoute path="/createSurvey" component={CreateSurvey} />
           <Route path="/" component={Home} />
         </Switch>
       </Router>
