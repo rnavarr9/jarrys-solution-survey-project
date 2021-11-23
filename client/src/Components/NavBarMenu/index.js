@@ -1,8 +1,8 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../Contexts/Auth";
 
-const NavBarMenuAuth = () => {
+const NavBarMenuAuth = ({ handleLogout }) => {
   return (
     <nav>
       <ul>
@@ -16,7 +16,9 @@ const NavBarMenuAuth = () => {
           <Link to="/surveys">Surveys</Link>
         </li>
         <li>
-          <Link to="/login">Logout</Link>
+          <Link to="/home" onClick={handleLogout}>
+            Logout
+          </Link>
         </li>
       </ul>
     </nav>
@@ -45,9 +47,9 @@ const NavBarMenuNoAuth = () => {
 };
 
 const NavBarMenu = () => {
-  const {auth} = useContext(Auth);
+  const { auth, handleLogout } = useContext(Auth);
   if (auth) {
-    return <NavBarMenuAuth />;
+    return <NavBarMenuAuth handleLogout={handleLogout} />;
   }
   return <NavBarMenuNoAuth />;
 };

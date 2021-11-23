@@ -18,11 +18,11 @@ import { CreateUser, DisplayUser, UpdateUser } from "./Components/Users";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./Contexts/Auth";
 
-import axios from "axios"
+import axios from "axios";
 
 function App() {
   const [auth, setAuth] = useState(null);
-  
+
   useEffect(() => {
     userAuthenticated();
   }, []);
@@ -37,8 +37,13 @@ function App() {
       .then((response) => setAuth(response.data.auth));
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setAuth(false);
+  };
+
   return (
-    <AuthProvider value={{auth, setAuth}}>
+    <AuthProvider value={{ auth, setAuth, handleLogout }}>
       <Router>
         <NavBarMenu />
         <Switch>
