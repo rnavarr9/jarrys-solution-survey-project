@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const bcrypt = require('bcrypt');
 module.exports = (app) => {
-  app.get(`/users`, async (req, res) => {
+  app.get(`/users/list`, async (req, res) => {
     try {
       const users = await Users.find();
       console.log({ users });
