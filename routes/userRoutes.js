@@ -161,7 +161,7 @@ module.exports = (app) => {
     res.json('Logged out successfully');
   });
 
-  app.get('/isUserAuth', verifyJWT, (req, res) => {
+  app.get('/users/isUserAuth', verifyJWT, (req, res) => {
     res.json({ auth: true, message: 'You are authenticated!' });
   });
 };
