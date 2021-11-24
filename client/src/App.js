@@ -47,6 +47,7 @@ function App() {
       <Router>
         <NavBarMenu />
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <ProtectedRoute path="/users" component={Users} />
@@ -57,7 +58,6 @@ function App() {
           <Route path="/displaySurvey/:id" component={DisplaySurvey} />
           <ProtectedRoute path="/updateSurvey/:id" component={UpdateSurvey} />
           <ProtectedRoute path="/createSurvey" component={CreateSurvey} />
-          <Route path="/" component={Home} />
         </Switch>
       </Router>
     </AuthProvider>
