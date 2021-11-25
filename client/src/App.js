@@ -42,6 +42,10 @@ function App() {
     setAuth(false);
   };
 
+  if(auth === null) {
+    return <div>...Loading</div>
+  }
+
   return (
     <AuthProvider value={{ auth, setAuth, handleLogout }}>
       <Router>
