@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const Surveys = mongoose.model("Surveys");
+const mongoose = require('mongoose');
+const Surveys = mongoose.model('Surveys');
 
 module.exports = (app) => {
-  app.get(`/surveys`, async (req, res) => {
+  app.get(`/api/surveys`, async (req, res) => {
     try {
       const surveys = await Surveys.find();
       console.log({ surveys });
@@ -12,7 +12,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get(`/surveys/:id`, async (req, res) => {
+  app.get(`/api/surveys/:id`, async (req, res) => {
     let id = req.params.id;
     console.log({ id });
     try {
@@ -24,7 +24,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post(`/surveys/add`, async (req, res) => {
+  app.post(`/api/surveys/add`, async (req, res) => {
     let newSurvey = Surveys({
       title: req.body.title,
       type: req.body.type,
@@ -36,25 +36,25 @@ module.exports = (app) => {
         console.log(err);
         res.end(err);
       } else {
-        console.log("Survey created!", survey);
-        res.json({ success: true, msg: "New survey added!." });
+        console.log('Survey created!', survey);
+        res.json({ success: true, msg: 'New survey added!.' });
       }
     });
   });
 
-  app.get(`/surveys/delete/:id`, async (req, res, next) => {
+  app.get(`/api/surveys/delete/:id`, async (req, res, next) => {
     let id = req.params.id;
     Surveys.remove({ _id: id }, (err) => {
       if (err) {
         console.log(err);
         res.end(err);
       } else {
-        res.json({ success: true, msg: "Survey deleted." });
+        res.json({ success: true, msg: 'Survey deleted.' });
       }
     });
   });
 
-  app.get(`/surveys/update/:id`, async (req, res, next) => {
+  app.get(`/api/surveys/update/:id`, async (req, res, next) => {
     let id = req.params.id;
 
     Surveys.findById(id, (err, itemToEdit) => {
@@ -62,12 +62,12 @@ module.exports = (app) => {
         console.log(err);
         res.end(err);
       } else {
-        res.json({ success: true, msg: "", survey: itemToEdit });
+        res.json({ success: true, msg: '', survey: itemToEdit });
       }
     });
   });
 
-  app.post(`/surveys/update/:id`, async (req, res, next) => {
+  app.post(`/api/surveys/update/:id`, async (req, res, next) => {
     let id = req.params.id;
 
     let updatedSurvey = Surveys({
@@ -84,7 +84,7 @@ module.exports = (app) => {
       } else {
         res.json({
           success: true,
-          msg: "Survey updated.",
+          msg: 'Survey updated.',
           survey: updatedSurvey,
         });
       }
