@@ -14,7 +14,7 @@ const UpdateUser = () => {
 
   const renderUser = () => {
     axios
-      .get(`/users/update/${id}`)
+      .get(`/api/users/update/${id}`)
       .then((res) => {
         console.log({user:res.data.user})
         setLocalUser(res.data.user);
@@ -31,7 +31,7 @@ const UpdateUser = () => {
 
   const handleSaveUser = () => {
     axios
-      .post(`/users/update/${id}`, localUser)
+      .post(`/api/users/update/${id}`, localUser)
       .then((res) => {
         alert("User updated successfully!");
         history.push("/users");

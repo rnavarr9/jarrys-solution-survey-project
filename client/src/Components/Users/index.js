@@ -12,7 +12,7 @@ const [users, setUsers] = useState(null)
 
   const renderUsers = () => {
     axios
-      .get(`/users`)
+      .get(`/api/users`)
       .then((res) => {
         setUsers(res.data);
       })
@@ -23,7 +23,7 @@ const [users, setUsers] = useState(null)
 
   const handleDeleteUser = async (id) => {
     await axios
-      .get(`/users/delete/${id}`)
+      .get(`/api/users/delete/${id}`)
       .then((res) => {
         console.log("User deleted!");
       })
@@ -31,7 +31,7 @@ const [users, setUsers] = useState(null)
         console.log("ERR", err);
       });
     axios
-      .get(`/users`)
+      .get(`/api/users`)
       .then((res) => {
         setUsers(res.data);
       })

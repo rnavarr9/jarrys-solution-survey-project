@@ -29,7 +29,7 @@ function App() {
 
   const userAuthenticated = () => {
     axios
-      .get("/isUserAuth", {
+      .get("/api/isUserAuth", {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
@@ -41,6 +41,10 @@ function App() {
     localStorage.removeItem("token");
     setAuth(false);
   };
+
+  if(auth === null) {
+    return <div>...Loading</div>
+  }
 
   return (
     <AuthProvider value={{ auth, setAuth, handleLogout }}>

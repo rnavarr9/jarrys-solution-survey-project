@@ -16,7 +16,7 @@ const DisplayUser = () => {
   const renderUser = () => {
     if (id) {
       axios
-        .get(`/users/${id}`)
+        .get(`/api/users/${id}`)
         .then((response) => {
           setLocalUser(response.data);
         })
