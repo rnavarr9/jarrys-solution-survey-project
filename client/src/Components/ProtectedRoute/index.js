@@ -3,7 +3,9 @@ import { Route, Redirect } from "react-router-dom";
 import Auth from "../../Contexts/Auth";
 
 const ProtectedRoute = ({ component: Component, path }) => {
+
   const { auth } = useContext(Auth);
+  console.log({auth})
   return (
     <Route
       path={path}
