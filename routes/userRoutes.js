@@ -88,7 +88,7 @@ module.exports = (app) => {
     });
   });
 
-  app.post('/register', (req, res) => {
+  app.post('/api/register', (req, res) => {
     const { name = "Define Username", username, email="Define email", password } = req.body;
     bcrypt.hash(password, 10).then((hash) => {
       Users.create({
@@ -109,7 +109,7 @@ module.exports = (app) => {
     });
   });
 
-  app.post('/login', async (req, res) => {
+  app.post('/api/login', async (req, res) => {
     console.log({req:req.body})
     const { username, password } = req.body;
 

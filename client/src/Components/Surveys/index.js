@@ -13,7 +13,7 @@ const Survey = () => {
 
   const renderSurveys = () => {
     axios
-      .get(`/surveys`)
+      .get(`/api/surveys`)
       .then((res) => {
         setSurveys(res.data);
       })

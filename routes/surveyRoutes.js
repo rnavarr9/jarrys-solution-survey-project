@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Surveys = mongoose.model("Surveys");
 
 module.exports = (app) => {
-  app.get(`/surveys`, async (req, res) => {
+  app.get(`/api/surveys`, async (req, res) => {
     try {
       const surveys = await Surveys.find();
       console.log({ surveys });
