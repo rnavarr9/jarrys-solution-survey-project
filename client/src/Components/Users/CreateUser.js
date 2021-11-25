@@ -21,7 +21,7 @@ const CreateUser = () => {
 
   const handleSaveUser = () => {
     axios
-      .post("/users/add", userObj)
+      .post("/api/users/add", userObj)
       .then((res) => {
         setUserObj(newUser);
         alert("User created successfully!");

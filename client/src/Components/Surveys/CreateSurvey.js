@@ -61,7 +61,7 @@ const CreateSurvey = () => {
     let newSurvey = { ...survey, questions };
     console.log("localSurvey", newSurvey);
     axios
-      .post(`/surveys/add`, newSurvey)
+      .post(`/api/surveys/add`, newSurvey)
       .then((res) => {
         console.log({ res });
         setQuestions([]);

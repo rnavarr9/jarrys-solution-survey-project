@@ -29,7 +29,7 @@ function App() {
 
   const userAuthenticated = () => {
     axios
-      .get("/isUserAuth", {
+      .get("/api/isUserAuth", {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },

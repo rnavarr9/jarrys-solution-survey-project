@@ -18,7 +18,7 @@ const RegAuthForm = ({ login }) => {
   };
 
   const handleLogin = () => {
-    axios.post("/login", credentials).then((response) => {
+    axios.post("/api/login", credentials).then((response) => {
       if (!response.data.auth) {
         console.log("auth failed");
       } else {
@@ -31,7 +31,7 @@ const RegAuthForm = ({ login }) => {
 
   const handleRegister = () => {
     axios
-      .post("/register", credentials)
+      .post("/api/register", credentials)
       .then((res) => {
         console.log("user registered!", res);
         history.push("/surveys");

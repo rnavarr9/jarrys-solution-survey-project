@@ -13,7 +13,7 @@ const Survey = () => {
 
   const renderSurveys = () => {
     axios
-      .get(`/surveys`)
+      .get(`/api/surveys`)
       .then((res) => {
         setSurveys(res.data);
       })
@@ -24,7 +24,7 @@ const Survey = () => {
 
   const handleDeleteSurvey = (id) => {
     axios
-      .get(`/surveys/delete/${id}`)
+      .get(`/api/surveys/delete/${id}`)
       .then((res) => {
         console.log("Survey deleted!");
       })
@@ -32,7 +32,7 @@ const Survey = () => {
         console.log("Error deleting survey!", err);
       });
     axios
-      .get(`/surveys`)
+      .get(`/api/surveys`)
       .then((res) => {
         setSurveys(res.data);
       })

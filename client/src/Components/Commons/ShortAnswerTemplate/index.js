@@ -13,7 +13,7 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
   const renderSurvey = () => {
     if (id) {
       axios
-        .get(`/surveys/${id}`)
+        .get(`/api/surveys/${id}`)
         .then((response) => {
           setSurvey(response.data);
         })
@@ -25,7 +25,7 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
 
   const saveChanges = (e, id) => {
     axios
-      .post(`/surveys/update/${id}`, survey)
+      .post(`/api/surveys/update/${id}`, survey)
       .then((res) => {
         console.log("Survey updated!", res);
         history.push("/surveys");
