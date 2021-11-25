@@ -28,6 +28,7 @@ function App() {
   }, []);
 
   const userAuthenticated = () => {
+    console.log("I am auth")
     axios
       .get("/isUserAuth", {
         headers: {
@@ -41,7 +42,9 @@ function App() {
     localStorage.removeItem("token");
     setAuth(false);
   };
-
+if(auth === null) {
+  return (<div>....Loading</div>)
+}
   return (
     <AuthProvider value={{ auth, setAuth, handleLogout }}>
       <Router>
