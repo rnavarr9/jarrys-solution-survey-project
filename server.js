@@ -46,7 +46,7 @@ require("./routes/surveyRoutes.js")(app);
 require("./routes/userRoutes.js")(app);
 
 app.get("*", function (request, response) {
-  response.sendFile(path.join(__dirname, "client", "public", "index.html"));
+  response.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(PORT, () => {
