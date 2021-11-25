@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Users = mongoose.model('Users');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const bcrypt = require('bcrypt');
 module.exports = (app) => {
-  app.get(`/users`, async (req, res) => {
+  app.get(`/api/users`, async (req, res) => {
     try {
       const users = await Users.find();
       console.log({ users });
@@ -14,7 +14,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get(`/users/:id`, async (req, res) => {
+  app.get(`/api/users/:id`, async (req, res) => {
     let id = req.params.id;
     try {
       const user = await Users.findById(id);
@@ -25,7 +25,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post(`/users/add`, async (req, res) => {
+  app.post(`/api/users/add`, async (req, res) => {
     let newUser = Users({
       name: req.body.name,
       username: req.body.username,
@@ -43,7 +43,7 @@ module.exports = (app) => {
       }
     });
   });
-  app.get(`/users/delete/:id`, async (req, res, next) => {
+  app.get(`/api/users/delete/:id`, async (req, res, next) => {
     let id = req.params.id;
     Users.remove({ _id: id }, (err) => {
       if (err) {
@@ -54,7 +54,7 @@ module.exports = (app) => {
       }
     });
   });
-  app.get(`/users/update/:id`, async (req, res, next) => {
+  app.get(`/api/users/update/:id`, async (req, res, next) => {
     let id = req.params.id;
     Users.findById(id, (err, userToEdit) => {
       if (err) {
@@ -65,7 +65,7 @@ module.exports = (app) => {
       }
     });
   });
-  app.post(`/users/update/:id`, async (req, res, next) => {
+  app.post(`/api/users/update/:id`, async (req, res, next) => {
     let id = req.params.id;
     let updateUser = Users({
       _id: id,
@@ -88,8 +88,13 @@ module.exports = (app) => {
     });
   });
 
-  app.post('/register', (req, res) => {
-    const { name = "Define Username", username, email="Define email", password } = req.body;
+  app.post('/api/register', (req, res) => {
+    const {
+      name = 'Define Username',
+      username,
+      email = 'Define email',
+      password,
+    } = req.body;
     bcrypt.hash(password, 10).then((hash) => {
       Users.create({
         name,
@@ -109,8 +114,8 @@ module.exports = (app) => {
     });
   });
 
-  app.post('/login', async (req, res) => {
-    console.log({req:req.body})
+  app.post('/api/login', async (req, res) => {
+    console.log({ req: req.body });
     const { username, password } = req.body;
 
     const user = await Users.findOne({ where: { username } });
@@ -157,11 +162,11 @@ module.exports = (app) => {
     }
   };
 
-  app.post('/logout', verifyJWT, (req, res) => {
+  app.post('/api/logout', verifyJWT, (req, res) => {
     res.json('Logged out successfully');
   });
 
-  app.get('/isUserAuth', verifyJWT, (req, res) => {
+  app.get('/api/isUserAuth', verifyJWT, (req, res) => {
     res.json({ auth: true, message: 'You are authenticated!' });
   });
 };
