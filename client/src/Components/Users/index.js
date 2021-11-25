@@ -12,7 +12,7 @@ const [users, setUsers] = useState(null)
 
   const renderUsers = () => {
     axios
-      .get(`/users`)
+      .get(`/api/users`)
       .then((res) => {
         setUsers(res.data);
       })
