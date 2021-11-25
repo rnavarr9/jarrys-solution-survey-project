@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
-
+console.log("reached server!")
 require("dotenv").config();
 
 const app = express();
@@ -46,7 +46,7 @@ require("./routes/surveyRoutes.js")(app);
 require("./routes/userRoutes.js")(app);
 
 app.get("*", function (request, response) {
-  response.sendFile(path.join(__dirname, "client", "public", "index.html"));
+  response.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(PORT, () => {
