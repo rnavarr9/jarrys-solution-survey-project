@@ -6,6 +6,11 @@ let SurveyTemplate = mongoose.Schema(
     title: String,
     type: String,
     questions: Array,
+    userID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     collection: "SurveyTemplate",
