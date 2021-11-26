@@ -8,6 +8,7 @@ let Users = mongoose.Schema(
     username: String,
     email: String,
     password: String,
+    status: String,
   },
   {
     collection: "users",
