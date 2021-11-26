@@ -1,9 +1,8 @@
-import React, {useState} from "react";
-import axios from "axios"
+import React, { useState } from "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-
-const newSurvey = {
+const newSurveyTemplate = {
   type: "",
   title: "",
 };
@@ -14,15 +13,15 @@ const newShortAnswerQuestion = {
   answer: "",
 };
 
-const CreateSurvey = () => {
-  const [survey, setSurvey] = useState(newSurvey);
+const CreateSurveyTemplate = () => {
+  const [surveyTemplate, setSurveyTemplate] = useState(newSurveyTemplate);
   const [step, setStep] = useState(0);
-  const [surveyType, setSurveyType] = useState("shortAnswer");
+  const [surveyTemplateType, setSurveyTemplateType] = useState("shortAnswer");
   const [questions, setQuestions] = useState([]);
   const history = useHistory();
 
   const handleSelectTemplate = (e) => {
-    setSurvey({ ...survey, type: surveyType });
+    setSurveyTemplate({ ...surveyTemplate, type: surveyTemplateType });
     setStep(1);
   };
 
@@ -31,14 +30,14 @@ const CreateSurvey = () => {
     setQuestions([...questions, newQuestion]);
   };
 
-  const handleOnChangeSurveyType = (e) => {
-    setSurveyType(e.target.value);
+  const handleOnChangeSurveyTemplateType = (e) => {
+    setSurveyTemplateType(e.target.value);
   };
 
-  const handleChangeValueSurvey = (e) => {
+  const handleChangeValueSurveyTemplate = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-    setSurvey({ ...survey, [name]: value });
+    setSurveyTemplate({ ...surveyTemplate, [name]: value });
   };
 
   const handleChangeValueQuestion = (e, index) => {
@@ -57,34 +56,34 @@ const CreateSurvey = () => {
     setQuestions([...newQuestions]);
   };
 
-  const handleSaveSurvey = () => {
-    let newSurvey = { ...survey, questions };
-    console.log("localSurvey", newSurvey);
+  const handleSaveSurveyTemplate = () => {
+    let newSurveyTemplate = { ...surveyTemplate, questions };
+    console.log("localSurveyTemplate", newSurveyTemplate);
     axios
-      .post(`/surveys/add`, newSurvey)
+      .post(`/api/survey-templates/add`, newSurveyTemplate)
       .then((res) => {
         console.log({ res });
         setQuestions([]);
-        setSurvey(newSurvey);
-        history.push("/surveys")
+        setSurveyTemplate(newSurveyTemplate);
+        history.push("/surveyTemplates");
       })
       .catch((err) => {
         console.log("ERR", err);
       });
-    setSurvey(newSurvey);
+    setSurveyTemplate(newSurveyTemplate);
   };
 
   if (step === 0) {
     return (
       <>
-        <p>Create Survey component</p>
+        <p>Create Survey Template component</p>
         <br />
-        <label htmlFor="surveyTemplates">Choose a survey template:</label>
+        <label htmlFor="surveyTemplate">Choose a Survey Template:</label>
         <br />
         <select
-          name="surveyTemplates"
-          id="surveyTemplates"
-          onChange={handleOnChangeSurveyType}
+          name="surveyTemplate"
+          id="surveyTemplate"
+          onChange={handleOnChangeSurveyTemplateType}
         >
           {/* <option value="yesno">Yes/No questions</option> */}
           {/* <option value="multiple">Multiple choise questions </option> */}
@@ -96,16 +95,16 @@ const CreateSurvey = () => {
   } else if (step === 1) {
     return (
       <>
-        <p>Create Survey component</p>
+        <p>Create Survey Template component</p>
         <br />
-        <label htmlFor="surveyTitle">Choose a title:</label>
+        <label htmlFor="surveyTemplateTitle">Choose a title:</label>
         <input
-          id="surveyTitle"
+          id="surveyTemplateTitle"
           type="text"
           name="title"
-          value={survey.title}
+          value={surveyTemplate.title}
           placeholder="select a title"
-          onChange={handleChangeValueSurvey}
+          onChange={handleChangeValueSurveyTemplate}
         />
         <br />
         <button onClick={handleCreateQuestion}>Add Question</button>
@@ -140,16 +139,16 @@ const CreateSurvey = () => {
         <br />
         <br />
         <br />
-        <button onClick={handleSaveSurvey}>Save Survey</button>
+        <button onClick={handleSaveSurveyTemplate}>Save Survey Template</button>
       </>
     );
   }
   return (
     <>
-      <p>Create Survey component</p>
+      <p>Create Survey Template component</p>
       {/* <div>{renderQuestions()}</div> */}
     </>
   );
 };
 
-export default CreateSurvey;
+export default CreateSurveyTemplate;
