@@ -34,7 +34,7 @@ const RegAuthForm = ({ login }) => {
       .post("/api/register", credentials)
       .then((res) => {
         console.log("user registered!", res);
-        history.push("/surveys");
+        history.push("/surveyTemplates");
       })
       .catch((err) => {
         console.log("Error saving user", err);

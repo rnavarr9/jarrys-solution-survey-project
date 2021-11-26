@@ -3,32 +3,32 @@ import axios from "axios";
 import { UPDATE } from "../../../Helpers/constants";
 
 const ShortAnswerTemplate = ({ id, action, history }) => {
-  const [survey, setSurvey] = useState(null);
+  const [surveyTemplate, setSurveyTemplate] = useState(null);
 
-  console.log({ survey, id });
+  console.log({ surveyTemplate, id });
   useEffect(() => {
-    renderSurvey();
+    renderSurveyTemplate();
   }, []);
 
-  const renderSurvey = () => {
+  const renderSurveyTemplate = () => {
     if (id) {
       axios
-        .get(`/api/surveys/${id}`)
+        .get(`/api/survey-templates/${id}`)
         .then((response) => {
-          setSurvey(response.data);
+          setSurveyTemplate(response.data);
         })
         .catch((err) => {
-          console.log("Error fetching survey!");
+          console.log("Error fetching Survey Template!");
         });
     }
   };
 
   const saveChanges = (e, id) => {
     axios
-      .post(`/api/surveys/update/${id}`, survey)
+      .post(`/api/survey-templates/update/${id}`, surveyTemplate)
       .then((res) => {
-        console.log("Survey updated!", res);
-        history.push("/surveys");
+        console.log("Survey Template updated!", res);
+        history.push("/surveyTemplates");
       })
       .catch((err) => {
         console.log("ERR", err);
@@ -40,41 +40,40 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
       const value = e.target.value;
       const name = e.target.name;
 
-      let newQuestions = JSON.parse(JSON.stringify(survey.questions));
+      let newQuestions = JSON.parse(JSON.stringify(surveyTemplate.questions));
       newQuestions[index][name] = value;
-      setSurvey({ ...survey, questions: newQuestions });
+      setSurveyTemplate({ ...surveyTemplate, questions: newQuestions });
     }
   };
 
-  const handleChangeValueSurvey = (e) => {
-    console.log(e);
+  const handleChangeValueSurveyTemplate = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-    setSurvey({ ...survey, [name]: value });
+    setSurveyTemplate({ ...surveyTemplate, [name]: value });
   };
 
-  if (!survey) {
+  if (!surveyTemplate) {
     return <div>...Loading</div>;
   }
   return (
     <div>
       {action === UPDATE ? (
         <>
-          <label htmlFor="surveyTitle">Title:</label>
+          <label htmlFor="surveyTemplateTitle">Title:</label>
           <input
-            id="surveyTitle"
+            id="surveyTemplateTitle"
             type="text"
             name="title"
-            value={survey.title}
+            value={surveyTemplate.title}
             placeholder="select a title"
-            onChange={handleChangeValueSurvey}
+            onChange={handleChangeValueSurveyTemplate}
           />
         </>
       ) : (
-        <p>{`Title: ${survey.title}`}</p>
+        <p>{`Title: ${surveyTemplate.title}`}</p>
       )}
-      {typeof survey.questions === "object"
-        ? survey.questions.map((q, index) => (
+      {typeof surveyTemplate.questions === "object"
+        ? surveyTemplate.questions.map((q, index) => (
             <div key={index}>
               {action === UPDATE ? (
                 <div>
@@ -113,7 +112,7 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
           ))
         : null}
       {action === UPDATE ? (
-        <button onClick={(e) => saveChanges(e, survey._id)}>
+        <button onClick={(e) => saveChanges(e, surveyTemplate._id)}>
           Save Changes
         </button>
       ) : null}

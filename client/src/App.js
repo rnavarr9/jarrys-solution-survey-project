@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import {
   Home,
-  Surveys,
+  SurveyTemplates,
   Users,
   Login,
   Register,
@@ -10,10 +10,10 @@ import {
   NavBarMenu,
 } from "./Components";
 import {
-  DisplaySurvey,
-  UpdateSurvey,
-  CreateSurvey,
-} from "./Components/Surveys";
+  DisplaySurveyTemplate,
+  UpdateSurveyTemplate,
+  CreateSurveyTemplate,
+} from "./Components/SurveyTemplates";
 import { CreateUser, DisplayUser, UpdateUser } from "./Components/Users";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./Contexts/Auth";
@@ -57,10 +57,10 @@ function App() {
           <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
           <ProtectedRoute path="/createUser" component={CreateUser} />
           <ProtectedRoute path="/updateUser/:id" component={UpdateUser} />
-          <Route path="/surveys" component={Surveys} />
-          <Route path="/displaySurvey/:id" component={DisplaySurvey} />
-          <ProtectedRoute path="/updateSurvey/:id" component={UpdateSurvey} />
-          <ProtectedRoute path="/createSurvey" component={CreateSurvey} />
+          <Route path="/surveyTemplates" component={SurveyTemplates} />
+          <Route path="/displaySurveyTemplate/:id" component={DisplaySurveyTemplate} />
+          <ProtectedRoute path="/updateSurveyTemplate/:id" component={UpdateSurveyTemplate} />
+          <ProtectedRoute path="/createSurveyTemplate" component={CreateSurveyTemplate} />
           <Route path="/" component={Home} />
         </Switch>
       </Router>
