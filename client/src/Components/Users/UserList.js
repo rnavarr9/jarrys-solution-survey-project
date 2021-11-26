@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const UserList = ({ users, deleteUser }) => {
-  console.log({ users });
+  console.log({users})
   if (users === null || !users.length) {
     return <div>No users have been created</div>;
   }

@@ -2,62 +2,88 @@ const mongoose = require("mongoose");
 const Users = mongoose.model("Users");
 const verifyJWT = require("../middlewares/verifyJWT");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 module.exports = (app) => {
-  app.post("/api/register", (req, res) => {
-    const {
-      name = "Define Username",
-      username,
-      email = "Define email",
-      password,
-    } = req.body;
-    bcrypt.hash(password, 10).then((hash) => {
-      Users.create({
-        name,
-        username,
-        email,
-        password: hash,
-      })
-        .then((newUser) => {
-          console.log({ newUser });
-          res.json({ success: true, msg: "User created." });
-        })
-        .catch((err) => {
-          if (err) {
-            res.status(400).json({ error: err });
-          }
+  app.post("/api/register", async (req, res) => {
+    const { username, email, password } = req.body;
+
+    if (!(email && username && password)) {
+      res.json({ auth: false, msg: "Please, complete all fields" });
+    } else {
+      const oldUser = await Users.findOne({ username });
+      console.log(oldUser);
+
+      if (oldUser) {
+        console.log({ oldUser });
+        res.json({
+          auth: false,
+          msg: "Username already registered, choose another one",
         });
-    });
+      } else {
+        bcrypt.hash(password, 10).then((hash) => {
+          Users.create({
+            username,
+            email,
+            password: hash,
+          })
+            .then((newUser) => {
+              const userInSession = {
+                id: newUser._id.toString(),
+                username: newUser.username,
+                email: newUser.email,
+              };
+
+              const accessToken = jwt.sign({ ...userInSession }, "jwtSecret", {
+                expiresIn: 60 * 60 * 24,
+              });
+
+              res.json({
+                auth: true,
+                token: accessToken,
+                result: userInSession,
+                msg: "User registered and authenticated!",
+              });
+            })
+            .catch((err) => {
+              if (err) {
+                res.status(400).json({ error: err });
+              }
+            });
+        });
+      }
+    }
   });
 
   app.post("/api/login", async (req, res) => {
-    console.log({ req: req.body });
     const { username, password } = req.body;
 
     const user = await Users.findOne({ where: { username } });
 
-    if (!user) res.json({ auth: false, message: "User Doesn't Exist" });
+    if (!user) res.json({ auth: false, msg: "User Doesn't Exist" });
+    const userInSession = {
+      id: user._id.toString(),
+      name: user.name,
+      username: user.username,
+    };
 
     const dbPassword = user.password;
     bcrypt.compare(password, dbPassword).then((match) => {
       if (!match) {
         res.json({
           auth: false,
-          message: "Wrong Email and Password Combination!",
+          msg: "Wrong Email and Password Combination!",
         });
       } else {
-        const accessToken = jwt.sign({ email: user.email }, "jwtSecret", {
+        const accessToken = jwt.sign({ ...userInSession }, "jwtSecret", {
           expiresIn: 60 * 60 * 24,
         });
-
-        // req.session.user = user;
 
         res.json({
           auth: true,
           token: accessToken,
-          result: user,
-          message: "User authenticated!",
+          result: userInSession,
+          msg: "User authenticated!",
         });
       }
     });
@@ -68,6 +94,6 @@ module.exports = (app) => {
   });
 
   app.get("/api/isUserAuth", verifyJWT, (req, res) => {
-    res.json({ auth: true, message: "You are authenticated!" });
+    res.json({ auth: true, msg: "You are authenticated!" });
   });
 };

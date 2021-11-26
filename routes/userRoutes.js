@@ -5,9 +5,13 @@ const bcrypt = require("bcrypt");
 
 module.exports = (app) => {
   app.get(`/api/users`, verifyJWT, async (req, res) => {
+    const userId = res.locals.id;
+    console.log({userId})
+
     try {
-      const users = await Users.find();
-      return res.json(users);
+      const users = await Users.findById(userId);
+      console.log({users})
+      return res.json([users]);
     } catch (error) {
       return res.send(error);
     }
@@ -25,7 +29,6 @@ module.exports = (app) => {
   });
 
   app.post(`/api/users/add`, verifyJWT, async (req, res) => {
-    console.log({req})
     let newUser = Users({
       name: req.body.name,
       username: req.body.username,
