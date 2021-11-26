@@ -7,7 +7,6 @@ module.exports = (app) => {
   app.get(`/api/users`, verifyJWT, async (req, res) => {
     try {
       const users = await Users.find();
-      console.log({ users });
       return res.json(users);
     } catch (error) {
       return res.send(error);
@@ -26,6 +25,7 @@ module.exports = (app) => {
   });
 
   app.post(`/api/users/add`, verifyJWT, async (req, res) => {
+    console.log({req})
     let newUser = Users({
       name: req.body.name,
       username: req.body.username,
