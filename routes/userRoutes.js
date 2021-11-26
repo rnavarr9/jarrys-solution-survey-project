@@ -6,11 +6,8 @@ const bcrypt = require("bcrypt");
 module.exports = (app) => {
   app.get(`/api/users`, verifyJWT, async (req, res) => {
     const userId = res.locals.id;
-    console.log({userId})
-
     try {
       const users = await Users.findById(userId);
-      console.log({users})
       return res.json([users]);
     } catch (error) {
       return res.send(error);
