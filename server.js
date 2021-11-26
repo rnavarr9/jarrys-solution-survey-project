@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //import your models
-require("./models/survey");
+require("./models/surveyTemplate");
 require("./models/user")
 
 mongoose
@@ -42,7 +42,7 @@ mongoose
   .catch((err) => console.log(err));
 
 //import routes
-require("./routes/surveyRoutes.js")(app);
+require("./routes/surveyTemplates.js")(app);
 require("./routes/userRoutes.js")(app);
 
 app.get("*", function (request, response) {

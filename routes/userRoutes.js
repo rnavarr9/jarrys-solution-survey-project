@@ -50,7 +50,7 @@ module.exports = (app) => {
         console.log(err);
         res.end(err);
       } else {
-        res.json({ success: true, msg: 'Survey deleted.' });
+        res.json({ success: true, msg: 'User deleted.' });
       }
     });
   });
@@ -82,7 +82,7 @@ module.exports = (app) => {
         res.json({
           success: true,
           msg: 'User updated.',
-          survey: updateUser,
+          user: updateUser,
         });
       }
     });
