@@ -4,7 +4,7 @@ export const newShortAnswerQuestion = {
   answer: "",
 };
 
-export const newSurvey = {
+export const newSurveyTemplate = {
   type: "",
   title: "",
 };
