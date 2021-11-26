@@ -16,7 +16,11 @@ const DisplayUser = () => {
   const renderUser = () => {
     if (id) {
       axios
-        .get(`/api/users/${id}`)
+        .get(`/api/users/${id}`, {
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
           setLocalUser(response.data);
         })

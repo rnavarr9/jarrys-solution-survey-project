@@ -13,7 +13,11 @@ const SurveyTemplate = () => {
 
   const renderSurveyTemplates = () => {
     axios
-      .get(`/api/survey-templates`)
+      .get(`/api/survey-templates`, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         setSurveyTemplates(res.data);
       })
@@ -24,7 +28,11 @@ const SurveyTemplate = () => {
 
   const handleDeleteSurveyTemplate = (id) => {
     axios
-      .get(`/api/survey-templates/delete/${id}`)
+      .get(`/api/survey-templates/delete/${id}`, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         console.log("Survey Template deleted!");
       })
@@ -32,7 +40,11 @@ const SurveyTemplate = () => {
         console.log("Error deleting Survey Template!", err);
       });
     axios
-      .get(`/api/survey-templates`)
+      .get(`/api/survey-templates`, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         setSurveyTemplates(res.data);
       })

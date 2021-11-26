@@ -6,7 +6,6 @@ module.exports = (app) => {
   app.get(`/api/survey-templates`, verifyJWT, async (req, res) => {
     try {
       const surveyTemplates = await SurveyTemplates.find();
-      console.log({ "asda": surveyTemplates });
       return res.json(surveyTemplates);
     } catch (error) {
       return res.send(error);

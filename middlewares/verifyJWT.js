@@ -9,7 +9,6 @@ const verifyJWT = (req, res, next) => {
       if (err) {
         res.json({ auth: false, message: "Authentication failed!" });
       } else {
-        console.log({ decoded });
         req.userEmail = decoded.email;
         next();
       }
