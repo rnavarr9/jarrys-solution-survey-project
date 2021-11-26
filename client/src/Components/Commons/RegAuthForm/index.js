@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { regAuth } from "../../../Helpers/copies";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import Auth from "../../../Contexts/Auth";
 
 const RegAuthForm = ({ login }) => {
+  const { setAuth } = useContext(Auth);
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -16,22 +18,23 @@ const RegAuthForm = ({ login }) => {
   };
 
   const handleLogin = () => {
-    axios.post("/login", credentials).then((response) => {
-      console.log(response);
+    axios.post("/api/login", credentials).then((response) => {
       if (!response.data.auth) {
         console.log("auth failed");
       } else {
+        setAuth(response.data.auth);
         localStorage.setItem("token", response.data.token);
+        history.push("/home");
       }
     });
   };
 
   const handleRegister = () => {
     axios
-      .post("/register", credentials)
+      .post("/api/register", credentials)
       .then((res) => {
         console.log("user registered!", res);
-        history.push("/surveys");
+        history.push("/surveyTemplates");
       })
       .catch((err) => {
         console.log("Error saving user", err);
