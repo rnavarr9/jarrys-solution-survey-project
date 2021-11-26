@@ -56,7 +56,7 @@ const UpdateUser = () => {
   return (
     <div>
       <h1>Update User page</h1>
-      <div>
+      {/* <div>
         <label>Name</label>
         <input
           type="text"
@@ -64,7 +64,7 @@ const UpdateUser = () => {
           value={localUser.name}
           onChange={onChangeValue}
         />
-      </div>
+      </div> */}
       <div>
         <label>Username</label>
         <input
@@ -86,7 +86,7 @@ const UpdateUser = () => {
       <div>
         <label>Password</label>
         <input
-          type="text"
+          type="password"
           name="password"
           value={localUser.password}
           onChange={onChangeValue}

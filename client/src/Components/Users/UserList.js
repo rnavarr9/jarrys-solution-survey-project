@@ -12,9 +12,9 @@ const UserList = ({ users, deleteUser }) => {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Password</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -22,9 +22,9 @@ const UserList = ({ users, deleteUser }) => {
           {users && users.length
             ? users.map((user, index) => (
                 <tr key={index}>
-                  <td>{user.name}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
+                  <td>****</td>
                   <td>
                     <Link to={`/displayUser/${user._id}`}>
                       <button>Show</button>
@@ -35,11 +35,11 @@ const UserList = ({ users, deleteUser }) => {
                       <button>Update</button>
                     </Link>
                   </td>
-                  <td>
+                  {/* <td>
                     <button onClick={(e) => deleteUser(user._id)}>
                       Remove
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))
             : null}
