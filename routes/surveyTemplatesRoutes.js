@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
 const SurveyTemplates = mongoose.model('SurveyTemplates');
+const verifyJWT = require('../middlewares/verifyJWT');
 
 module.exports = (app) => {
-  app.get(`/api/survey-templates`, async (req, res) => {
+  app.get(`/api/survey-templates`, verifyJWT, async (req, res) => {
     try {
       const surveyTemplates = await SurveyTemplates.find();
-      console.log({ surveyTemplates });
+      console.log({ "asda": surveyTemplates });
       return res.json(surveyTemplates);
     } catch (error) {
       return res.send(error);
     }
   });
 
-  app.get(`/api/survey-templates/:id`, async (req, res) => {
+  app.get(`/api/survey-templates/:id`, verifyJWT, async (req, res) => {
     let id = req.params.id;
     console.log({ id });
     try {
@@ -24,7 +25,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post(`/api/survey-templates/add`, async (req, res) => {
+  app.post(`/api/survey-templates/add`, verifyJWT, async (req, res) => {
     let newSurveyTemplate = SurveyTemplates({
       title: req.body.title,
       type: req.body.type,
@@ -42,7 +43,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get(`/api/survey-templates/delete/:id`, async (req, res, next) => {
+  app.get(`/api/survey-templates/delete/:id`, verifyJWT, async (req, res, next) => {
     let id = req.params.id;
     SurveyTemplates.remove({ _id: id }, (err) => {
       if (err) {
@@ -54,7 +55,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get(`/api/survey-templates/update/:id`, async (req, res, next) => {
+  app.get(`/api/survey-templates/update/:id`, verifyJWT, async (req, res, next) => {
     let id = req.params.id;
 
     SurveyTemplates.findById(id, (err, itemToEdit) => {
@@ -67,7 +68,7 @@ module.exports = (app) => {
     });
   });
 
-  app.post(`/api/survey-templates/update/:id`, async (req, res, next) => {
+  app.post(`/api/survey-templates/update/:id`, verifyJWT, async (req, res, next) => {
     let id = req.params.id;
 
     let updatedSurveyTemplate = SurveyTemplates({

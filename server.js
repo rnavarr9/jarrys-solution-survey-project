@@ -42,8 +42,9 @@ mongoose
   .catch((err) => console.log(err));
 
 //import routes
-require("./routes/surveyTemplates.js")(app);
+require("./routes/surveyTemplatesRoutes.js")(app);
 require("./routes/userRoutes.js")(app);
+require("./routes/authRoutes.js")(app);
 
 app.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "client", "build", "index.html"));
