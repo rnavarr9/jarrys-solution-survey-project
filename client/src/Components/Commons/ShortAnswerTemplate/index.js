@@ -13,7 +13,11 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
   const renderSurveyTemplate = () => {
     if (id) {
       axios
-        .get(`/api/survey-templates/${id}`)
+        .get(`/api/survey-templates/${id}`, {
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
           setSurveyTemplate(response.data);
         })
@@ -25,7 +29,11 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
 
   const saveChanges = (e, id) => {
     axios
-      .post(`/api/survey-templates/update/${id}`, surveyTemplate)
+      .post(`/api/survey-templates/update/${id}`, surveyTemplate, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         console.log("Survey Template updated!", res);
         history.push("/surveyTemplates");

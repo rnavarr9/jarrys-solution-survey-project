@@ -14,9 +14,13 @@ const UpdateUser = () => {
 
   const renderUser = () => {
     axios
-      .get(`/api/users/update/${id}`)
+      .get(`/api/users/update/${id}`, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
-        console.log({user:res.data.user})
+        console.log({ user: res.data.user });
         setLocalUser(res.data.user);
       })
       .catch((err) => {
@@ -31,7 +35,11 @@ const UpdateUser = () => {
 
   const handleSaveUser = () => {
     axios
-      .post(`/api/users/update/${id}`, localUser)
+      .post(`/api/users/update/${id}`, localUser, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         alert("User updated successfully!");
         history.push("/users");

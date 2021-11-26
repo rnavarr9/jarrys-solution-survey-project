@@ -21,7 +21,11 @@ const CreateUser = () => {
 
   const handleSaveUser = () => {
     axios
-      .post("/api/users/add", userObj)
+      .post("/api/users/add", userObj, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         setUserObj(newUser);
         alert("User created successfully!");

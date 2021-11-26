@@ -60,7 +60,11 @@ const CreateSurveyTemplate = () => {
     let newSurveyTemplate = { ...surveyTemplate, questions };
     console.log("localSurveyTemplate", newSurveyTemplate);
     axios
-      .post(`/api/survey-templates/add`, newSurveyTemplate)
+      .post(`/api/survey-templates/add`, newSurveyTemplate, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         console.log({ res });
         setQuestions([]);
