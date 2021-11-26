@@ -57,8 +57,8 @@ function App() {
           <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
           <ProtectedRoute path="/createUser" component={CreateUser} />
           <ProtectedRoute path="/updateUser/:id" component={UpdateUser} />
-          <Route path="/surveyTemplates" component={SurveyTemplates} />
-          <Route path="/displaySurveyTemplate/:id" component={DisplaySurveyTemplate} />
+          <ProtectedRoute path="/surveyTemplates" component={SurveyTemplates} />
+          <ProtectedRoute path="/displaySurveyTemplate/:id" component={DisplaySurveyTemplate} />
           <ProtectedRoute path="/updateSurveyTemplate/:id" component={UpdateSurveyTemplate} />
           <ProtectedRoute path="/createSurveyTemplate" component={CreateSurveyTemplate} />
           <Route path="/" component={Home} />
