@@ -9,6 +9,7 @@ const RegAuthForm = ({ login }) => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
+    email: "",
   });
   const history = useHistory();
 
@@ -20,11 +21,12 @@ const RegAuthForm = ({ login }) => {
   const handleLogin = () => {
     axios.post("/api/login", credentials).then((response) => {
       if (!response.data.auth) {
-        console.log("auth failed");
+        alert(response.data.msg);
       } else {
-        setAuth(response.data.auth);
         localStorage.setItem("token", response.data.token);
-        history.push("/home");
+        setAuth(response.data.auth);
+        alert(`Welcome, ${credentials.username}`);
+        history.push("/");
       }
     });
   };
@@ -32,9 +34,15 @@ const RegAuthForm = ({ login }) => {
   const handleRegister = () => {
     axios
       .post("/api/register", credentials)
-      .then((res) => {
-        console.log("user registered!", res);
-        history.push("/surveyTemplates");
+      .then((response) => {
+        if (!response.data.auth) {
+          alert(response.data.msg);
+        } else {
+          localStorage.setItem("token", response.data.token);
+          setAuth(response.data.auth);
+          alert(response.data.msg);
+          history.push("/");
+        }
       })
       .catch((err) => {
         console.log("Error saving user", err);
@@ -57,6 +65,22 @@ const RegAuthForm = ({ login }) => {
           value={credentials.username}
         />
       </div>
+
+      {!login ? (
+        <div>
+          <label htmlFor="email">
+            <b>Email</b>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            required
+            onChange={onChangeValue}
+            value={credentials.email}
+          />
+        </div>
+      ) : null}
 
       <div>
         <label htmlFor="password">
