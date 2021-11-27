@@ -22,7 +22,7 @@ const Surveys = () => {
   };
   console.log(surveys);
   if (surveys === null || surveys === undefined || !surveys.length) {
-    <div>No Surveys available</div>;
+    return (<div>No Surveys available</div>)
   }
   return (
     <>
