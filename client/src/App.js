@@ -8,8 +8,9 @@ import {
   Register,
   ProtectedRoute,
   NavBarMenu,
-  Surveys
+  Surveys,
 } from "./Components";
+import { Spacing } from "./Components/Commons";
 import {
   DisplaySurveyTemplate,
   UpdateSurveyTemplate,
@@ -45,19 +46,28 @@ function App() {
     setAuth(false);
   };
   const handleBgColor = (colorString) => {
-    setBgColor(colorString)
-  }
+    setBgColor(colorString);
+  };
 
-  if(auth === null) {
-    return <div>...Loading</div>
+  if (auth === null) {
+    return <div>...Loading</div>;
   }
 
   return (
     <AuthProvider value={{ auth, setAuth, handleLogout }}>
       <StoreProvider value={{ handleBgColor }}>
-        <div style={{position: "absolute", backgroundColor: bgColor, height: "100vh", width: "100vw", zIndex: -10}}></div>
+        <div
+          style={{
+            position: "absolute",
+            backgroundColor: bgColor,
+            height: "100vh",
+            width: "100vw",
+            zIndex: -10,
+          }}
+        ></div>
         <Router>
           <NavBarMenu />
+          <Spacing paddingTop={"7em"}/>
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
@@ -66,11 +76,23 @@ function App() {
             <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
             <ProtectedRoute path="/createUser" component={CreateUser} />
             <ProtectedRoute path="/updateUser/:id" component={UpdateUser} />
-            <ProtectedRoute path="/surveyTemplates" component={SurveyTemplates} />
-            <ProtectedRoute path="/displaySurveyTemplate/:id" component={DisplaySurveyTemplate} />
-            <ProtectedRoute path="/updateSurveyTemplate/:id" component={UpdateSurveyTemplate} />
-            <ProtectedRoute path="/createSurveyTemplate" component={CreateSurveyTemplate} />
-            <Route path="/" component={Home} />
+            <ProtectedRoute
+              path="/surveyTemplates"
+              component={SurveyTemplates}
+            />
+            <ProtectedRoute
+              path="/displaySurveyTemplate/:id"
+              component={DisplaySurveyTemplate}
+            />
+            <ProtectedRoute
+              path="/updateSurveyTemplate/:id"
+              component={UpdateSurveyTemplate}
+            />
+            <ProtectedRoute
+              path="/createSurveyTemplate"
+              component={CreateSurveyTemplate}
+            />
+            <Route path="/" component={auth ? Surveys : Login} />
           </Switch>
         </Router>
       </StoreProvider>

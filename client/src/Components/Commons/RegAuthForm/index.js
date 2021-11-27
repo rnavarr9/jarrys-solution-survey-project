@@ -3,20 +3,12 @@ import { regAuth } from "../../../Helpers/copies";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Auth from "../../../Contexts/Auth";
+
 import { Card, Typography, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // top: "50%",
-    // left: "50%",
-    // transform: "translate(-50%, -50%)",
-    // maxHeight: "100%",
-    // overflowY: "auto",
-    // maxWidth: "100%",
-  },
   card: {
     padding: "1em",
     maxWidth: "350px",
@@ -54,7 +46,7 @@ const RegAuthForm = ({ login }) => {
         localStorage.setItem("token", response.data.token);
         setAuth(response.data.auth);
         alert(`Welcome, ${credentials.username}`);
-        history.push("/");
+        history.push("/surveyTemplates");
       }
     });
   };
@@ -69,7 +61,7 @@ const RegAuthForm = ({ login }) => {
           localStorage.setItem("token", response.data.token);
           setAuth(response.data.auth);
           alert(response.data.msg);
-          history.push("/");
+          history.push("/surveyTemplates");
         }
       })
       .catch((err) => {
@@ -80,7 +72,7 @@ const RegAuthForm = ({ login }) => {
   return (
     <Card elevation={3} className={clsx(classes.card, classes.actions)}>
       <Typography align="center" variant="h4">
-        {login ? regAuth.loginLabel : regAuth.registerLabel} Form
+        {login ? regAuth.loginLabel : regAuth.registerLabel}
       </Typography>
       <Typography variant="h6" className={classes.spacing}>
         <b>Username</b>
@@ -133,7 +125,7 @@ const RegAuthForm = ({ login }) => {
         variant="contained"
         onClick={login ? handleLogin : handleRegister}
       >
-        {login ? regAuth.loginLabel : regAuth.registerLabel}
+        {login ? regAuth.buttonLogin : regAuth.buttonRegister}
       </Button>
     </Card>
   );

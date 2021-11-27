@@ -1,10 +1,12 @@
 export const regAuth = {
   regTitle: "Register Form",
   logTitle: "Login Form",
-  hasAccount: "Already have an account?",
-  noAccount: "Not regitered yet?",
+  hasAccount: "Already a member? ",
+  noAccount: "Not regitered yet? ",
   toLogin: "/login",
   toRegister: "/register",
-  loginLabel: "Login",
-  registerLabel: "Register",
+  loginLabel: "Welcome back!",
+  registerLabel: "Join us!",
+  buttonLogin: "Log In",
+  buttonRegister: "Register"
 };
