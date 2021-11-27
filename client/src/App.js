@@ -8,6 +8,7 @@ import {
   Register,
   ProtectedRoute,
   NavBarMenu,
+  Surveys
 } from "./Components";
 import {
   DisplaySurveyTemplate,
@@ -53,6 +54,7 @@ function App() {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/surveys" component={Surveys} />
           <ProtectedRoute path="/users" component={Users} />
           <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
           <ProtectedRoute path="/createUser" component={CreateUser} />
