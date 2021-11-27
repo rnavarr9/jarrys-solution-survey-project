@@ -5,6 +5,10 @@ let SurveyTemplates = mongoose.Schema({
     title: String,
     type: String,
     questions: Array,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Users'
+    },
 },
 {
   collection: "surveyTemplates"

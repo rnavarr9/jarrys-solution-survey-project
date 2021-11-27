@@ -56,7 +56,6 @@ module.exports = (app) => {
   });
 
   app.post("/api/login", async (req, res) => {
-    console.log({reqBody: req.body})
     const { username, password } = req.body;
 
     const user = await Users.findOne({ username });
