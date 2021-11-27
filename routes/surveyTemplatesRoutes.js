@@ -5,12 +5,14 @@ const verifyJWT = require("../middlewares/verifyJWT");
 module.exports = (app) => {
   app.get(`/api/survey-templates`, async (req, res) => {
     try {
-      let surveyTemplates = (surveyTemplates = await SurveyTemplates.find());
+      let surveyTemplates = await SurveyTemplates.find();
+      console.log({surveyTemplates})
       return res.json(surveyTemplates);
     } catch (error) {
       return res.send(error);
     }
   });
+
   app.get(`/api/admin/survey-templates`, verifyJWT, async (req, res) => {
     const userIdInToken = res.locals.id;
     try {
