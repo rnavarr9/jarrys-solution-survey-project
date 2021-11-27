@@ -10,7 +10,7 @@ const NavBarMenuAuth = ({ handleLogout }) => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/users">Users</Link>
+          <Link to="/users">Profile</Link>
         </li>
         <li>
           <Link to="/surveyTemplates">Survey Templates</Link>
@@ -32,9 +32,9 @@ const NavBarMenuNoAuth = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
-        {/* <li>
-          <Link to="/surveyTemplates">Surveys</Link>
-        </li> */}
+        <li>
+          <Link to="/surveys">Surveys</Link>
+        </li>
         <li>
           <Link to="/login">Login</Link>
         </li>

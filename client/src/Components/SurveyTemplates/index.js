@@ -13,7 +13,7 @@ const SurveyTemplate = () => {
 
   const renderSurveyTemplates = () => {
     axios
-      .get(`/api/survey-templates`, {
+      .get(`/api/admin/survey-templates`, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
@@ -40,7 +40,7 @@ const SurveyTemplate = () => {
         console.log("Error deleting Survey Template!", err);
       });
     axios
-      .get(`/api/survey-templates`, {
+      .get(`/api/admin/survey-templates`, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
