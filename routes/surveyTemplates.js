@@ -1,5 +1,19 @@
-const mongoose = require('mongoose');
-const SurveyTemplates = mongoose.model('SurveyTemplates');
+const mongoose = require("mongoose");
+const SurveyTemplates = mongoose.model("SurveyTemplates");
+
+//creating relationship between user and surveyTemplate
+async function createRelationship(surveyTemplate, user) {
+  const surveyTemplateId = surveyTemplate._id;
+  const userId = user._id;
+  const surveyTemplateUser = {
+    surveyTemplate: surveyTemplateId,
+    user: userId,
+  };
+  const newSurveyTemplateUser = new SurveyTemplates(surveyTemplateUser);
+  await newSurveyTemplateUser.save();
+
+  return newSurveyTemplateUser;
+}
 
 module.exports = (app) => {
   app.get(`/api/survey-templates`, async (req, res) => {
@@ -36,8 +50,8 @@ module.exports = (app) => {
         console.log(err);
         res.end(err);
       } else {
-        console.log('Survey Template created!', surveyTemplate);
-        res.json({ success: true, msg: 'New Survey Template added!.' });
+        console.log("Survey Template created!", surveyTemplate);
+        res.json({ success: true, msg: "New Survey Template added!." });
       }
     });
   });
@@ -49,7 +63,7 @@ module.exports = (app) => {
         console.log(err);
         res.end(err);
       } else {
-        res.json({ success: true, msg: 'Survey Template deleted.' });
+        res.json({ success: true, msg: "Survey Template deleted." });
       }
     });
   });
@@ -62,7 +76,7 @@ module.exports = (app) => {
         console.log(err);
         res.end(err);
       } else {
-        res.json({ success: true, msg: '', surveyTemplate: itemToEdit });
+        res.json({ success: true, msg: "", surveyTemplate: itemToEdit });
       }
     });
   });
@@ -84,7 +98,7 @@ module.exports = (app) => {
       } else {
         res.json({
           success: true,
-          msg: 'Survey Template updated.',
+          msg: "Survey Template updated.",
           surveyTemplate: updatedSurveyTemplate,
         });
       }
