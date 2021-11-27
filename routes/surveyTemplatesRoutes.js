@@ -4,8 +4,10 @@ const verifyJWT = require('../middlewares/verifyJWT');
 
 module.exports = (app) => {
   app.get(`/api/survey-templates`, verifyJWT, async (req, res) => {
+    const userIdInToken = res.locals.id;
     try {
-      const surveyTemplates = await SurveyTemplates.find();
+      const surveyTemplates = await SurveyTemplates.find({user: {_id:userIdInToken}}).populate('user', 'username');
+      // const surveyTemplates = await SurveyTemplates.find().populate('user', 'username').select('type user');
       return res.json(surveyTemplates);
     } catch (error) {
       return res.send(error);
@@ -14,10 +16,8 @@ module.exports = (app) => {
 
   app.get(`/api/survey-templates/:id`, verifyJWT, async (req, res) => {
     let id = req.params.id;
-    console.log({ id });
     try {
       const surveyTemplate = await SurveyTemplates.findById(id).exec();
-      console.log({ surveyTemplate });
       return res.json(surveyTemplate);
     } catch (error) {
       return res.send(error);
@@ -29,8 +29,9 @@ module.exports = (app) => {
       title: req.body.title,
       type: req.body.type,
       questions: req.body.questions,
+      user: res.locals.id,
     });
-
+    
     SurveyTemplates.create(newSurveyTemplate, (err, surveyTemplate) => {
       if (err) {
         console.log(err);
