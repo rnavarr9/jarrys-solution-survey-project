@@ -56,15 +56,16 @@ module.exports = (app) => {
   });
 
   app.post("/api/login", async (req, res) => {
+    console.log({reqBody: req.body})
     const { username, password } = req.body;
 
-    const user = await Users.findOne({ where: { username } });
+    const user = await Users.findOne({ username });
 
     if (!user) res.json({ auth: false, msg: "User Doesn't Exist" });
     const userInSession = {
       id: user._id.toString(),
-      name: user.name,
       username: user.username,
+      password: user.password
     };
 
     const dbPassword = user.password;

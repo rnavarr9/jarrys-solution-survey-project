@@ -57,10 +57,10 @@ const [users, setUsers] = useState(null)
   }
   return (
     <div>
-      <h2>Users Table</h2>
-      <Link to="/createUser">
+      <h2>Users Profile</h2>
+      {/* <Link to="/createUser">
         <button>AddUser</button>
-      </Link>
+      </Link> */}
       <UserList users={users} deleteUser={handleDeleteUser}/>
     </div>
   );
