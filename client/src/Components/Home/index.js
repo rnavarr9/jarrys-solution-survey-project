@@ -1,11 +1,12 @@
-import React from 'react';
-
+import React, { useContext, useEffect } from "react";
+import Store from "../../Contexts/Store";
 const Home = () => {
-    return (
-        <div>
-          This is home page  
-        </div>
-    );
+  const { handleBgColor } = useContext(Store);
+
+  useEffect(() => {
+    handleBgColor("white");
+  }, []);
+  return <div>This is home page</div>;
 };
 
 export default Home;

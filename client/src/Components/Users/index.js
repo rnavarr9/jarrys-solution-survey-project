@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import UserList from "./UserList";
+import Store from "../../Contexts/Store";
 
 const Users = () => {
 const [users, setUsers] = useState(null)
+const { handleBgColor } = useContext(Store);
 
   useEffect(() => {
+    handleBgColor("white")
     renderUsers();
   }, []);
 
