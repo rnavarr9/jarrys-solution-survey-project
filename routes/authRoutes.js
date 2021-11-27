@@ -60,33 +60,36 @@ module.exports = (app) => {
 
     const user = await Users.findOne({ username });
 
-    if (!user) res.json({ auth: false, msg: "User Doesn't Exist" });
-    const userInSession = {
-      id: user._id.toString(),
-      username: user.username,
-      password: user.password
-    };
+    if (!user) {
+      res.json({ auth: false, msg: "User Doesn't Exist" });
+    } else {
+      const userInSession = {
+        id: user._id.toString(),
+        username: user.username,
+        password: user.password,
+      };
 
-    const dbPassword = user.password;
-    bcrypt.compare(password, dbPassword).then((match) => {
-      if (!match) {
-        res.json({
-          auth: false,
-          msg: "Wrong Email and Password Combination!",
-        });
-      } else {
-        const accessToken = jwt.sign({ ...userInSession }, "jwtSecret", {
-          expiresIn: 60 * 60 * 24,
-        });
+      const dbPassword = user.password;
+      bcrypt.compare(password, dbPassword).then((match) => {
+        if (!match) {
+          res.json({
+            auth: false,
+            msg: "Wrong Email and Password Combination!",
+          });
+        } else {
+          const accessToken = jwt.sign({ ...userInSession }, "jwtSecret", {
+            expiresIn: 60 * 60 * 24,
+          });
 
-        res.json({
-          auth: true,
-          token: accessToken,
-          result: userInSession,
-          msg: "User authenticated!",
-        });
-      }
-    });
+          res.json({
+            auth: true,
+            token: accessToken,
+            result: userInSession,
+            msg: "User authenticated!",
+          });
+        }
+      });
+    }
   });
 
   app.post("/api/logout", verifyJWT, (req, res) => {
