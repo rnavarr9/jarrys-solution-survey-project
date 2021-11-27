@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SurveyTemplateList from "./SurveyTemplateList";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Store from "../../Contexts/Store";
 
 const SurveyTemplate = () => {
   const [surveyTemplates, setSurveyTemplates] = useState(null);
+  const { handleBgColor } = useContext(Store);
+
   console.log(surveyTemplates);
 
   useEffect(() => {
     renderSurveyTemplates();
+    handleBgColor("white");
   }, []);
 
   const renderSurveyTemplates = () => {

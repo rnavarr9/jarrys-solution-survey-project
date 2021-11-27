@@ -4,6 +4,25 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Auth from "../../../Contexts/Auth";
 
+import { Card, Typography, TextField, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import clsx from "clsx";
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    padding: "1em",
+    maxWidth: "350px",
+  },
+  actions: {
+    display: "flex",
+    flexDirection: "column",
+    // alignItems: "center",
+  },
+  spacing: {
+    padding: "1em 0",
+  },
+}));
+
 const RegAuthForm = ({ login }) => {
   const { setAuth } = useContext(Auth);
   const [credentials, setCredentials] = useState({
@@ -12,6 +31,7 @@ const RegAuthForm = ({ login }) => {
     email: "",
   });
   const history = useHistory();
+  const classes = useStyles();
 
   const onChangeValue = (e) => {
     const { name, value } = e.target;
@@ -26,7 +46,7 @@ const RegAuthForm = ({ login }) => {
         localStorage.setItem("token", response.data.token);
         setAuth(response.data.auth);
         alert(`Welcome, ${credentials.username}`);
-        history.push("/");
+        history.push("/surveyTemplates");
       }
     });
   };
@@ -41,7 +61,7 @@ const RegAuthForm = ({ login }) => {
           localStorage.setItem("token", response.data.token);
           setAuth(response.data.auth);
           alert(response.data.msg);
-          history.push("/");
+          history.push("/surveyTemplates");
         }
       })
       .catch((err) => {
@@ -50,28 +70,28 @@ const RegAuthForm = ({ login }) => {
   };
 
   return (
-    <div>
-      <h1>{login ? regAuth.loginLabel : regAuth.registerLabel} Form</h1>
-      <div>
-        <label htmlFor="username">
-          <b>Username</b>
-        </label>
-        <input
-          type="text"
-          placeholder="Enter Username"
-          name="username"
-          required
-          onChange={onChangeValue}
-          value={credentials.username}
-        />
-      </div>
+    <Card elevation={3} className={clsx(classes.card, classes.actions)}>
+      <Typography align="center" variant="h4">
+        {login ? regAuth.loginLabel : regAuth.registerLabel}
+      </Typography>
+      <Typography variant="h6" className={classes.spacing}>
+        <b>Username</b>
+      </Typography>
+      <TextField
+        type="text"
+        placeholder="Enter Username"
+        name="username"
+        required
+        onChange={onChangeValue}
+        value={credentials.username}
+      />
 
-      {!login ? (
-        <div>
-          <label htmlFor="email">
+      {login ? null : (
+        <>
+          <Typography variant="h6" className={classes.spacing}>
             <b>Email</b>
-          </label>
-          <input
+          </Typography>
+          <TextField
             type="text"
             placeholder="Enter Email"
             name="email"
@@ -79,33 +99,35 @@ const RegAuthForm = ({ login }) => {
             onChange={onChangeValue}
             value={credentials.email}
           />
-        </div>
-      ) : null}
+        </>
+      )}
 
-      <div>
-        <label htmlFor="password">
-          <b>Password</b>
-        </label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          name="password"
-          required
-          onChange={onChangeValue}
-          value={credentials.password}
-        />
-      </div>
+      <Typography variant="h6" className={classes.spacing}>
+        <b>Password</b>
+      </Typography>
+      <TextField
+        type="password"
+        placeholder="Enter Password"
+        name="password"
+        required
+        onChange={onChangeValue}
+        value={credentials.password}
+      />
 
-      <p>
+      <Typography align="center" className={classes.spacing}>
         {login ? regAuth.noAccount : regAuth.hasAccount}
         <Link to={login ? regAuth.toRegister : regAuth.toLogin}>
           click here
         </Link>
-      </p>
-      <button onClick={login ? handleLogin : handleRegister}>
-        {login ? regAuth.loginLabel : regAuth.registerLabel}
-      </button>
-    </div>
+      </Typography>
+
+      <Button
+        variant="contained"
+        onClick={login ? handleLogin : handleRegister}
+      >
+        {login ? regAuth.buttonLogin : regAuth.buttonRegister}
+      </Button>
+    </Card>
   );
 };
 

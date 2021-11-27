@@ -1,57 +1,77 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../Contexts/Auth";
+import { AppBar, Button, Typography } from "@mui/material";
 
 const NavBarMenuAuth = ({ handleLogout }) => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/users">Profile</Link>
-        </li>
-        <li>
-          <Link to="/surveyTemplates">Survey Templates</Link>
-        </li>
-        <li>
-          <Link to="/home" onClick={handleLogout}>
-            Logout
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
+        <Link style={{ textDecoration: 'none' }} to="/">
+          <Button color="inherit">
+            <Typography color="white">Home</Typography>
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: 'none' }} to="/users">
+          <Button color="inherit">
+            <Typography color="white">Profile</Typography>
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: 'none' }} to="/surveyTemplates">
+          <Button color="inherit">
+            <Typography color="white">Survey Templates</Typography>
+          </Button>
+        </Link>
+      </div>
+      <div>
+        <Link style={{ textDecoration: 'none' }} to="/home" onClick={handleLogout}>
+          <Button color="inherit">
+            <Typography color="white">Log out</Typography>
+          </Button>
+        </Link>
+      </div>
+    </div>
   );
 };
 
 const NavBarMenuNoAuth = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/surveys">Surveys</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
-      </ul>
-    </nav>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
+        <Link style={{ textDecoration: 'none' }} to="/surveys">
+          <Button>
+            <Typography color="white">Surveys</Typography>
+          </Button>
+        </Link>
+      </div>
+      <div>
+        <Link style={{ textDecoration: 'none' }} to="/login">
+          <Button>
+            <Typography color="white">Login</Typography>
+          </Button>
+        </Link>
+        <Link style={{ textDecoration: 'none' }} to="/register">
+          <Button>
+            <Typography color="white">Register</Typography>
+          </Button>
+        </Link>
+      </div>
+    </div>
   );
 };
 
 const NavBarMenu = () => {
   const { auth, handleLogout } = useContext(Auth);
-  if (auth) {
-    return <NavBarMenuAuth handleLogout={handleLogout} />;
-  }
-  return <NavBarMenuNoAuth />;
+
+  return (
+    <AppBar style={{padding: ".5em 0 "}}>
+      {auth ? (
+        <NavBarMenuAuth handleLogout={handleLogout} />
+      ) : (
+        <NavBarMenuNoAuth />
+      )}
+    </AppBar>
+  );
 };
 
 export default NavBarMenu;

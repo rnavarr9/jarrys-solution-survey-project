@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Store from "../../Contexts/Store";
 
 const Surveys = () => {
+  const { handleBgColor } = useContext(Store);
   const [surveys, setSurveys] = useState(null);
-  console.log(surveys);
+
+  useEffect(() => {
+    handleBgColor("white");
+  }, []);
 
   useEffect(() => {
     renderSurveys();
@@ -22,7 +27,7 @@ const Surveys = () => {
   };
   console.log(surveys);
   if (surveys === null || surveys === undefined || !surveys.length) {
-    return (<div>No Surveys available</div>)
+    return <div>No Surveys available</div>;
   }
   return (
     <>

@@ -8,8 +8,9 @@ import {
   Register,
   ProtectedRoute,
   NavBarMenu,
-  Surveys
+  Surveys,
 } from "./Components";
+import { Spacing } from "./Components/Commons";
 import {
   DisplaySurveyTemplate,
   UpdateSurveyTemplate,
@@ -18,11 +19,13 @@ import {
 import { CreateUser, DisplayUser, UpdateUser } from "./Components/Users";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./Contexts/Auth";
+import { StoreProvider } from "./Contexts/Store";
 
 import axios from "axios";
 
 function App() {
   const [auth, setAuth] = useState(null);
+  const [bgColor, setBgColor] = useState("unset");
 
   useEffect(() => {
     userAuthenticated();
@@ -42,30 +45,57 @@ function App() {
     localStorage.removeItem("token");
     setAuth(false);
   };
+  const handleBgColor = (colorString) => {
+    setBgColor(colorString);
+  };
 
-  if(auth === null) {
-    return <div>...Loading</div>
+  if (auth === null) {
+    return <div>...Loading</div>;
   }
 
   return (
     <AuthProvider value={{ auth, setAuth, handleLogout }}>
-      <Router>
-        <NavBarMenu />
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/surveys" component={Surveys} />
-          <ProtectedRoute path="/users" component={Users} />
-          <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
-          <ProtectedRoute path="/createUser" component={CreateUser} />
-          <ProtectedRoute path="/updateUser/:id" component={UpdateUser} />
-          <ProtectedRoute path="/surveyTemplates" component={SurveyTemplates} />
-          <ProtectedRoute path="/displaySurveyTemplate/:id" component={DisplaySurveyTemplate} />
-          <ProtectedRoute path="/updateSurveyTemplate/:id" component={UpdateSurveyTemplate} />
-          <ProtectedRoute path="/createSurveyTemplate" component={CreateSurveyTemplate} />
-          <Route path="/" component={Home} />
-        </Switch>
-      </Router>
+      <StoreProvider value={{ handleBgColor }}>
+        <div
+          style={{
+            position: "absolute",
+            backgroundColor: bgColor,
+            height: "100vh",
+            width: "100vw",
+            zIndex: -10,
+          }}
+        ></div>
+        <Router>
+          <NavBarMenu />
+          <Spacing paddingTop={"7em"}/>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/surveys" component={Surveys} />
+            <ProtectedRoute path="/users" component={Users} />
+            <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
+            <ProtectedRoute path="/createUser" component={CreateUser} />
+            <ProtectedRoute path="/updateUser/:id" component={UpdateUser} />
+            <ProtectedRoute
+              path="/surveyTemplates"
+              component={SurveyTemplates}
+            />
+            <ProtectedRoute
+              path="/displaySurveyTemplate/:id"
+              component={DisplaySurveyTemplate}
+            />
+            <ProtectedRoute
+              path="/updateSurveyTemplate/:id"
+              component={UpdateSurveyTemplate}
+            />
+            <ProtectedRoute
+              path="/createSurveyTemplate"
+              component={CreateSurveyTemplate}
+            />
+            <Route path="/" component={auth ? Surveys : Login} />
+          </Switch>
+        </Router>
+      </StoreProvider>
     </AuthProvider>
   );
 }
