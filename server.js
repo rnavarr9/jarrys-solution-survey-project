@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 //import your models
 require("./models/surveyTemplate");
 require("./models/user")
+require("./models/survey")
 
 mongoose
   .connect(
@@ -45,6 +46,7 @@ mongoose
 require("./routes/surveyTemplatesRoutes.js")(app);
 require("./routes/userRoutes.js")(app);
 require("./routes/authRoutes.js")(app);
+require("./routes/surveyRoutes.js")(app);
 
 app.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "client", "build", "index.html"));
