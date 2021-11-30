@@ -11,6 +11,7 @@ import {
   Surveys,
 } from "./Components";
 import { Spacing } from "./Components/Commons";
+import { Survey } from "./Components/Surveys";
 import {
   DisplaySurveyTemplate,
   UpdateSurveyTemplate,
@@ -67,7 +68,7 @@ function App() {
         ></div>
         <Router>
           <NavBarMenu />
-          <Spacing paddingTop={"7em"}/>
+          <Spacing paddingTop={"7em"} />
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
@@ -92,6 +93,7 @@ function App() {
               path="/createSurveyTemplate"
               component={CreateSurveyTemplate}
             />
+            <Route path="/survey/:id" component={Survey} />
             <Route path="/" component={auth ? Surveys : Login} />
           </Switch>
         </Router>
