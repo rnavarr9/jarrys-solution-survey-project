@@ -1,13 +1,19 @@
 const mongoose = require("mongoose");
 const Surveys = mongoose.model("Surveys");
+const Users = mongoose.model("Users");
 
 module.exports = (app) => {
   app.post(`/api/survey/add`, async (req, res) => {
+    const adminId = req.body.user;
+    const user = await Users.findById(adminId);
+    const surveyOwner = { ownerId: user._id, username: user.username };
+
     let newSurvey = Surveys({
       title: req.body.title,
       type: req.body.type,
       questions: req.body.questions,
-      user: res.locals.id,
+      surveyOwner,
+      templateId: req.body._id,
     });
 
     Surveys.create(newSurvey, (err, surveyTemplate) => {

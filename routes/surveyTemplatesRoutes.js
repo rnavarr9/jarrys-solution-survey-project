@@ -26,7 +26,17 @@ module.exports = (app) => {
     }
   });
 
-  app.get(`/api/survey-templates/:id`, verifyJWT, async (req, res) => {
+  app.get(`/api/admin/survey-templates/:id`, verifyJWT, async (req, res) => {
+    let id = req.params.id;
+    try {
+      const surveyTemplate = await SurveyTemplates.findById(id).exec();
+      return res.json(surveyTemplate);
+    } catch (error) {
+      return res.send(error);
+    }
+  });
+
+  app.get(`/api/survey-templates/:id`, async (req, res) => {
     let id = req.params.id;
     try {
       const surveyTemplate = await SurveyTemplates.findById(id).exec();
