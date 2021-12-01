@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { openAPI } from "../../apis";
 import { Box, Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
+import { Wrapper } from "../Commons";
 
 const Survey = () => {
   const { id } = useParams();
@@ -45,7 +46,7 @@ const Survey = () => {
   }
 
   return (
-    <div>
+    <Wrapper>
       <Typography variant="h4">{localSurvey.title}</Typography>
       <Box mt={5} />
       <ShortAnswer
@@ -53,7 +54,7 @@ const Survey = () => {
         onChange={onChangeValueShortAnswer}
         onSubmit={onSubmit}
       />
-    </div>
+    </Wrapper>
   );
 };
 

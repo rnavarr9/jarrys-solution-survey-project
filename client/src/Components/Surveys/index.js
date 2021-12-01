@@ -2,6 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Store from "../../Contexts/Store";
+import {
+  Box,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  Typography,
+} from "@mui/material";
+import { Wrapper } from "../Commons";
+import BallotIcon from "@mui/icons-material/Ballot";
 
 const Surveys = () => {
   const { handleBgColor } = useContext(Store);
@@ -29,24 +39,37 @@ const Surveys = () => {
   if (surveys === null || surveys === undefined || !surveys.length) {
     return <div>No Surveys available</div>;
   }
-  console.log({surveys})
+
   return (
-    <>
+    <Wrapper>
       <h1>Available Surveys</h1>
-      {surveys.map((s, idx) => (
-        <div key={idx}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
+      <List>
+        {surveys.map((s, idx) => (
+          <Link
+            to={`survey/${s._id}`}
+            style={{ textDecoration: "none", color: "black" }}
           >
-            <h3>{s.title}</h3>&nbsp;&nbsp;
-            <Link to={`survey/${s._id}`}>Answer</Link>
-          </div>
-        </div>
-      ))}
-    </>
+            <ListItem key={idx}>
+              <ListItemButton>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <BallotIcon />
+                  <Box mx={2}/>
+                  <Typography variant="h6" my={1}>
+                    {s.title}
+                  </Typography>
+                </div>
+              </ListItemButton>
+            </ListItem>
+            <Divider variant="fullWidth" component="li" />
+          </Link>
+        ))}
+      </List>
+    </Wrapper>
   );
 };
 

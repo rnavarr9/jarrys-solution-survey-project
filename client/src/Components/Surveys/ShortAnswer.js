@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
   return (
-    <div>
+    <Grid container>
       {typeof localSurvey.questions === "object"
         ? localSurvey.questions.map((q, index) => (
             <div key={index}>
@@ -24,10 +25,21 @@ const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
             </div>
           ))
         : null}
-      <Button variant="contained" onClick={onSubmit}>
-        Send Survey
-      </Button>
-    </div>
+      <Grid item xs={12} container>
+        <Grid item xs={2}>
+          <Button variant="contained" onClick={onSubmit}>
+            Send Survey
+          </Button>
+        </Grid>
+        <Grid item xs={2}>
+          <Link to="/surveys" style={{ textDecoration: "none" }}>
+            <Button variant="contained">
+              Back to Surveys
+            </Button>
+          </Link>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
