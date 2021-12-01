@@ -25,15 +25,16 @@ const Surveys = () => {
         console.log("Error rendering List of surveys!", err);
       });
   };
-  console.log(surveys);
+
   if (surveys === null || surveys === undefined || !surveys.length) {
     return <div>No Surveys available</div>;
   }
+  console.log({surveys})
   return (
     <>
       <h1>Available Surveys</h1>
-      {surveys.map((s) => (
-        <>
+      {surveys.map((s, idx) => (
+        <div key={idx}>
           <div
             style={{
               display: "flex",
@@ -41,15 +42,15 @@ const Surveys = () => {
             }}
           >
             <h3>{s.title}</h3>&nbsp;&nbsp;
-            <Link>Answer</Link>
+            <Link to={`survey/${s._id}`}>Answer</Link>
           </div>
-        </>
+        </div>
       ))}
     </>
   );
 };
 
 export default Surveys;
-// export { default as DisplaySurveyTemplate } from "./DisplaySurveyTemplate";
+export { default as Survey } from "./Survey";
 // export { default as UpdateSurveyTemplate } from "./UpdateSurveyTemplate";
 // export { default as CreateSurveyTemplate } from "./CreateSurveyTemplate";

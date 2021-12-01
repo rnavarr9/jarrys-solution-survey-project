@@ -6,14 +6,15 @@ let Surveys = mongoose.Schema(
     title: String,
     type: String,
     questions: Array,
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
+    surveyOwner: {
+      ownerId: String,
+      username: String,
     },
-    template: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "SurveyTemplates",
-    },
+    templateId: String
+    // template: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "SurveyTemplates",
+    // },
   },
   {
     collection: "surveys",
