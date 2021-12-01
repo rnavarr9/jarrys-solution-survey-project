@@ -10,7 +10,6 @@ import {
   NavBarMenu,
   Surveys,
 } from "./Components";
-import { Spacing } from "./Components/Commons";
 import { Survey } from "./Components/Surveys";
 import {
   DisplaySurveyTemplate,
@@ -61,14 +60,14 @@ function App() {
           style={{
             position: "absolute",
             backgroundColor: bgColor,
-            height: "100vh",
+            height: "100%",
             width: "100vw",
             zIndex: -10,
+            overflow: "hidden"
           }}
         ></div>
         <Router>
           <NavBarMenu />
-          <Spacing paddingTop={"7em"} />
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
