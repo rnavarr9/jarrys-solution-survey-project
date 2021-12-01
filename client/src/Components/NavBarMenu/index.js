@@ -7,11 +7,11 @@ const NavBarMenuAuth = ({ handleLogout }) => {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <div>
-        <Link style={{ textDecoration: 'none' }} to="/">
+        {/* <Link style={{ textDecoration: 'none' }} to="/">
           <Button color="inherit">
             <Typography color="white">Home</Typography>
           </Button>
-        </Link>
+        </Link> */}
         <Link style={{ textDecoration: 'none' }} to="/users">
           <Button color="inherit">
             <Typography color="white">Profile</Typography>
