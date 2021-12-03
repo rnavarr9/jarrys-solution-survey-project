@@ -3,12 +3,13 @@ import SurveyTemplateList from "./SurveyTemplateList";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Store from "../../Contexts/Store";
+import { Wrapper } from "../Commons";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import BallotIcon from "@mui/icons-material/Ballot";
 
 const SurveyTemplate = () => {
   const [surveyTemplates, setSurveyTemplates] = useState(null);
   const { handleBgColor } = useContext(Store);
-
-  console.log(surveyTemplates);
 
   useEffect(() => {
     renderSurveyTemplates();
@@ -38,7 +39,7 @@ const SurveyTemplate = () => {
         },
       })
       .then((res) => {
-        console.log("Survey Template deleted!");
+        alert("Survey Template deleted!");
       })
       .catch((err) => {
         console.log("Error deleting Survey Template!", err);
@@ -58,15 +59,28 @@ const SurveyTemplate = () => {
   };
 
   return (
-    <>
-      <Link to="/createSurveyTemplate">
-        <button>Create Survey Template</button>
-      </Link>
-      <SurveyTemplateList
-        surveyTemplates={surveyTemplates}
-        deleteSurveyTemplate={handleDeleteSurveyTemplate}
-      />
-    </>
+    <Wrapper>
+      <Grid container alignItems="center">
+        <Grid item xs={5}>
+          <h1>Survey Templates' list</h1>
+        </Grid>
+        <Grid item xs={2}>
+          <Link to="/createSurveyTemplate" style={{ textDecoration: "none" }}>
+            <Button variant="outlined">
+              <BallotIcon />
+              <Box px={1}/>
+              <Typography variant="h7">Add Template</Typography> 
+            </Button>
+          </Link>
+        </Grid>
+        <Grid item xs={12}>
+          <SurveyTemplateList
+            surveyTemplates={surveyTemplates}
+            deleteSurveyTemplate={handleDeleteSurveyTemplate}
+          />
+        </Grid>
+      </Grid>
+    </Wrapper>
   );
 };
 

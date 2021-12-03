@@ -95,7 +95,7 @@ const CreateSurveyTemplate = () => {
       })
       .then((res) => {
         console.log({ res });
-        alert("Survey Template Created!")
+        alert("Survey Template Created!");
         resetLocalVariables();
         history.push("/surveyTemplates");
       })
@@ -130,8 +130,8 @@ const CreateSurveyTemplate = () => {
         <Grid item xs={12}>
           <Typography variant="h4">Create a Survey Template</Typography>
         </Grid>
-        <Grid item xs={12} justifyContent container spacing={3}>
-          <Grid item>
+        <Grid item xs={12} container spacing={1}>
+          <Grid item xs={3}>
             <FormControl>
               <InputLabel id="surveyTemplateLabel">Survey Template</InputLabel>
               <Select
@@ -155,7 +155,7 @@ const CreateSurveyTemplate = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
               InputLabelProps={{ shrink: true }}
               id="surveyTemplateTitle"
@@ -167,24 +167,22 @@ const CreateSurveyTemplate = () => {
               onChange={handleChangeValueSurveyTemplate}
             />
           </Grid>
-          <>
-            <Grid item alignSelf="center">
-              <button onClick={handleCreateQuestion} className={classes.button}>
-                + Add Question
-              </button>
-            </Grid>
-            <Grid item xs={3} />
-            <Grid item alignSelf="center">
-              <Button
-                variant="outlined"
-                onClick={handleSaveSurveyTemplate}
-                disabled={!questions.length}
-              >
-                <SaveAsIcon /> <Box px={1} />
-                Save Survey Template
-              </Button>
-            </Grid>
-          </>
+          <Grid item alignSelf="center" xs={3}>
+            <button onClick={handleCreateQuestion} className={classes.button}>
+              + Add Question
+            </button>
+          </Grid>
+          <Grid item xs={1} />
+          <Grid item alignSelf="center" justifyContent="flex-start" xs={3}>
+            <Button
+              variant="outlined"
+              onClick={handleSaveSurveyTemplate}
+              disabled={!questions.length}
+            >
+              <SaveAsIcon /> <Box px={1} />
+              Save Template
+            </Button>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <Divider py={1} />

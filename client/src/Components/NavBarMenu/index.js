@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../Contexts/Auth";
-import { AppBar, Button, Typography } from "@mui/material";
+import { AppBar, Box, Button, Typography } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const NavBarMenuAuth = ({ handleLogout }) => {
   return (
@@ -12,19 +13,24 @@ const NavBarMenuAuth = ({ handleLogout }) => {
             <Typography color="white">Home</Typography>
           </Button>
         </Link> */}
-        <Link style={{ textDecoration: 'none' }} to="/users">
+        <Link style={{ textDecoration: "none" }} to="/users">
           <Button color="inherit">
+            <AccountCircleIcon style={{color:'white'}}/>
             <Typography color="white">Profile</Typography>
           </Button>
         </Link>
-        <Link style={{ textDecoration: 'none' }} to="/surveyTemplates">
+        <Link style={{ textDecoration: "none" }} to="/surveyTemplates">
           <Button color="inherit">
             <Typography color="white">Survey Templates</Typography>
           </Button>
         </Link>
       </div>
       <div>
-        <Link style={{ textDecoration: 'none' }} to="/home" onClick={handleLogout}>
+        <Link
+          style={{ textDecoration: "none" }}
+          to="/home"
+          onClick={handleLogout}
+        >
           <Button color="inherit">
             <Typography color="white">Log out</Typography>
           </Button>
@@ -38,19 +44,19 @@ const NavBarMenuNoAuth = () => {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <div>
-        <Link style={{ textDecoration: 'none' }} to="/surveys">
+        <Link style={{ textDecoration: "none" }} to="/surveys">
           <Button>
             <Typography color="white">Surveys</Typography>
           </Button>
         </Link>
       </div>
       <div>
-        <Link style={{ textDecoration: 'none' }} to="/login">
+        <Link style={{ textDecoration: "none" }} to="/login">
           <Button>
             <Typography color="white">Login</Typography>
           </Button>
         </Link>
-        <Link style={{ textDecoration: 'none' }} to="/register">
+        <Link style={{ textDecoration: "none" }} to="/register">
           <Button>
             <Typography color="white">Register</Typography>
           </Button>
@@ -64,7 +70,7 @@ const NavBarMenu = () => {
   const { auth, handleLogout } = useContext(Auth);
 
   return (
-    <AppBar style={{padding: ".5em 0 "}}>
+    <AppBar style={{ padding: ".5em 0 " }}>
       {auth ? (
         <NavBarMenuAuth handleLogout={handleLogout} />
       ) : (
