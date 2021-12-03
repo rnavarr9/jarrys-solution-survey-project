@@ -1,37 +1,67 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
-const newSurveyTemplate = {
-  type: "",
-  title: "",
-};
-
-const newShortAnswerQuestion = {
-  type: "shortAnswerQuestion", //for db purposes
-  question: "",
-  answer: "",
-};
+import { Wrapper, YesNoQuestion } from "../Commons";
+import { ShortAnswerQuestion } from "../Commons";
+import {
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Button,
+  Box,
+  Grid,
+  TextField,
+  Typography,
+  Divider,
+  OutlinedInput,
+} from "@mui/material";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
+import { createSurveyTemplateStyles } from "../../styles";
+import { questionTypes } from "../../Helpers/constants";
+import {
+  newSurveyTemplate,
+  newShortAnswerQuestionObj,
+  newYesNoQuestionObj,
+  multipleChoiceQuestionObj,
+} from "../../Helpers/initializedObjects";
 
 const CreateSurveyTemplate = () => {
   const [surveyTemplate, setSurveyTemplate] = useState(newSurveyTemplate);
-  const [step, setStep] = useState(0);
-  const [surveyTemplateType, setSurveyTemplateType] = useState("shortAnswer");
+  const [surveyTemplateType, setSurveyTemplateType] = useState();
   const [questions, setQuestions] = useState([]);
   const history = useHistory();
+  const classes = createSurveyTemplateStyles();
 
-  const handleSelectTemplate = (e) => {
-    setSurveyTemplate({ ...surveyTemplate, type: surveyTemplateType });
-    setStep(1);
+  const handleSelectTemplate = (value) => {
+    setSurveyTemplate({ ...surveyTemplate, type: value });
   };
 
   const handleCreateQuestion = () => {
-    let newQuestion = JSON.parse(JSON.stringify(newShortAnswerQuestion));
+    let newQuestion;
+
+    switch (surveyTemplateType) {
+      case questionTypes.SHORT_ANSWER:
+        newQuestion = JSON.parse(JSON.stringify(newShortAnswerQuestionObj));
+        break;
+      case questionTypes.AGREE_DISAGREE:
+        newQuestion = JSON.parse(JSON.stringify(newYesNoQuestionObj));
+        break;
+
+      case questionTypes.MUTIPLE_CHOICE:
+        newQuestion = JSON.parse(JSON.stringify(multipleChoiceQuestionObj));
+        break;
+
+      default:
+        newQuestion = JSON.parse(JSON.stringify(newShortAnswerQuestionObj));
+    }
     setQuestions([...questions, newQuestion]);
   };
 
   const handleOnChangeSurveyTemplateType = (e) => {
-    setSurveyTemplateType(e.target.value);
+    const { value } = e.target;
+    setSurveyTemplateType(value);
+    handleSelectTemplate(value);
   };
 
   const handleChangeValueSurveyTemplate = (e) => {
@@ -46,7 +76,6 @@ const CreateSurveyTemplate = () => {
 
     const newQuestions = [...questions];
     newQuestions[index][name] = value;
-    console.log(newQuestions);
     setQuestions([...newQuestions]);
   };
 
@@ -58,7 +87,6 @@ const CreateSurveyTemplate = () => {
 
   const handleSaveSurveyTemplate = () => {
     let newSurveyTemplate = { ...surveyTemplate, questions };
-    console.log("localSurveyTemplate", newSurveyTemplate);
     axios
       .post(`/api/survey-templates/add`, newSurveyTemplate, {
         headers: {
@@ -67,91 +95,113 @@ const CreateSurveyTemplate = () => {
       })
       .then((res) => {
         console.log({ res });
-        setQuestions([]);
-        setSurveyTemplate(newSurveyTemplate);
+        alert("Survey Template Created!")
+        resetLocalVariables();
         history.push("/surveyTemplates");
       })
       .catch((err) => {
         console.log("ERR", err);
       });
-    setSurveyTemplate(newSurveyTemplate);
+    resetLocalVariables();
   };
 
-  if (step === 0) {
-    return (
-      <>
-        <p>Create Survey Template component</p>
-        <br />
-        <label htmlFor="surveyTemplate">Choose a Survey Template:</label>
-        <br />
-        <select
-          name="surveyTemplate"
-          id="surveyTemplate"
-          onChange={handleOnChangeSurveyTemplateType}
-        >
-          {/* <option value="yesno">Yes/No questions</option> */}
-          {/* <option value="multiple">Multiple choise questions </option> */}
-          <option value="shortAnswer">Short Answer questions</option>
-        </select>
-        <button onClick={handleSelectTemplate}>Select</button>
-      </>
-    );
-  } else if (step === 1) {
-    return (
-      <>
-        <p>Create Survey Template component</p>
-        <br />
-        <label htmlFor="surveyTemplateTitle">Choose a title:</label>
-        <input
-          id="surveyTemplateTitle"
-          type="text"
-          name="title"
-          value={surveyTemplate.title}
-          placeholder="select a title"
-          onChange={handleChangeValueSurveyTemplate}
-        />
-        <br />
-        <button onClick={handleCreateQuestion}>Add Question</button>
-        {questions.map((q, index) => (
-          <div key={index}>
-            <label htmlFor={index}>{`Question ${index + 1}: `}</label>
-            <input
-              id={index}
-              type="text"
-              name="question"
-              value={q.question}
-              placeholder="Question in max 80 characters"
-              onChange={(e) => handleChangeValueQuestion(e, index)}
-            />
-            <br />
-            <label htmlFor={index}>{`Answer ${index + 1}: `}</label>
-            <input
-              id={index}
-              type="text"
-              name="answer"
-              value={q.answer}
-              placeholder="Answer in max 280 characters"
-              onChange={(e) => handleChangeValueQuestion(e, index)}
-              disabled={true}
-            />
-            <button onClick={(e) => handleRemoveQuestion(e, index)}>
-              Remove
-            </button>
-          </div>
-        ))}
-        <br />
-        <br />
-        <br />
-        <br />
-        <button onClick={handleSaveSurveyTemplate}>Save Survey Template</button>
-      </>
-    );
-  }
+  const resetLocalVariables = () => {
+    setQuestions([]);
+    setSurveyTemplate(newSurveyTemplate);
+    setSurveyTemplateType();
+  };
+
+  const renderUnitQuestion = (inputArgs) => {
+    switch (surveyTemplateType) {
+      case questionTypes.AGREE_DISAGREE:
+        return <YesNoQuestion {...inputArgs} />;
+      case questionTypes.SHORT_ANSWER:
+        return <ShortAnswerQuestion {...inputArgs} />;
+      case questionTypes.MUTIPLE_CHOICE:
+        return <ShortAnswerQuestion {...inputArgs} />;
+      default:
+        return <ShortAnswerQuestion {...inputArgs} />;
+    }
+  };
+
   return (
-    <>
-      <p>Create Survey Template component</p>
-      {/* <div>{renderQuestions()}</div> */}
-    </>
+    <Wrapper>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h4">Create a Survey Template</Typography>
+        </Grid>
+        <Grid item xs={12} justifyContent container spacing={3}>
+          <Grid item>
+            <FormControl>
+              <InputLabel id="surveyTemplateLabel">Survey Template</InputLabel>
+              <Select
+                labelId="surveyTemplate-label"
+                id="surveyTemplate"
+                value={surveyTemplateType}
+                label="Survey Template"
+                onChange={handleOnChangeSurveyTemplateType}
+                className={classes.selectContainer}
+                input={<OutlinedInput label="Select a Template" />}
+              >
+                <MenuItem value={questionTypes.AGREE_DISAGREE}>
+                  Agree/Disagree
+                </MenuItem>
+                <MenuItem value={questionTypes.MUTIPLE_CHOICE}>
+                  Multiple choice
+                </MenuItem>
+                <MenuItem value={questionTypes.SHORT_ANSWER}>
+                  Short Answer
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <TextField
+              InputLabelProps={{ shrink: true }}
+              id="surveyTemplateTitle"
+              label="Select a Survey Title"
+              variant="outlined"
+              name="title"
+              value={surveyTemplate.title}
+              placeholder="Survey Title"
+              onChange={handleChangeValueSurveyTemplate}
+            />
+          </Grid>
+          <>
+            <Grid item alignSelf="center">
+              <button onClick={handleCreateQuestion} className={classes.button}>
+                + Add Question
+              </button>
+            </Grid>
+            <Grid item xs={3} />
+            <Grid item alignSelf="center">
+              <Button
+                variant="outlined"
+                onClick={handleSaveSurveyTemplate}
+                disabled={!questions.length}
+              >
+                <SaveAsIcon /> <Box px={1} />
+                Save Survey Template
+              </Button>
+            </Grid>
+          </>
+        </Grid>
+        <Grid item xs={12}>
+          <Divider py={1} />
+        </Grid>
+
+        {questions.map((questionObj, index) => (
+          <Grid item xs={12} key={index}>
+            {renderUnitQuestion({
+              questionObj,
+              index,
+              handleChangeValueQuestion,
+              handleRemoveQuestion,
+            })}
+          </Grid>
+        ))}
+      </Grid>
+    </Wrapper>
   );
 };
 
