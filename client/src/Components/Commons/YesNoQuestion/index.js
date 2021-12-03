@@ -53,7 +53,7 @@ console.log({question, answer})
             <FormControlLabel
               value={false}
               control={<Radio />}
-              label="Desagree"
+              label="Disagree"
               onChange={handleChange}
               disabled
             />

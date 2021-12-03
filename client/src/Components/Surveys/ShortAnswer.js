@@ -9,13 +9,13 @@ const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
         ? localSurvey.questions.map((q, index) => (
             <div key={index}>
               <div>
-                <Typography id={index} name="question">
+                <Typography id={toString(index)} name="question">
                   {`${index + 1} - ${q.question}`}
                 </Typography>
                 <Box mt={1} />
                 <TextField
                   multiline
-                  id={index}
+                  id={toString(index)}
                   name="answer"
                   value={q.answer}
                   onChange={(e) => onChange(e, index)}

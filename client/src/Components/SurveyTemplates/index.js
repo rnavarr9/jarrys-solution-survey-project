@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import SurveyTemplateList from "./SurveyTemplateList";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Store from "../../Contexts/Store";
 import { Wrapper } from "../Commons";
 import { Box, Button, Grid, Typography } from "@mui/material";
@@ -10,6 +10,7 @@ import BallotIcon from "@mui/icons-material/Ballot";
 const SurveyTemplate = () => {
   const [surveyTemplates, setSurveyTemplates] = useState(null);
   const { handleBgColor } = useContext(Store);
+  const history = useHistory();
 
   useEffect(() => {
     renderSurveyTemplates();
@@ -40,6 +41,7 @@ const SurveyTemplate = () => {
       })
       .then((res) => {
         alert("Survey Template deleted!");
+        history.push("/surveyTemplates")
       })
       .catch((err) => {
         console.log("Error deleting Survey Template!", err);
