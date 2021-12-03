@@ -7,22 +7,24 @@ const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
     <Grid container>
       {typeof localSurvey.questions === "object"
         ? localSurvey.questions.map((q, index) => (
-            <div key={index}>
-              <div>
-                <Typography id={toString(index)} name="question">
-                  {`${index + 1} - ${q.question}`}
-                </Typography>
-                <Box mt={1} />
-                <TextField
-                  multiline
-                  id={toString(index)}
-                  name="answer"
-                  value={q.answer}
-                  onChange={(e) => onChange(e, index)}
-                />
-                <Box mt={4} />
+            <Grid key={index} item xs={12}>
+              <div key={index}>
+                <div>
+                  <Typography id={toString(index)} name="question">
+                    {`${index + 1} - ${q.question}`}
+                  </Typography>
+                  <Box mt={1} />
+                  <TextField
+                    multiline
+                    id={toString(index)}
+                    name="answer"
+                    value={q.answer}
+                    onChange={(e) => onChange(e, index)}
+                  />
+                  <Box mt={4} />
+                </div>
               </div>
-            </div>
+            </Grid>
           ))
         : null}
       <Grid item xs={12} container>
@@ -33,9 +35,7 @@ const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
         </Grid>
         <Grid item xs={2}>
           <Link to="/surveys" style={{ textDecoration: "none" }}>
-            <Button variant="contained">
-              Back to Surveys
-            </Button>
+            <Button variant="contained">Back to Surveys</Button>
           </Link>
         </Grid>
       </Grid>
