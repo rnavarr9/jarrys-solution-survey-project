@@ -2,13 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import UserList from "./UserList";
 import Store from "../../Contexts/Store";
+import { Wrapper } from "../Commons";
+import { Box, Typography } from "@mui/material";
 
 const Users = () => {
-const [users, setUsers] = useState(null)
-const { handleBgColor } = useContext(Store);
+  const [users, setUsers] = useState(null);
+  const { handleBgColor } = useContext(Store);
 
   useEffect(() => {
-    handleBgColor("white")
+    handleBgColor("white");
     renderUsers();
   }, []);
 
@@ -58,17 +60,18 @@ const { handleBgColor } = useContext(Store);
     return <div>...Loading</div>;
   }
   return (
-    <div>
-      <h2>Users Profile</h2>
+    <Wrapper>
+      <Typography variant="h4">User Profile</Typography>
+      <Box pt={2} />
       {/* <Link to="/createUser">
         <button>AddUser</button>
       </Link> */}
-      <UserList users={users} deleteUser={handleDeleteUser}/>
-    </div>
+      <UserList users={users} deleteUser={handleDeleteUser} />
+    </Wrapper>
   );
 };
 
 export default Users;
-export {default as DisplayUser } from "./DisplayUser";
-export {default as CreateUser } from "./CreateUser";
-export {default as UpdateUser } from "./UpdateUser";
+export { default as DisplayUser } from "./DisplayUser";
+export { default as CreateUser } from "./CreateUser";
+export { default as UpdateUser } from "./UpdateUser";
