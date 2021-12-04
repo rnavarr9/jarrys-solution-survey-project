@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Wrapper } from "../Commons";
+import { Box, Typography } from "@mui/material";
 
 const UpdateUser = () => {
   const [localUser, setLocalUser] = useState(null);
@@ -54,8 +56,9 @@ const UpdateUser = () => {
   }
 
   return (
-    <div>
-      <h1>Update User page</h1>
+    <Wrapper>
+      <Typography variant="h4">Update User page</Typography>
+      <Box pt={2}/>
       {/* <div>
         <label>Name</label>
         <input
@@ -97,7 +100,7 @@ const UpdateUser = () => {
       <Link to="/users">
         <button>Back</button>
       </Link>
-    </div>
+    </Wrapper>
   );
 };
 

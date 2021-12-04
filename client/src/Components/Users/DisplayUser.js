@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Wrapper } from "../Commons";
+import { Box, Grid, Typography, Button } from "@mui/material";
 
 const DisplayUser = () => {
   const { id } = useParams();
@@ -33,36 +35,39 @@ const DisplayUser = () => {
   if (!localUser) {
     return <div>...Loading user data</div>;
   }
-
+  console.log({ localUser });
   return (
-    <>
-      <h1>User Profile</h1>
+    <Wrapper>
+      <Typography variant="h4">User Profile</Typography>
+      <Box pt={2} />
+      <Grid container display="flex" flexDirection="column" spacing={2}>
+        <Grid item={12} display="flex" alignItems="center">
+          <Typography variant="h6">Name: </Typography>
+          <Box px={3} />
+          <Typography variant="h7">
+            {localUser.name
+              ? localUser.name
+              : "<< Update and Register your name >>"}
+          </Typography>
+        </Grid>
 
-      <div style={{ display: "flex" }}>
-        <label>
-          <b>Name:</b>{" "}
-        </label>
-        <span>{localUser.name}</span>
-      </div>
-
-      <div style={{ display: "flex" }}>
-        <label>
-          <b>Username:</b>{" "}
-        </label>
-        <span>{localUser.username}</span>
-      </div>
-
-      <div style={{ display: "flex" }}>
-        <label>
-          <b>Email:</b>{" "}
-        </label>
-        <span>{localUser.email}</span>
-      </div>
-      <br />
-      <Link to="/users">
-        <button>Back</button>
-      </Link>
-    </>
+        <Grid item={12} display="flex" alignItems="center">
+          <Typography variant="h6">Username: </Typography>
+          <Box px={3} />
+          <Typography variant="h7">{localUser.username}</Typography>
+        </Grid>
+        <Grid item={12} display="flex" alignItems="center">
+          <Typography variant="h6">Email: </Typography>
+          <Box px={3} />
+          <Typography variant="h7">{localUser.email}</Typography>
+        </Grid>
+        <Grid item={12} display="flex" alignItems="center">
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <Button variant="outlined">Back</Button>
+          </Link>
+        </Grid>
+      </Grid>
+    </Wrapper>
   );
 };
 

@@ -7,7 +7,9 @@ module.exports = (app) => {
   app.get(`/api/users`, verifyJWT, async (req, res) => {
     const userId = res.locals.id;
     try {
-      const users = await Users.findById(userId);
+      const users = await Users.findById(userId).select('-password');
+      console.log({users})
+      
       return res.json([users]);
     } catch (error) {
       return res.send(error);
@@ -17,8 +19,8 @@ module.exports = (app) => {
   app.get(`/api/users/:id`, verifyJWT, async (req, res) => {
     let id = req.params.id;
     try {
-      const user = await Users.findById(id);
-      console.log({ user });
+      const user = await Users.findById(id).select('-password');
+      
       return res.json(user);
     } catch (error) {
       return res.send(error);
