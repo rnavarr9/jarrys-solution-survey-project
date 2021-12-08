@@ -44,7 +44,7 @@ const Surveys = () => {
     <Wrapper>
       <h1>Available Surveys</h1>
       <List>
-        {surveys.map((s, idx) => (
+        {surveys.filter(rs => rs.active).map((s, idx) => (
           <Link
             to={`survey/${s._id}`}
             style={{ textDecoration: "none", color: "black" }}
