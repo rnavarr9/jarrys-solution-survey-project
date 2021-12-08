@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { UPDATE } from "../../../Helpers/constants";
+import {
+  Box,
+  Button,
+  Switch,
+  Grid,
+  Stack,
+  Typography,
+  TextField,
+} from "@mui/material";
 
 const ShortAnswerTemplate = ({ id, action, history }) => {
   const [surveyTemplate, setSurveyTemplate] = useState(null);
 
-  console.log({ surveyTemplate, id });
   useEffect(() => {
     renderSurveyTemplate();
   }, []);
@@ -55,8 +63,13 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
   };
 
   const handleChangeValueSurveyTemplate = (e) => {
-    const value = e.target.value;
     const name = e.target.name;
+    let value = "";
+    if (name === "active") {
+      value = e.target.checked;
+    } else {
+      value = e.target.value;
+    }
     setSurveyTemplate({ ...surveyTemplate, [name]: value });
   };
 
@@ -64,67 +77,90 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
     return <div>...Loading</div>;
   }
   return (
-    <div>
-      {action === UPDATE ? (
-        <>
-          <label htmlFor="surveyTemplateTitle">Title:</label>
-          <input
+    <Grid container spacing={5} maxWidth="600px">
+      <Grid item xs={12} display="flex">
+        {action === UPDATE ? (
+          <TextField
+            fullWidth
             id="surveyTemplateTitle"
-            type="text"
             name="title"
+            label="Title"
             value={surveyTemplate.title}
             placeholder="select a title"
             onChange={handleChangeValueSurveyTemplate}
           />
-        </>
-      ) : (
-        <p>{`Title: ${surveyTemplate.title}`}</p>
-      )}
+        ) : (
+          <Typography>{`Title: ${surveyTemplate.title}`}</Typography>
+        )}
+        <Box display="flex" alignItems="center" mx={5}>
+          <Typography>Inactive</Typography>
+          <Switch
+            checked={surveyTemplate.active}
+            onChange={handleChangeValueSurveyTemplate}
+            name="active"
+            inputProps={{ "aria-label": "controlled" }}
+          />
+          <Typography>Active</Typography>
+        </Box>
+      </Grid>
       {typeof surveyTemplate.questions === "object"
         ? surveyTemplate.questions.map((q, index) => (
-            <div key={index}>
+            <Grid key={index} item xs={12} container>
               {action === UPDATE ? (
-                <div>
-                  <label htmlFor={index}>Question: </label>
-                  <input
-                    type="text"
-                    id={index}
-                    name="question"
-                    value={q.question}
-                    onChange={(e) => handleChangeValueQuestion(e, index)}
-                  />
-                  <br />
-                  <input
-                    type="text"
-                    id={index}
-                    name="answer"
-                    value={q.answer}
-                    disabled
-                  />
-                  <br />
-                </div>
+                <Grid item xs={12} container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id={index}
+                      name="question"
+                      label="Question"
+                      value={q.question}
+                      onChange={(e) => handleChangeValueQuestion(e, index)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      multiline
+                      type="text"
+                      id={index}
+                      name="answer"
+                      label="Answer"
+                      value={q.answer}
+                      disabled
+                    />
+                  </Grid>
+                </Grid>
               ) : (
                 <div>
                   <label htmlFor={index}>{q.question}</label>
                   <br />
-                  <input
+                  <TextField
+                    fullWidth
+                    multiline
                     type="text"
                     id={index}
                     name="answer"
+                    label="Answer"
                     value={q.answer}
                     disabled
                   />
                 </div>
               )}
-            </div>
+            </Grid>
           ))
         : null}
       {action === UPDATE ? (
-        <button onClick={(e) => saveChanges(e, surveyTemplate._id)}>
-          Save Changes
-        </button>
+        <Grid item xs={12}>
+          <Button
+            variant="outlined"
+            onClick={(e) => saveChanges(e, surveyTemplate._id)}
+          >
+            Save Changes
+          </Button>
+        </Grid>
       ) : null}
-    </div>
+    </Grid>
   );
 };
 

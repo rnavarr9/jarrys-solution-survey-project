@@ -10,7 +10,7 @@ const UpdateSurveyTemplate = () => {
 
   return (
     <Wrapper>
-      <ShortAnswerTemplate id={id} history={history} action={UPDATE} />;
+      <ShortAnswerTemplate id={id} history={history} action={UPDATE} />
     </Wrapper>
   );
 };
