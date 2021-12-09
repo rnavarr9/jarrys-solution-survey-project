@@ -24,6 +24,11 @@ const NavBarMenuAuth = ({ handleLogout }) => {
             <Typography color="white">Survey Templates</Typography>
           </Button>
         </Link>
+        <Link style={{ textDecoration: "none" }} to="/reportAnalytics">
+          <Button color="inherit">
+            <Typography color="white">Report Analytics</Typography>
+          </Button>
+        </Link>
       </div>
       <div>
         <Link
