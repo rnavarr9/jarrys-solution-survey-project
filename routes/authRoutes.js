@@ -4,99 +4,15 @@ const verifyJWT = require("../middlewares/verifyJWT");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+let authController = require('../controllers/authentication');
+
+
 module.exports = (app) => {
-  app.post("/api/register", async (req, res) => {
-    const { username, email, password } = req.body;
+  app.post("/api/register", authController.registerUser);
 
-    if (!(email && username && password)) {
-      res.json({ auth: false, msg: "Please, complete all fields" });
-    } else {
-      const oldUser = await Users.findOne({ username });
-      console.log(oldUser);
+  app.post("/api/login", authController.loginUser);
 
-      if (oldUser) {
-        console.log({ oldUser });
-        res.json({
-          auth: false,
-          msg: "Username already registered, choose another one",
-        });
-      } else {
-        bcrypt.hash(password, 10).then((hash) => {
-          Users.create({
-            username,
-            email,
-            password: hash,
-          })
-            .then((newUser) => {
-              const userInSession = {
-                id: newUser._id.toString(),
-                username: newUser.username,
-                email: newUser.email,
-              };
+  app.post("/api/logout", verifyJWT, authController.logoutUser);
 
-              const accessToken = jwt.sign({ ...userInSession }, "jwtSecret", {
-                expiresIn: 60 * 60 * 24,
-              });
-
-              res.json({
-                auth: true,
-                token: accessToken,
-                result: userInSession,
-                msg: "User registered and authenticated!",
-              });
-            })
-            .catch((err) => {
-              if (err) {
-                res.status(400).json({ error: err });
-              }
-            });
-        });
-      }
-    }
-  });
-
-  app.post("/api/login", async (req, res) => {
-    const { username, password } = req.body;
-
-    const user = await Users.findOne({ username });
-
-    if (!user) {
-      res.json({ auth: false, msg: "User Doesn't Exist" });
-    } else {
-      const userInSession = {
-        id: user._id.toString(),
-        username: user.username,
-        password: user.password,
-      };
-
-      const dbPassword = user.password;
-      bcrypt.compare(password, dbPassword).then((match) => {
-        if (!match) {
-          res.json({
-            auth: false,
-            msg: "Wrong Email and Password Combination!",
-          });
-        } else {
-          const accessToken = jwt.sign({ ...userInSession }, "jwtSecret", {
-            expiresIn: 60 * 60 * 24,
-          });
-
-          res.json({
-            auth: true,
-            token: accessToken,
-            result: userInSession,
-            msg: "User authenticated!",
-          });
-        }
-      });
-    }
-  });
-
-  app.post("/api/logout", verifyJWT, (req, res) => {
-    res.json("Logged out successfully");
-  });
-
-  app.get("/api/isUserAuth", verifyJWT, (req, res) => {
-    res.json({ auth: true, msg: "You are authenticated!" });
-  });
+  app.get("/api/isUserAuth", verifyJWT, authController.authenticateUser);
 };
