@@ -30,6 +30,8 @@ app.use(bodyParser.json());
 require("./models/surveyTemplate");
 require("./models/user")
 require("./models/survey")
+require("./models/surveyTemplateReport")
+require("./models/surveyReport")
 
 mongoose
   .connect(
@@ -47,6 +49,7 @@ require("./routes/surveyTemplatesRoutes.js")(app);
 require("./routes/userRoutes.js")(app);
 require("./routes/authRoutes.js")(app);
 require("./routes/surveyRoutes.js")(app);
+require("./routes/reportRoute.js")(app);
 
 app.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "client", "build", "index.html"));
