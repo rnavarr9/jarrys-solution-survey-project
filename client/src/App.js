@@ -9,6 +9,7 @@ import {
   ProtectedRoute,
   NavBarMenu,
   Surveys,
+  ReportAnalytics
 } from "./Components";
 import { Survey } from "./Components/Surveys";
 import {
@@ -91,6 +92,10 @@ function App() {
             <ProtectedRoute
               path="/createSurveyTemplate"
               component={CreateSurveyTemplate}
+            />
+            <ProtectedRoute
+              path="/reportAnalytics"
+              component={ReportAnalytics}
             />
             <Route path="/survey/:id" component={Survey} />
             <Route path="/" component={auth ? Surveys : Login} />
