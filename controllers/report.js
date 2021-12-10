@@ -5,6 +5,7 @@ const SurveyReport = mongoose.model("SurveyReport")
 const SurveyTemplates = mongoose.model("SurveyTemplates");
 
 module.exports.getSurveyTemplateReportSummary = async (req, res) => {
+    const userIdInToken = res.locals.id;
     try {
         let surveyTemplates = await SurveyTemplates.find({
             user: { _id: userIdInToken },
@@ -57,7 +58,7 @@ module.exports.getSurveyReport = async (req, res) => {
 
             surveys.forEach(survey => {
                 survey.questions.forEach(answer => {
-                    
+
                     if (answer.question == question.question) {
 
                         if (surveyTemplate.type == "AGREE_DISAGREE") {
@@ -66,7 +67,8 @@ module.exports.getSurveyReport = async (req, res) => {
                             } else {
                                 noUnAnsweredCount++;
                             }
-                        }else if (surveyTemplate.type == "shortAnswerQuestion"||surveyTemplate.type == "SHORT_ANSWER") {
+                        } else if (surveyTemplate.type == "shortAnswerQuestion" || surveyTemplate.type == "SHORT_ANSWER") {
+
                             if (answer.answer.trim() == "") {
                                 noUnAnsweredCount++;
                             } else {
@@ -85,7 +87,7 @@ module.exports.getSurveyReport = async (req, res) => {
             report.questions.push(x);
         });
 
-        
+
 
         return res.json(report);
     } catch (error) {
