@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { mapReduce } = require("../models/survey");
 const Surveys = mongoose.model("Surveys");
 const SurveyTemplateReport = mongoose.model("SurveyTemplateReport")
 const SurveyReport = mongoose.model("SurveyReport")
@@ -87,7 +88,24 @@ module.exports.getSurveyReport = async (req, res) => {
             report.questions.push(x);
         });
 
+        const dateMap = new Map();
+        surveys.forEach(survey => {
+            var date = survey.creationDate.toLocaleDateString('en-US');
+            var ctr = 1
 
+            if(dateMap.has(date)){
+                ctr = 1 + dateMap.get(date);
+            }
+            dateMap.set(date, ctr);
+        });
+
+        dateMap.forEach(function(value, key) {
+            let x = {
+                data: key,
+                respondents: value
+            }
+            report.respondentsByDate.push(x);
+        });
 
         return res.json(report);
     } catch (error) {

@@ -4,7 +4,8 @@ let SurveyReport = mongoose.Schema({
     templateId: String,
     title: String,
     respondents: Number,
-    questions: Array
+    questions: Array,
+    respondentsByDate: Array
 });
 
 module.exports = mongoose.model('SurveyReport', SurveyReport);

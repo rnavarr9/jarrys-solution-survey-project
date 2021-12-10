@@ -13,6 +13,7 @@ module.exports.addSurvey = async (req, res) => {
         title: req.body.title,
         type: req.body.type,
         questions: req.body.questions,
+        creationDate: new Date().toLocaleDateString(),
         surveyOwner,
         templateId: req.body._id,
     });

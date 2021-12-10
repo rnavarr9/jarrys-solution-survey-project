@@ -5,6 +5,7 @@ let Surveys = mongoose.Schema(
     id: String,
     title: String,
     type: String,
+    creationDate: Date,
     questions: Array,
     surveyOwner: {
       ownerId: String,
