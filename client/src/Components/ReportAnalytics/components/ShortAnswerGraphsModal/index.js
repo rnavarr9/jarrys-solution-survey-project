@@ -1,36 +1,50 @@
-import React, { useState } from "react";
-import { Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
 import { Grid } from "@mui/material";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { FullScreenDialog, Wrapper } from "../../../Commons";
 import axios from "axios";
-import { AGREE_DISAGREE_GRAPH_LABELS } from "../../../../Helpers/constants";
 import {
-  createGraphData,
-  createOptionsHBar,
+  createShortAnswerLineChartGraphData,
+  createShortAnswerLineChartLabels,
+  createOptionsLine,
 } from "../../../../Helpers/helperFunctions";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend
 );
 
-const AgreeDisagreeGraphsModal = ({ surveyTemplateId }) => {
+const ShortAnswerGraphsModal = ({ surveyTemplateId }) => {
   const [fetchedData, setFetchedData] = useState(null);
-console.log({singleReport: fetchedData})
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if (fetchedData) {
+      setData(
+        createShortAnswerLineChartGraphData(
+          createShortAnswerLineChartLabels(fetchedData),
+          fetchedData
+        )
+      );
+    }
+  }, [fetchedData]);
+  console.log({ singleReport: fetchedData });
+  console.log({ data });
   const handleReportData = () => {
     if (surveyTemplateId) {
       axios
@@ -53,20 +67,14 @@ console.log({singleReport: fetchedData})
       {/* <Box sx={{ maxWidth: "500px" }}> */}
       <Wrapper>
         <Grid container spacing={4}>
-          {fetchedData &&
-            fetchedData.questions &&
-            fetchedData.questions.length &&
-            fetchedData.questions.map((q, index) => (
-              <Grid item xs={4} key={index}>
-                <Bar
-                  options={createOptionsHBar(index + 1, q.question)}
-                  data={createGraphData(
-                    [q.yesAnswered, q.noUnAnswered],
-                    AGREE_DISAGREE_GRAPH_LABELS
-                  )}
-                />
-              </Grid>
-            ))}
+          {data && (
+            <Grid item xs={4}>
+              <Line
+                options={createOptionsLine("Respondents by Date")}
+                data={data}
+              />
+            </Grid>
+          )}
         </Grid>
         {/* </Box> */}
       </Wrapper>
@@ -74,4 +82,4 @@ console.log({singleReport: fetchedData})
   );
 };
 
-export default AgreeDisagreeGraphsModal;
+export default ShortAnswerGraphsModal;

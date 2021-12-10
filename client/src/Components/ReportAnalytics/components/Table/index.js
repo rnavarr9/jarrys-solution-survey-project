@@ -13,30 +13,8 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import AgreeDisagreeGraphsModal from "../AgreeDisagreeGraphsModal";
-
-// function createData(id, name, calories, fat, carbs, protein) {
-//   return {
-//     id,
-//     name,
-//     calories,
-//     fat,
-//     carbs,
-//     protein,
-//   };
-// }
-
-// const rows = [
-//   createData(1, "Cupcake", 67, 4.3),
-//   createData(2, "Donut", 51, 4.9),
-//   createData(3, "Eclair", 24, 6.0),
-//   createData(4, "Frozen yoghurt", 24, 4.0),
-//   createData(5, "Gingerbread", 49, 3.9),
-//   createData(6, "Honeycomb", 87, 6.5),
-//   createData(7, "Ice cream", 37, 4.3),
-//   createData(8, "Jelly Bean", 94, 0.0),
-//   createData(9, "KitKat", 65, 7.0),
-//   createData(10, "Lollipop", 98, 0.0),
-// ];
+import ShortAnswerGraphsModal from "../ShortAnswerGraphsModal";
+import { questionTypes } from "../../../../Helpers/constants";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -142,7 +120,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({rows}) {
+export default function EnhancedTable({ rows }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
   const [page, setPage] = React.useState(0);
@@ -167,6 +145,17 @@ export default function EnhancedTable({rows}) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  const renderModal = (type, templateId) => {
+    switch (type) {
+      case questionTypes.AGREE_DISAGREE:
+        return <AgreeDisagreeGraphsModal surveyTemplateId={templateId} />;
+      case questionTypes.SHORT_ANSWER:
+        return <ShortAnswerGraphsModal surveyTemplateId={templateId} />;
+      default:
+        return <ShortAnswerGraphsModal surveyTemplateId={templateId} />;
+    }
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -184,14 +173,17 @@ export default function EnhancedTable({rows}) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
+                  console.log({ type: row });
                   return (
                     <TableRow hover key={row._id}>
                       <TableCell align="center">{index + 1}</TableCell>
                       <TableCell align="left">{row.title}</TableCell>
                       <TableCell align="center">{row.respondents}</TableCell>
-                      <TableCell align="center">{row.active ? "Active" : "Inactive"}</TableCell>
                       <TableCell align="center">
-                        <AgreeDisagreeGraphsModal surveyTemplateId={row.templateId}/>
+                        {row.active ? "Active" : "Inactive"}
+                      </TableCell>
+                      <TableCell align="center">
+                        {renderModal(row.type, row.templateId)}
                       </TableCell>
                     </TableRow>
                   );

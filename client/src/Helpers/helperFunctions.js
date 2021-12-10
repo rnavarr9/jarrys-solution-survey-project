@@ -1,4 +1,4 @@
-export const createOptions = (index, title) => ({
+export const createOptionsHBar = (index, title) => ({
   indexAxis: "y",
   elements: {
     bar: {
@@ -17,6 +17,19 @@ export const createOptions = (index, title) => ({
   },
 });
 
+export const createOptionsLine = (title) => ({
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: `${title}`,
+    },
+  },
+});
+
 export const createGraphData = (arrData, labels) => {
   return {
     labels,
@@ -30,3 +43,20 @@ export const createGraphData = (arrData, labels) => {
     ],
   };
 };
+
+export const createShortAnswerLineChartGraphData = (labels, arrData) => {
+  return {
+    labels,
+    datasets: [
+      {
+        label: "Total",
+        data: arrData.respondentsByDate.map((d) => d.respondents),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+};
+
+export const createShortAnswerLineChartLabels = (fetchedData) =>
+  fetchedData.respondentsByDate.reverse().map((d) => d.data);
