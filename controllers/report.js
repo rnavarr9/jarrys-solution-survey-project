@@ -5,10 +5,9 @@ const SurveyReport = mongoose.model("SurveyReport")
 const SurveyTemplates = mongoose.model("SurveyTemplates");
 
 module.exports.getSurveyTemplateReportSummary = async (req, res) => {
+    const userIdInToken = res.locals.id;
     try {
-        let surveyTemplates = await SurveyTemplates.find({
-            user: { _id: userIdInToken },
-        }).populate("user", "username");
+        let surveyTemplates = await SurveyTemplates.find();
 
         let surveys = await Surveys.find();
 
@@ -67,6 +66,7 @@ module.exports.getSurveyReport = async (req, res) => {
                                 noUnAnsweredCount++;
                             }
                         }else if (surveyTemplate.type == "shortAnswerQuestion"||surveyTemplate.type == "SHORT_ANSWER") {
+                            
                             if (answer.answer.trim() == "") {
                                 noUnAnsweredCount++;
                             } else {
