@@ -26,7 +26,7 @@ const SurveyTemplateList = ({ surveyTemplates, deleteSurveyTemplate }) => {
   return (
     <List>
       {surveyTemplates.map((s, idx) => (
-        <>
+        <div key={idx}>
           <ListItem key={idx}>
             <Grid
               container
@@ -87,7 +87,7 @@ const SurveyTemplateList = ({ surveyTemplates, deleteSurveyTemplate }) => {
             </Grid>
           </ListItem>
           <Divider variant="fullWidth" component="li" />
-        </>
+        </div>
       ))}
     </List>
   );

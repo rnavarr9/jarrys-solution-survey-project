@@ -15,7 +15,7 @@ const AgreeDisagree = ({ localSurvey, onChange, onSubmit }) => {
     <Grid container>
       {typeof localSurvey.questions === "object"
         ? localSurvey.questions.map((q, index) => (
-            <Grid key={index} item xs={12}>
+            <Grid key={index} item xs={12} key={index}>
                 <Typography id={toString(index)} name="question" variant="h6">
                   {`${index + 1} - ${q.question}`}
                 </Typography>

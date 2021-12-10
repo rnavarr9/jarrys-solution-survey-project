@@ -57,7 +57,7 @@ console.log({singleReport: fetchedData})
             fetchedData.questions &&
             fetchedData.questions.length &&
             fetchedData.questions.map((q, index) => (
-              <Grid item xs={4}>
+              <Grid item xs={4} key={index}>
                 <Bar
                   options={createOptions(index + 1, q.question)}
                   data={createGraphData(
