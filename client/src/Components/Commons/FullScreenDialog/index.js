@@ -12,10 +12,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const FullScreenDialog = ({ children }) => {
+const FullScreenDialog = ({ children, cb, surveyTitle }) => {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = async () => {
+    await cb();
     setOpen(true);
   };
 
@@ -45,7 +46,7 @@ const FullScreenDialog = ({ children }) => {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Report Graphs
+              {`Survey: ${surveyTitle}` || "Report Graphs"}
             </Typography>
           </Toolbar>
         </AppBar>

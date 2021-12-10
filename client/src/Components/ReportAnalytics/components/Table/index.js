@@ -14,29 +14,29 @@ import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import AgreeDisagreeGraphsModal from "../AgreeDisagreeGraphsModal";
 
-function createData(id, name, calories, fat, carbs, protein) {
-  return {
-    id,
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
+// function createData(id, name, calories, fat, carbs, protein) {
+//   return {
+//     id,
+//     name,
+//     calories,
+//     fat,
+//     carbs,
+//     protein,
+//   };
+// }
 
-const rows = [
-  createData(1, "Cupcake", 67, 4.3),
-  createData(2, "Donut", 51, 4.9),
-  createData(3, "Eclair", 24, 6.0),
-  createData(4, "Frozen yoghurt", 24, 4.0),
-  createData(5, "Gingerbread", 49, 3.9),
-  createData(6, "Honeycomb", 87, 6.5),
-  createData(7, "Ice cream", 37, 4.3),
-  createData(8, "Jelly Bean", 94, 0.0),
-  createData(9, "KitKat", 65, 7.0),
-  createData(10, "Lollipop", 98, 0.0),
-];
+// const rows = [
+//   createData(1, "Cupcake", 67, 4.3),
+//   createData(2, "Donut", 51, 4.9),
+//   createData(3, "Eclair", 24, 6.0),
+//   createData(4, "Frozen yoghurt", 24, 4.0),
+//   createData(5, "Gingerbread", 49, 3.9),
+//   createData(6, "Honeycomb", 87, 6.5),
+//   createData(7, "Ice cream", 37, 4.3),
+//   createData(8, "Jelly Bean", 94, 0.0),
+//   createData(9, "KitKat", 65, 7.0),
+//   createData(10, "Lollipop", 98, 0.0),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -89,7 +89,7 @@ const headCells = [
   },
   {
     id: "status",
-    numeric: true,
+    numeric: false,
     label: "Status",
     align: "center",
   },
@@ -144,10 +144,9 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable({rows}) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("id");
-  const [renderModal, setRenderModal] = React.useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -188,13 +187,13 @@ export default function EnhancedTable() {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   return (
-                    <TableRow hover key={row.name}>
-                      <TableCell align="center">{row.id}</TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="center">{row.calories}</TableCell>
-                      <TableCell align="center">{row.fat}</TableCell>
+                    <TableRow hover key={row._id}>
+                      <TableCell align="center">{index + 1}</TableCell>
+                      <TableCell align="left">{row.title}</TableCell>
+                      <TableCell align="center">{row.respondents}</TableCell>
+                      <TableCell align="center">{row.active ? "Active" : "Inactive"}</TableCell>
                       <TableCell align="center">
-                        <AgreeDisagreeGraphsModal />
+                        <AgreeDisagreeGraphsModal surveyTemplateId={row.templateId}/>
                       </TableCell>
                     </TableRow>
                   );

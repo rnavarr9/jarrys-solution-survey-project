@@ -82,11 +82,11 @@ function App() {
               component={SurveyTemplates}
             />
             <ProtectedRoute
-              path="/displaySurveyTemplate/:id"
+              path="/displaySurveyTemplate/:surveyTemplateType/:id"
               component={DisplaySurveyTemplate}
             />
             <ProtectedRoute
-              path="/updateSurveyTemplate/:id"
+              path="/updateSurveyTemplate/:surveyTemplateType/:id"
               component={UpdateSurveyTemplate}
             />
             <ProtectedRoute

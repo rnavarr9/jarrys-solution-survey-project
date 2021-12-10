@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import {
   Chart as ChartJS,
@@ -9,9 +9,15 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { Grid } from "@mui/material";
 import { Bar } from "react-chartjs-2";
-import faker from "faker";
-import { FullScreenDialog } from "../../../Commons";
+import { FullScreenDialog, Wrapper } from "../../../Commons";
+import axios from "axios";
+import { AGREE_DISAGREE_GRAPH_LABELS } from "../../../../Helpers/constants";
+import {
+  createGraphData,
+  createOptions,
+} from "../../../../Helpers/helperFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -22,49 +28,48 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  indexAxis: "y",
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "right",
-    },
-    title: {
-      display: true,
-      text: "Question 1 - abcd",
-    },
-  },
-};
+const AgreeDisagreeGraphsModal = ({ surveyTemplateId }) => {
+  const [fetchedData, setFetchedData] = useState(null);
+console.log({singleReport: fetchedData})
+  const handleReportData = () => {
+    if (surveyTemplateId) {
+      axios
+        .get(`/api/admin/report/surveys/${surveyTemplateId}`, {
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          setFetchedData(response.data);
+        })
+        .catch((err) => {
+          console.log("Error fetching report data for survey!");
+        });
+    }
+  };
 
-const labels = ["Agree", "Disagree"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Total",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
-
-const AgreeDisagreeGraphsModal = () => {
   return (
-    <FullScreenDialog>
-      <Box sx={{ width: "350px" }}>
-        <Bar options={options} data={data} />
-        <Bar options={options} data={data} />
-        <Bar options={options} data={data} />
-        <Bar options={options} data={data} />
-        <Bar options={options} data={data} />
-      </Box>
+    <FullScreenDialog cb={handleReportData} surveyTitle={fetchedData?.title}>
+      {/* <Box sx={{ maxWidth: "500px" }}> */}
+      <Wrapper>
+        <Grid container spacing={4}>
+          {fetchedData &&
+            fetchedData.questions &&
+            fetchedData.questions.length &&
+            fetchedData.questions.map((q, index) => (
+              <Grid item xs={4}>
+                <Bar
+                  options={createOptions(index + 1, q.question)}
+                  data={createGraphData(
+                    [q.yesAnswered, q.noUnAnswered],
+                    AGREE_DISAGREE_GRAPH_LABELS
+                  )}
+                />
+              </Grid>
+            ))}
+        </Grid>
+        {/* </Box> */}
+      </Wrapper>
     </FullScreenDialog>
   );
 };

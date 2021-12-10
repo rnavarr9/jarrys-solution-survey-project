@@ -1,18 +1,36 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { ShortAnswerTemplate, Wrapper } from "../Commons";
+import {
+  ShortAnswerTemplate,
+  AgreeDisagreeTemplate,
+  Wrapper,
+} from "../Commons";
 import { useHistory } from "react-router-dom";
-import { UPDATE } from "../../Helpers/constants";
+import { UPDATE, questionTypes } from "../../Helpers/constants";
 
 const UpdateSurveyTemplate = () => {
-  const { id } = useParams();
+  const { id, surveyTemplateType } = useParams();
   const history = useHistory();
 
-  return (
-    <Wrapper>
-      <ShortAnswerTemplate id={id} history={history} action={UPDATE} />
-    </Wrapper>
-  );
+  const renderTemplate = () => {
+    switch (surveyTemplateType) {
+      case questionTypes.AGREE_DISAGREE:
+        return (
+          <AgreeDisagreeTemplate id={id} history={history} action={UPDATE} />
+        );
+
+      case questionTypes.SHORT_ANSWER:
+        return (
+          <ShortAnswerTemplate id={id} history={history} action={UPDATE} />
+        );
+      default:
+        return (
+          <ShortAnswerTemplate id={id} history={history} action={UPDATE} />
+        );
+    }
+  };
+
+  return <Wrapper>{renderTemplate()}</Wrapper>;
 };
 
 export default UpdateSurveyTemplate;

@@ -146,9 +146,9 @@ const CreateSurveyTemplate = () => {
                 <MenuItem value={questionTypes.AGREE_DISAGREE}>
                   Agree/Disagree
                 </MenuItem>
-                <MenuItem value={questionTypes.MUTIPLE_CHOICE}>
+                {/* <MenuItem value={questionTypes.MUTIPLE_CHOICE}>
                   Multiple choice
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem value={questionTypes.SHORT_ANSWER}>
                   Short Answer
                 </MenuItem>
