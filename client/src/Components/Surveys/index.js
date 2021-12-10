@@ -35,9 +35,9 @@ const Surveys = () => {
         console.log("Error rendering List of surveys!", err);
       });
   };
-
+console.log({surveys})
   if (surveys === null || surveys === undefined || !surveys.length) {
-    return <div>No Surveys available</div>;
+    return <Wrapper>No Surveys available</Wrapper>;
   }
 
   return (
