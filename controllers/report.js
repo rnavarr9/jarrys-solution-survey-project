@@ -45,6 +45,7 @@ module.exports.getSurveyReport = async (req, res) => {
       templateId: id,
     });
 
+<<<<<<< HEAD
     let report = new SurveyReport({
       templateId: id,
       title: surveyTemplate.title,
@@ -54,6 +55,30 @@ module.exports.getSurveyReport = async (req, res) => {
     surveyTemplate.questions.forEach((question) => {
       let yesAnsweredCount = 0;
       let noUnAnsweredCount = 0;
+=======
+            surveys.forEach(survey => {
+                survey.questions.forEach(answer => {
+
+                    if (answer.question == question.question) {
+
+                        if (surveyTemplate.type == "AGREE_DISAGREE") {
+                            if (answer.answer == "true") {
+                                yesAnsweredCount++
+                            } else {
+                                noUnAnsweredCount++;
+                            }
+                        } else if (surveyTemplate.type == "shortAnswerQuestion" || surveyTemplate.type == "SHORT_ANSWER") {
+
+                            if (answer.answer.trim() == "") {
+                                noUnAnsweredCount++;
+                            } else {
+                                yesAnsweredCount++
+                            }
+                        }
+                    }
+                });
+            });
+>>>>>>> main
 
       surveys.forEach((survey) => {
         survey.questions.forEach((answer) => {
@@ -78,6 +103,7 @@ module.exports.getSurveyReport = async (req, res) => {
         });
       });
 
+<<<<<<< HEAD
       let x = {
         question: question.question,
         yesAnswered: yesAnsweredCount,
@@ -85,6 +111,9 @@ module.exports.getSurveyReport = async (req, res) => {
       };
       report.questions.push(x);
     });
+=======
+
+>>>>>>> main
 
     return res.json(report);
   } catch (error) {
