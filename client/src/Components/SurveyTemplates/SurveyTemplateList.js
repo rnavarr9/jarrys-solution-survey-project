@@ -48,7 +48,7 @@ const SurveyTemplateList = ({ surveyTemplates, deleteSurveyTemplate }) => {
                 <Grid item={1}>
                   <Link
                     style={{ textDecoration: "none" }}
-                    to={`/displaySurveyTemplate/${s._id}`}
+                    to={`/displaySurveyTemplate/${s.type}/${s._id}`}
                   >
                     <Box
                       display="flex"
@@ -63,7 +63,7 @@ const SurveyTemplateList = ({ surveyTemplates, deleteSurveyTemplate }) => {
                 <Grid item={1}>
                   <Link
                     style={{ textDecoration: "none" }}
-                    to={`/updateSurveyTemplate/${s._id}`}
+                    to={`/updateSurveyTemplate/${s.type}/${s._id}`}
                   >
                     <Box
                       display="flex"

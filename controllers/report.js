@@ -5,13 +5,13 @@ const SurveyReport = mongoose.model("SurveyReport");
 const SurveyTemplates = mongoose.model("SurveyTemplates");
 
 module.exports.getSurveyTemplateReportSummary = async (req, res) => {
+  const userIdInToken = res.locals.id;
   try {
     let surveyTemplates = await SurveyTemplates.find({
       user: { _id: userIdInToken },
     }).populate("user", "username");
-
+    
     let surveys = await Surveys.find();
-
     let surveyTemplateReports = [];
 
     surveyTemplates.forEach((element) => {
