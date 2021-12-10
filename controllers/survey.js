@@ -31,7 +31,6 @@ module.exports.addSurvey = async (req, res) => {
 module.exports.getAllSurveyTemplate = async (req, res) => {
     try {
         let surveyTemplates = await SurveyTemplates.find();
-        console.log({ surveyTemplates })
         return res.json(surveyTemplates);
     } catch (error) {
         return res.send(error);

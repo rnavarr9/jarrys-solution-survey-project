@@ -14,7 +14,7 @@ export const newShortAnswerQuestionObj = {
 export const newYesNoQuestionObj = {
   type: questionTypes.AGREE_DISAGREE,
   question: "",
-  answer: null,
+  answer: false,
 };
 
 export const multipleChoiceQuestionObj = {
