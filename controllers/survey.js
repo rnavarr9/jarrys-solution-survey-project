@@ -20,10 +20,8 @@ module.exports.addSurvey = async (req, res) => {
 
     Surveys.create(newSurvey, (err, surveyTemplate) => {
         if (err) {
-            console.log(err);
             res.end(err);
         } else {
-            console.log("Survey created!", surveyTemplate);
             res.json({ success: true, msg: "New Survey added!." });
         }
     });
@@ -34,7 +32,6 @@ module.exports.getAllSurveyTemplate = async (req, res) => {
         let surveyTemplates = await SurveyTemplates.find({
             active: true
         })
-        console.log(surveyTemplates);
         return res.json(surveyTemplates);
     } catch (error) {
         return res.send(error);
@@ -94,10 +91,8 @@ module.exports.addSurveyTemplate = async (req, res) => {
 
     SurveyTemplates.create(newSurveyTemplate, (err, surveyTemplate) => {
         if (err) {
-            console.log(err);
             res.end(err);
         } else {
-            console.log("Survey Template created!", surveyTemplate);
             res.json({ success: true, msg: "New Survey Template added!." });
         }
     });
@@ -107,7 +102,6 @@ module.exports.deleteSurveyTemplate = async (req, res, next) => {
     let id = req.params.id;
     SurveyTemplates.remove({ _id: id }, (err) => {
         if (err) {
-            console.log(err);
             res.end(err);
         } else {
             res.json({ success: true, msg: "Survey Template deleted." });
@@ -120,7 +114,6 @@ module.exports.getSurveyTemplateForUpdate = async (req, res, next) => {
 
     SurveyTemplates.findById(id, (err, itemToEdit) => {
         if (err) {
-            console.log(err);
             res.end(err);
         } else {
             res.json({ success: true, msg: "", surveyTemplate: itemToEdit });
@@ -141,7 +134,6 @@ module.exports.processSurveyTemplateForUpdate = async (req, res, next) => {
 
     SurveyTemplates.updateOne({ _id: id }, updatedSurveyTemplate, (err) => {
         if (err) {
-            console.log(err);
             res.end(err);
         } else {
             res.json({

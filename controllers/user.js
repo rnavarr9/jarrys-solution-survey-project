@@ -35,10 +35,8 @@ module.exports.addUser = async (req, res) => {
   });
   Users.create(newUser, (err, user) => {
     if (err) {
-      console.log(err);
       res.end(err);
     } else {
-      console.log("User created!", user);
       res.json({ success: true, msg: "New user added!." });
     }
   });
@@ -48,7 +46,6 @@ module.exports.deleteUser = async (req, res, next) => {
   let id = req.params.id;
   Users.remove({ _id: id }, (err) => {
     if (err) {
-      console.log(err);
       res.end(err);
     } else {
       res.json({ success: true, msg: "User deleted." });
@@ -60,7 +57,6 @@ module.exports.getUserForUpdate = async (req, res, next) => {
   let id = req.params.id;
   Users.findById(id, (err, userToEdit) => {
     if (err) {
-      console.log(err);
       res.end(err);
     } else {
       res.json({ success: true, msg: "", user: userToEdit });
@@ -107,7 +103,6 @@ module.exports.processUserForUpdate = async (req, res, next) => {
       { runValidators: true, new: true },
       (err) => {
         if (err) {
-          console.log(err);
           res.end(err);
         } else {
           res.json({
