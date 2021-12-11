@@ -12,6 +12,7 @@ module.exports.getSurveyTemplateReportSummaryCsv = async (req, res) => {
     let surveyTemplates = await SurveyTemplates.find({
       user: { _id: userIdInToken },
     }).populate("user", "username");
+
     let surveys = await Surveys.find();
     let surveyTemplateReports = [];
 
@@ -31,13 +32,13 @@ module.exports.getSurveyTemplateReportSummaryCsv = async (req, res) => {
       surveyTemplateReports.push(templateReport);
     });
 
+
     const field = Object.keys(surveyTemplateReports[0]);
     const json2csv = new json.Parser({ field });
     const csv = json2csv.parse(surveyTemplateReports);
     res.header('Content-Type', 'text/csv');
     res.attachment("download.csv");
     return res.send(csv);
-
   } catch (error) {
     return res.send(error);
   }

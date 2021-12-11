@@ -12,7 +12,7 @@ module.exports = (app) => {
 
     app.get(`/api/admin/report/surveys/:id`, verifyJWT, reportController.getSurveyReport);
 
-    app.get('/api/admin/report/surveys/download', verifyJWT, reportController.getSurveyTemplateReportSummaryCsv);
+    app.get('/api/admin/report/download', verifyJWT, reportController.getSurveyTemplateReportSummaryCsv);
 	
     app.get('/api/admin/report/surveys/:id/download', verifyJWT, reportController.getSurveyReportCsv);
 }
