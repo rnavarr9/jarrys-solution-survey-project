@@ -31,7 +31,10 @@ module.exports.addSurvey = async (req, res) => {
 
 module.exports.getAllSurveyTemplate = async (req, res) => {
     try {
-        let surveyTemplates = await SurveyTemplates.find();
+        let surveyTemplates = await SurveyTemplates.find({
+            active: true
+        })
+        console.log(surveyTemplates);
         return res.json(surveyTemplates);
     } catch (error) {
         return res.send(error);
@@ -65,7 +68,16 @@ module.exports.getSurveyTemplate = async (req, res) => {
     let id = req.params.id;
     try {
         const surveyTemplate = await SurveyTemplates.findById(id).exec();
-        return res.json(surveyTemplate);
+        if(surveyTemplate.active==true){
+            return res.json(surveyTemplate);
+        }else{
+            let x = {
+                type: "ERROR",
+                error: 404,
+                errorMsg: "Inactive survey"
+            }
+            return res.send(x);
+        }
     } catch (error) {
         return res.send(error);
     }
