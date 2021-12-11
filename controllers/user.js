@@ -7,7 +7,6 @@ module.exports.getAllUsers = async (req, res) => {
   const userId = res.locals.id;
   try {
     const users = await Users.findById(userId).select("-password");
-    console.log({ users });
 
     return res.json([users]);
   } catch (error) {
@@ -71,35 +70,53 @@ module.exports.getUserForUpdate = async (req, res, next) => {
 
 module.exports.processUserForUpdate = async (req, res, next) => {
   let id = req.params.id;
+  const { _id, name, username, email, password } = req.body;
+  let hashedPassword = "";
 
-  const saltRounds = 10;
-  const hashedPassword = await new Promise((resolve, reject) => {
-    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(hash);
-    });
-  });
+  const user = await Users.findById(_id);
 
-  let updateUser = Users({
-    _id: id,
-    name: req.body.name,
-    username: req.body.username,
-    email: req.body.email,
-    password: hashedPassword,
-  });
+  if (!user) {
+    res.json({ auth: false, msg: "User Doesn't Exist" });
+  } else {
+    const dbPassword = user.password;
+    const saltRounds = 10;
 
-  Users.updateOne({ _id: id }, updateUser, (err) => {
-    if (err) {
-      console.log(err);
-      res.end(err);
-    } else {
-      res.json({
-        success: true,
-        msg: "User updated.",
-        user: updateUser,
+    hashedPassword = await new Promise((resolve, reject) => {
+      bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(hash);
       });
+    });
+
+    let updateUser = {
+      name,
+      username,
+      email,
+      password: hashedPassword,
+    };
+
+    if (password === dbPassword) {
+      delete updateUser.password;
     }
-  });
+
+    Users.findOneAndUpdate(
+      _id,
+      { $set: updateUser },
+      { runValidators: true, new: true },
+      (err) => {
+        if (err) {
+          console.log(err);
+          res.end(err);
+        } else {
+          res.json({
+            success: true,
+            msg: "User updated.",
+            user: updateUser,
+          });
+        }
+      }
+    );
+  }
 };
