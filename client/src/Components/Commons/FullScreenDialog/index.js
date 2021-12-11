@@ -12,7 +12,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const FullScreenDialog = ({ children, cb, surveyTitle }) => {
+const FullScreenDialog = ({ children, cb, surveyTitle, downloadPDF }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = async () => {
@@ -48,6 +48,7 @@ const FullScreenDialog = ({ children, cb, surveyTitle }) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               {`Survey: ${surveyTitle}` || "Report Graphs"}
             </Typography>
+            {downloadPDF}
           </Toolbar>
         </AppBar>
         {children}

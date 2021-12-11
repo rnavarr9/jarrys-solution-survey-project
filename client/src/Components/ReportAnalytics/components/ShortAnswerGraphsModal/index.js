@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -18,6 +18,8 @@ import {
   createShortAnswerLineChartLabels,
   createOptionsLine,
 } from "../../../../Helpers/helperFunctions";
+import { useReactToPrint } from "react-to-print";
+import CardDownload from "../CardDownload";
 
 ChartJS.register(
   CategoryScale,
@@ -32,6 +34,7 @@ ChartJS.register(
 const ShortAnswerGraphsModal = ({ surveyTemplateId }) => {
   const [fetchedData, setFetchedData] = useState(null);
   const [data, setData] = useState(null);
+  const componentRef = useRef();
 
   useEffect(() => {
     if (fetchedData) {
@@ -43,8 +46,9 @@ const ShortAnswerGraphsModal = ({ surveyTemplateId }) => {
       );
     }
   }, [fetchedData]);
+
   console.log({ singleReport: fetchedData });
-  console.log({ data });
+
   const handleReportData = () => {
     if (surveyTemplateId) {
       axios
@@ -62,22 +66,30 @@ const ShortAnswerGraphsModal = ({ surveyTemplateId }) => {
     }
   };
 
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
-    <FullScreenDialog cb={handleReportData} surveyTitle={fetchedData?.title}>
-      {/* <Box sx={{ maxWidth: "500px" }}> */}
-      <Wrapper>
-        <Grid container spacing={4}>
-          {data && (
-            <Grid item xs={4}>
-              <Line
-                options={createOptionsLine("Respondents by Date")}
-                data={data}
-              />
-            </Grid>
-          )}
-        </Grid>
-        {/* </Box> */}
-      </Wrapper>
+    <FullScreenDialog
+      cb={handleReportData}
+      surveyTitle={fetchedData?.title}
+      downloadPDF={<CardDownload onClick={handlePrint} />}
+    >
+      <div ref={componentRef}>
+        <Wrapper>
+          <Grid container spacing={4}>
+            {data && (
+              <Grid item xs={4}>
+                <Line
+                  options={createOptionsLine("Respondents by Date")}
+                  data={data}
+                />
+              </Grid>
+            )}
+          </Grid>
+        </Wrapper>
+      </div>
     </FullScreenDialog>
   );
 };

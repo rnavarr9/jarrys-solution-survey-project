@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Wrapper } from "../Commons";
 import { Typography, Grid, Box } from "@mui/material";
 import { Table } from "../Commons";
-import CardDownload from "./components/CardDownload";
 import axios from "axios";
 
 const ReportAnalytics = () => {
@@ -20,7 +19,7 @@ const ReportAnalytics = () => {
         },
       })
       .then((response) => {
-        console.log({table: response})
+        console.log({ table: response });
         setRows(response.data);
       })
       .catch((err) => {
@@ -32,12 +31,11 @@ const ReportAnalytics = () => {
     <Wrapper>
       <Box display="flex" justifyContent="space-between">
         <Typography variant="h4">Admin Reports</Typography>
-        <CardDownload />
       </Box>
       <Box pt={5} />
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>
-          {rows && <Table rows={rows}/>}
+          {rows && <Table rows={rows} />}
         </Grid>
       </Grid>
     </Wrapper>

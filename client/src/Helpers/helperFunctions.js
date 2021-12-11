@@ -37,8 +37,8 @@ export const createGraphData = (arrData, labels) => {
       {
         label: "Total",
         data: arrData,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(54, 205, 238)",
+        backgroundColor: "rgba(54, 205, 238, 0.5)",
       },
     ],
   };
@@ -51,8 +51,8 @@ export const createShortAnswerLineChartGraphData = (labels, arrData) => {
       {
         label: "Total",
         data: arrData.respondentsByDate.map((d) => d.respondents),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(54, 205, 238)",
+        backgroundColor: "rgba(54, 205, 238, 0.5)",
       },
     ],
   };
