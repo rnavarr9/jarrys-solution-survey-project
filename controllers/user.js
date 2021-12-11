@@ -66,52 +66,72 @@ module.exports.getUserForUpdate = async (req, res, next) => {
 
 module.exports.processUserForUpdate = async (req, res, next) => {
   let id = req.params.id;
-  const { _id, name, username, email, password } = req.body;
-  let hashedPassword = "";
-
-  const user = await Users.findById(_id);
-
-  if (!user) {
-    res.json({ auth: false, msg: "User Doesn't Exist" });
-  } else {
-    const dbPassword = user.password;
-    const saltRounds = 10;
-
-    hashedPassword = await new Promise((resolve, reject) => {
-      bcrypt.hash(password, saltRounds, (err, hash) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(hash);
+  let updateUser = Users({
+    _id: id,
+    name: req.body.name,
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+  });
+  Users.updateOne({ _id: id }, updateUser, (err) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      res.json({
+        success: true,
+        msg: "User updated.",
+        user: updateUser,
       });
-    });
-
-    let updateUser = {
-      name,
-      username,
-      email,
-      password: hashedPassword,
-    };
-
-    if (password === dbPassword) {
-      delete updateUser.password;
     }
+  });
+  // let id = req.params.id;
+  // const { _id, name, username, email, password } = req.body;
+  // let hashedPassword = "";
 
-    Users.findOneAndUpdate(
-      _id,
-      { $set: updateUser },
-      { runValidators: true, new: true },
-      (err) => {
-        if (err) {
-          res.end(err);
-        } else {
-          res.json({
-            success: true,
-            msg: "User updated.",
-            user: updateUser,
-          });
-        }
-      }
-    );
-  }
+  // const user = await Users.findById(_id);
+
+  // if (!user) {
+  //   res.json({ auth: false, msg: "User Doesn't Exist" });
+  // } else {
+  //   const dbPassword = user.password;
+  //   const saltRounds = 10;
+
+  //   hashedPassword = await new Promise((resolve, reject) => {
+  //     bcrypt.hash(password, saltRounds, (err, hash) => {
+  //       if (err) {
+  //         reject(err);
+  //       }
+  //       resolve(hash);
+  //     });
+  //   });
+
+  //   let updateUser = {
+  //     name,
+  //     username,
+  //     email,
+  //     password: hashedPassword,
+  //   };
+
+  //   if (password === dbPassword) {
+  //     delete updateUser.password;
+  //   }
+
+  //   Users.findOneAndUpdate(
+  //     _id,
+  //     { $set: updateUser },
+  //     { runValidators: true, new: true },
+  //     (err) => {
+  //       if (err) {
+  //         res.end(err);
+  //       } else {
+  //         res.json({
+  //           success: true,
+  //           msg: "User updated.",
+  //           user: updateUser,
+  //         });
+  //       }
+  //     }
+  //   );
+  // }
 };
