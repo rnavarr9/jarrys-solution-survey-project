@@ -48,6 +48,7 @@ const Surveys = () => {
           <Link
             to={`survey/${s._id}`}
             style={{ textDecoration: "none", color: "black" }}
+            key={idx}
           >
             <ListItem key={idx}>
               <ListItemButton>

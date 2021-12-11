@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
   return (
-    <Grid container>
+    <Grid container maxWidth="600px">
       {typeof localSurvey.questions === "object"
         ? localSurvey.questions.map((q, index) => (
             <Grid key={index} item xs={12}>
@@ -15,6 +15,7 @@ const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
                   </Typography>
                   <Box mt={1} />
                   <TextField
+                  fullWidth
                     multiline
                     id={toString(index)}
                     name="answer"
@@ -27,13 +28,13 @@ const ShortAnswer = ({ localSurvey, onChange, onSubmit }) => {
             </Grid>
           ))
         : null}
-      <Grid item xs={12} container>
-        <Grid item xs={2}>
+      <Grid item xs={12} container spacing={3}>
+        <Grid item xs={12} sm={4}>
           <Button variant="contained" onClick={onSubmit}>
             Send Survey
           </Button>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={12} sm={4}>
           <Link to="/surveys" style={{ textDecoration: "none" }}>
             <Button variant="contained">Back to Surveys</Button>
           </Link>

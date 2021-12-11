@@ -77,7 +77,7 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
     return <div>...Loading</div>;
   }
   return (
-    <Grid container spacing={5} maxWidth="600px">
+    <Grid container spacing={5} maxWidth="800px">
       <Grid item xs={12} display="flex">
         {action === UPDATE ? (
           <TextField
@@ -90,7 +90,7 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
             onChange={handleChangeValueSurveyTemplate}
           />
         ) : (
-          <Typography>{`Title: ${surveyTemplate.title}`}</Typography>
+          <Typography variant="h5">{surveyTemplate.title}</Typography>
         )}
         <Box display="flex" alignItems="center" mx={5}>
           <Typography>Inactive</Typography>
@@ -99,6 +99,7 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
             onChange={handleChangeValueSurveyTemplate}
             name="active"
             inputProps={{ "aria-label": "controlled" }}
+            disabled={action === UPDATE ? false : true}
           />
           <Typography>Active</Typography>
         </Box>
