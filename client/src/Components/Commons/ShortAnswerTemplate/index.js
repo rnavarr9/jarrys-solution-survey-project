@@ -13,7 +13,7 @@ import {
 
 const ShortAnswerTemplate = ({ id, action, history }) => {
   const [surveyTemplate, setSurveyTemplate] = useState(null);
-
+console.log({surveyTemplate})
   useEffect(() => {
     renderSurveyTemplate();
   }, []);
@@ -21,7 +21,7 @@ const ShortAnswerTemplate = ({ id, action, history }) => {
   const renderSurveyTemplate = () => {
     if (id) {
       axios
-        .get(`/api/survey-templates/${id}`, {
+        .get(`/api/admin/survey-templates/${id}`, {
           headers: {
             "x-access-token": localStorage.getItem("token"),
           },
