@@ -131,7 +131,8 @@ module.exports.getSurveyTemplateReportSummary = async (req, res) => {
       let templateReport = new SurveyTemplateReport({
         title: element.title,
         templateId: element._id,
-        active: element.active,
+        active: element.active,        
+        type: element.type,
         respondents: x,
       });
       surveyTemplateReports.push(templateReport);
@@ -154,6 +155,7 @@ module.exports.getSurveyReport = async (req, res) => {
     let report = new SurveyReport({
       templateId: id,
       title: surveyTemplate.title,
+      type: surveyTemplate.type,
       respondents: surveys.length,
     });
 
