@@ -89,9 +89,35 @@ module.exports.getSurveyReportCsv = async (req, res) => {
         });        
       });
 
-      templateReport += " \"Q"+ctr+"-Agree\": "+yesAnsweredCount+", \"Q"+ctr+"-Disagree\": "+noUnAnsweredCount+","
+      if(question.type=="AGREE_DISAGREE"){
+        templateReport += " \"Q"+ctr+"-Agree\": "+yesAnsweredCount+", \"Q"+ctr+"-Disagree\": "+noUnAnsweredCount+","
+      }else{
+        templateReport += " \"Q"+ctr+"-Answered\": "+yesAnsweredCount+", \"Q"+ctr+"-Unanswered\": "+noUnAnsweredCount+","
+      }
       ctr++;
+      
     });
+
+    const dateMap = new Map();
+    surveys.forEach(survey => {
+      var date = survey.creationDate.toLocaleDateString('en-US');
+      var ctr = 1
+
+      if (dateMap.has(date)) {
+        ctr = 1 + dateMap.get(date);
+      }
+      dateMap.set(date, ctr);
+    });
+
+    dateMap.forEach(function (value, key) {
+      let x = {
+        data: key,
+        respondents: value
+      }
+      templateReport += " \""+key+"\": "+value+","
+    });
+
+
     templateReport = templateReport.substring(0, templateReport.length - 1);
     templateReport +="}";
     console.log(templateReport)
