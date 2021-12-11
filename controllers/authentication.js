@@ -11,10 +11,8 @@ module.exports.registerUser = async (req, res) => {
         res.json({ auth: false, msg: "Please, complete all fields" });
     } else {
         const oldUser = await Users.findOne({ username });
-        console.log(oldUser);
 
         if (oldUser) {
-            console.log({ oldUser });
             res.json({
                 auth: false,
                 msg: "Username already registered, choose another one",

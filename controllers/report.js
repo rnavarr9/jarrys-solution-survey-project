@@ -120,9 +120,7 @@ module.exports.getSurveyReportCsv = async (req, res) => {
 
     templateReport = templateReport.substring(0, templateReport.length - 1);
     templateReport +="}";
-    console.log(templateReport)
     let x = JSON.parse(templateReport)
-    console.log(x);
     const field = Object.keys(x);
     const json2csv = new json.Parser({ field });
     const csv = json2csv.parse(x);
