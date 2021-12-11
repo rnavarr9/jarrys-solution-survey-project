@@ -1,23 +1,41 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../Contexts/Auth";
-import { AppBar, Box, Button, Typography } from "@mui/material";
+import { AppBar, Box, Button as NativeButton, Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import logo from "../../assets/images/logo.png";
+
+const Button = ({ children, ...rest }) => (
+  <NativeButton
+    sx={{
+      mx: "1em",
+      ":hover": {
+        bgcolor: "primary.dark",
+        color: "white",
+        padding: "5px 7px 5px 7px",
+        border: "1px solid white",
+        ...rest,
+      },
+    }}
+  >
+    {children}
+  </NativeButton>
+);
 
 const NavBarMenuAuth = ({ handleLogout }) => {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div>
-        {/* <Link style={{ textDecoration: 'none' }} to="/">
-          <Button color="inherit">
-            <Typography color="white">Home</Typography>
-          </Button>
-        </Link> */}
-        <Link style={{ textDecoration: "none" }} to="/users">
-          <Button color="inherit">
-            <AccountCircleIcon style={{color:'white'}}/>
-            <Typography color="white">Profile</Typography>
-          </Button>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        padding: ".5px 0 .5px 0",
+      }}
+    >
+      <div style={{ display: "flex" }}>
+        <Link style={{ textDecoration: "none" }} to="/home">
+          <div style={{ width: "140px", margin: "0 1em 0 1em" }}>
+            <img src={logo} style={{ width: "100%", height: "100%" }} />
+          </div>
         </Link>
         <Link style={{ textDecoration: "none" }} to="/surveyTemplates">
           <Button color="inherit">
@@ -31,6 +49,12 @@ const NavBarMenuAuth = ({ handleLogout }) => {
         </Link>
       </div>
       <div>
+        <Link style={{ textDecoration: "none" }} to="/users">
+          <Button color="inherit">
+            <AccountCircleIcon style={{ color: "white" }} />
+            <Typography color="white">Profile</Typography>
+          </Button>
+        </Link>
         <Link
           style={{ textDecoration: "none" }}
           to="/home"
@@ -47,8 +71,19 @@ const NavBarMenuAuth = ({ handleLogout }) => {
 
 const NavBarMenuNoAuth = () => {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        padding: "1px 0 1px 0",
+      }}
+    >
+      <div style={{ display: "inherit" }}>
+        <Link style={{ textDecoration: "none" }} to="/home">
+          <div style={{ width: "140px", margin: "0 1em 0 1em" }}>
+            <img src={logo} style={{ width: "100%", height: "100%" }} />
+          </div>
+        </Link>
         <Link style={{ textDecoration: "none" }} to="/surveys">
           <Button>
             <Typography color="white">Surveys</Typography>

@@ -34,7 +34,7 @@ const UpdateUser = () => {
     const { name, value } = e.target;
     setLocalUser({ ...localUser, [name]: value });
   };
-
+console.log(localUser)
   const handleSaveUser = () => {
     axios
       .post(`/api/users/update/${id}`, localUser, {
@@ -58,8 +58,8 @@ const UpdateUser = () => {
   return (
     <Wrapper>
       <Typography variant="h4">Update User page</Typography>
-      <Box pt={2}/>
-      {/* <div>
+      <Box pt={2} />
+      <div>
         <label>Name</label>
         <input
           type="text"
@@ -67,7 +67,7 @@ const UpdateUser = () => {
           value={localUser.name}
           onChange={onChangeValue}
         />
-      </div> */}
+      </div>
       <div>
         <label>Username</label>
         <input

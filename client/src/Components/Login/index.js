@@ -21,18 +21,25 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <Grid container>
+      <Grid container display="flex" justifyContent="space-around">
         <Grid container item xs={6}>
-          <Grid container direction="column" alignItems="center">
-            <Typography color="white" variant="h2">
+          <Grid
+            container
+            direction="column"
+            alignItems="left"
+            sx={{ ml: "5em" }}
+          >
+            <Spacing paddingTop={"3em"} />
+            <Typography color="white" variant="h3">
               Welcome to
               <br />
               Jarry's solution
             </Typography>
             <Box className={classes.spacing} />
-            <Typography color="white" variant="h4">
+            <Typography color="white" variant="h5">
               Let's create
-              <br /> your own Survey!
+              <br />
+              your own Survey!
             </Typography>
           </Grid>
         </Grid>

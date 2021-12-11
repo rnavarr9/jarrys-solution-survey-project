@@ -20,17 +20,22 @@ const Register = () => {
   }, []);
   return (
     <Wrapper>
-      <Grid container>
+      <Grid container display="flex" justifyContent="space-around">
         <Grid container item xs={6}>
-          <Grid container direction="column" alignItems="center">
+          <Grid
+            container
+            direction="column"
+            alignItems="left"
+            sx={{ ml: "5em" }}
+          >
             <Spacing paddingTop={"3em"} />
-            <Typography color="white" variant="h2">
+            <Typography color="white" variant="h3">
               Welcome to
               <br />
               Jarry's solution
             </Typography>
             <Box className={classes.spacing} />
-            <Typography color="white" variant="h4">
+            <Typography color="white" variant="h5">
               Join us
               <br /> and enjoy the benefits!
             </Typography>
