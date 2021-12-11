@@ -8,11 +8,11 @@ const verifyJWT = require("../middlewares/verifyJWT");
 let reportController = require('../controllers/report')
 
 module.exports = (app) => {
-    app.get(`/api/admin/report/surveys`, verifyJWT, reportController.getSurveyTemplateReportSummary);
+    app.get(`/api/admin/report/surveys`, reportController.getSurveyTemplateReportSummary);
 
-    app.get(`/api/admin/report/surveys/:id`, verifyJWT, reportController.getSurveyReport);
+    app.get(`/api/admin/report/surveys/:id`, reportController.getSurveyReport);
 
-    app.get('/api/admin/report/surveys/download', verifyJWT, reportController.getSurveyTemplateReportSummaryCsv);
+    app.get('/api/admin/report/download', reportController.getSurveyTemplateReportSummaryCsv);
 	
-    app.get('/api/admin/report/surveys/:id/download', verifyJWT, reportController.getSurveyReportCsv);
+    app.get('/api/admin/report/surveys/:id/download', reportController.getSurveyReportCsv);
 }
