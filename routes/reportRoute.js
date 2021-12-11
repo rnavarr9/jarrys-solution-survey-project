@@ -11,4 +11,8 @@ module.exports = (app) => {
     app.get(`/api/admin/report/surveys`, verifyJWT, reportController.getSurveyTemplateReportSummary);
 
     app.get(`/api/admin/report/surveys/:id`, verifyJWT, reportController.getSurveyReport);
+
+    app.get('/api/admin/report/surveys/download', verifyJWT, reportController.downloadSurveys);
+	
+    app.get('/api/admin/report/surveys/:id/download', verifyJWT, reportController.download);
 }
