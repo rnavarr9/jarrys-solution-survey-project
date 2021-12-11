@@ -70,6 +70,7 @@ function App() {
         <Router>
           <NavBarMenu />
           <Switch>
+            <Route path="/home" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/surveys" component={Surveys} />
@@ -98,7 +99,7 @@ function App() {
               component={ReportAnalytics}
             />
             <Route path="/survey/:id" component={Survey} />
-            <Route path="/" component={auth ? Surveys : Login} />
+            <Route path="/" component={Home} />
           </Switch>
         </Router>
       </StoreProvider>

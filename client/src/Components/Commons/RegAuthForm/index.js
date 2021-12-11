@@ -74,7 +74,7 @@ const RegAuthForm = ({ login }) => {
       <Typography align="center" variant="h4">
         {login ? regAuth.loginLabel : regAuth.registerLabel}
       </Typography>
-      <Typography variant="h6" className={classes.spacing}>
+      <Typography variant="h7" className={classes.spacing}>
         <b>Username</b>
       </Typography>
       <TextField
@@ -88,7 +88,7 @@ const RegAuthForm = ({ login }) => {
 
       {login ? null : (
         <>
-          <Typography variant="h6" className={classes.spacing}>
+          <Typography variant="h7" className={classes.spacing}>
             <b>Email</b>
           </Typography>
           <TextField
@@ -102,7 +102,7 @@ const RegAuthForm = ({ login }) => {
         </>
       )}
 
-      <Typography variant="h6" className={classes.spacing}>
+      <Typography variant="h7" className={classes.spacing}>
         <b>Password</b>
       </Typography>
       <TextField

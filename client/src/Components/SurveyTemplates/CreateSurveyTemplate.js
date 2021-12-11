@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Wrapper, YesNoQuestion } from "../Commons";
@@ -25,6 +25,8 @@ import {
   newYesNoQuestionObj,
   multipleChoiceQuestionObj,
 } from "../../Helpers/initializedObjects";
+import Store from "../../Contexts/Store";
+
 
 const CreateSurveyTemplate = () => {
   const [surveyTemplate, setSurveyTemplate] = useState(newSurveyTemplate);
@@ -32,6 +34,12 @@ const CreateSurveyTemplate = () => {
   const [questions, setQuestions] = useState([]);
   const history = useHistory();
   const classes = createSurveyTemplateStyles();
+
+  const { handleBgColor } = useContext(Store);
+
+  useEffect(() => {
+    handleBgColor("white");
+  }, []);
 
   const handleSelectTemplate = (value) => {
     setSurveyTemplate({ ...surveyTemplate, type: value });
