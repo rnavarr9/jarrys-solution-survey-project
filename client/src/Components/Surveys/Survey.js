@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ShortAnswer from "./ShortAnswer";
+import ErrorTemplate from "./Error";
 import { useParams } from "react-router-dom";
 import { openAPI } from "../../apis";
 import { Box, Typography, Link, Button, IconButton } from "@mui/material";
@@ -55,11 +56,14 @@ const Survey = () => {
   };
 
   const renderSurvey = (inputArgs) => {
+
     switch (localSurvey.type) {
       case questionTypes.AGREE_DISAGREE:
         return <AgreeDisagree {...inputArgs} />;
       case questionTypes.SHORT_ANSWER:
         return <ShortAnswer {...inputArgs} />;
+      case questionTypes.ERROR:
+        return <ErrorTemplate {...inputArgs} />;
       default:
         return <ShortAnswer {...inputArgs} />;
     }
