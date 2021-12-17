@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Wrapper } from "../Commons";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, TextField, Grid, Button } from "@mui/material";
 
 const UpdateUser = () => {
   const [localUser, setLocalUser] = useState(null);
@@ -34,7 +34,7 @@ const UpdateUser = () => {
     const { name, value } = e.target;
     setLocalUser({ ...localUser, [name]: value });
   };
-console.log(localUser)
+
   const handleSaveUser = () => {
     axios
       .post(`/api/users/update/${id}`, localUser, {
@@ -59,47 +59,67 @@ console.log(localUser)
     <Wrapper>
       <Typography variant="h4">Update User page</Typography>
       <Box pt={2} />
-      <div>
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          value={localUser.name}
-          onChange={onChangeValue}
-        />
-      </div>
-      <div>
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          value={localUser.username}
-          onChange={onChangeValue}
-        />
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          value={localUser.email}
-          onChange={onChangeValue}
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={localUser.password}
-          onChange={onChangeValue}
-        />
-      </div>
-      <br />
-      <button onClick={handleSaveUser}>Save User</button>{" "}
-      <Link to="/users">
-        <button>Back</button>
-      </Link>
+      <Grid
+        container
+        display="flex"
+        flexDirection="column"
+        spacing={3}
+        sx={{ width: "650px" }}
+      >
+        <Grid item>
+          <TextField
+            placeholder="Name"
+            label="Name"
+            InputLabelProps={{ shrink: true }}
+            type="text"
+            name="name"
+            value={localUser.name}
+            onChange={onChangeValue}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            placeholder="Username"
+            label="Username"
+            InputLabelProps={{ shrink: true }}
+            type="text"
+            name="username"
+            value={localUser.username}
+            onChange={onChangeValue}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            placeholder="Email"
+            label="Email"
+            InputLabelProps={{ shrink: true }}
+            type="text"
+            name="email"
+            value={localUser.email}
+            onChange={onChangeValue}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            placeholder="password"
+            label="password"
+            InputLabelProps={{ shrink: true }}
+            type="password"
+            name="password"
+            value={localUser.password}
+            onChange={onChangeValue}
+          />
+        </Grid>
+        <Grid item display="flex">
+          <Button variant="outlined" onClick={handleSaveUser}>
+            Save User
+          </Button>
+          <Box mx={2} />
+          <Link to="/users" style={{ textDecoration: "none" }}>
+            <Button variant="outlined">Back</Button>
+          </Link>
+        </Grid>
+      </Grid>
     </Wrapper>
   );
 };

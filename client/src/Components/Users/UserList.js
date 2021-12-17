@@ -1,51 +1,56 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  Grid,
+  Button,
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHead,
+} from "@mui/material";
 
 const UserList = ({ users, deleteUser }) => {
-  console.log({users})
   if (users === null || !users.length) {
     return <div>No users have been created</div>;
   }
 
   return (
-    <>
-      <table>
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+    <Grid container>
+      <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+        <TableHead>
+          <TableCell align="center">Username</TableCell>
+          <TableCell align="center">Email</TableCell>
+          <TableCell align="center">Password</TableCell>
+          <TableCell align="center">Actions</TableCell>
+        </TableHead>
+        <TableBody>
           {users && users.length
             ? users.map((user, index) => (
-                <tr key={index}>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>****</td>
-                  <td>
-                    <Link to={`/displayUser/${user._id}`}>
-                      <button>Show</button>
+                <TableRow hover key={index}>
+                  <TableCell align="center">{user.username}</TableCell>
+                  <TableCell align="center">{user.email}</TableCell>
+                  <TableCell align="center">******</TableCell>
+                  <TableCell align="center">
+                    <Link
+                      style={{ textDecoration: "none", marginRight: "5px" }}
+                      to={`/displayUser/${user._id}`}
+                    >
+                      <Button variant="outlined">Show</Button>
                     </Link>
-                  </td>
-                  <td>
-                    <Link to={`/updateUser/${user._id}`}>
-                      <button>Update</button>
+                    <Link
+                      style={{ textDecoration: "none", marginLeft: "5px" }}
+                      to={`/updateUser/${user._id}`}
+                    >
+                      <Button variant="outlined">Update</Button>
                     </Link>
-                  </td>
-                  {/* <td>
-                    <button onClick={(e) => deleteUser(user._id)}>
-                      Remove
-                    </button>
-                  </td> */}
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))
             : null}
-        </tbody>
-      </table>
-    </>
+        </TableBody>
+      </Table>
+    </Grid>
   );
 };
 
