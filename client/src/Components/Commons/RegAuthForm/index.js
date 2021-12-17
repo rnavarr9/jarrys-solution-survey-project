@@ -30,12 +30,42 @@ const RegAuthForm = ({ login }) => {
     password: "",
     email: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldError, setFieldError] = useState("");
   const history = useHistory();
   const classes = useStyles();
 
   const onChangeValue = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
+  };
+
+  const validateEmail = (email) =>
+    email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+
+  const validate = () => {
+    const [username, password, email] = Object.values(credentials);
+    console.log({ username, password, email });
+    if (!username) {
+      setErrorMessage("Username is a required field");
+      setFieldError("username");
+      return false;
+    } else if (!password) {
+      setErrorMessage("Password is a required field");
+      setFieldError("password");
+      return false;
+    } else if (!email) {
+      setErrorMessage("Email is a required field");
+      setFieldError("email");
+      return false;
+    } else if (!validateEmail(email)) {
+      setErrorMessage("Email is not correctly formatted");
+      setFieldError("email");
+      return false;
+    }
+    return true;
   };
 
   const handleLogin = () => {
@@ -52,6 +82,11 @@ const RegAuthForm = ({ login }) => {
   };
 
   const handleRegister = () => {
+    const isValid = validate();
+    console.log(isValid);
+    if (!isValid) {
+      return;
+    }
     axios
       .post("/api/register", credentials)
       .then((response) => {
@@ -78,6 +113,8 @@ const RegAuthForm = ({ login }) => {
         <b>Username</b>
       </Typography>
       <TextField
+        error={"username" === fieldError}
+        helperText={"username" === fieldError ? errorMessage : ""}
         type="text"
         placeholder="Enter Username"
         name="username"
@@ -92,6 +129,8 @@ const RegAuthForm = ({ login }) => {
             <b>Email</b>
           </Typography>
           <TextField
+            error={"email" === fieldError}
+            helperText={"email" === fieldError ? errorMessage : ""}
             type="text"
             placeholder="Enter Email"
             name="email"
@@ -106,6 +145,8 @@ const RegAuthForm = ({ login }) => {
         <b>Password</b>
       </Typography>
       <TextField
+        error={"password" === fieldError}
+        helperText={"password" === fieldError ? errorMessage : ""}
         type="password"
         placeholder="Enter Password"
         name="password"
