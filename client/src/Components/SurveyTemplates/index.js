@@ -41,7 +41,7 @@ const SurveyTemplate = () => {
       })
       .then((res) => {
         alert("Survey Template deleted!");
-        history.push("/surveyTemplates")
+        history.push("/survey-templates")
       })
       .catch((err) => {
         console.log("Error deleting Survey Template!", err);
@@ -67,7 +67,7 @@ const SurveyTemplate = () => {
           <h1>Survey Templates' list</h1>
         </Grid>
         <Grid item xs={2}>
-          <Link to="/createSurveyTemplate" style={{ textDecoration: "none" }}>
+          <Link to="/survey-templates/create-survey-template" style={{ textDecoration: "none" }}>
             <Button variant="outlined">
               <BallotIcon />
               <Box px={1}/>

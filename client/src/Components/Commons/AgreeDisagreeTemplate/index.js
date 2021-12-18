@@ -47,7 +47,7 @@ const AgreeDisagreeTemplate = ({ id, action, history }) => {
       })
       .then((res) => {
         console.log("Survey Template updated!", res);
-        history.push("/surveyTemplates");
+        history.push("/survey-templates");
       })
       .catch((err) => {
         console.log("ERR", err);

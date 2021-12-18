@@ -46,7 +46,7 @@ const Surveys = () => {
       <List>
         {surveys.filter(rs => rs.active).map((s, idx) => (
           <Link
-            to={`survey/${s._id}`}
+            to={`surveys/survey/${s._id}`}
             style={{ textDecoration: "none", color: "black" }}
             key={idx}
           >

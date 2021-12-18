@@ -44,7 +44,7 @@ console.log({surveyTemplate})
       })
       .then((res) => {
         console.log("Survey Template updated!", res);
-        history.push("/surveyTemplates");
+        history.push("/survey-templates");
       })
       .catch((err) => {
         console.log("ERR", err);

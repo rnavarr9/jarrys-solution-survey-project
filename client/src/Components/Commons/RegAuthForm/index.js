@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Auth from "../../../Contexts/Auth";
 
-import { Card, Typography, TextField, Button } from "@mui/material";
+import { Card, Typography, TextField, Button, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 
@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
   actions: {
     display: "flex",
     flexDirection: "column",
-    // alignItems: "center",
   },
   spacing: {
     padding: "1em 0",
@@ -76,7 +75,7 @@ const RegAuthForm = ({ login }) => {
         localStorage.setItem("token", response.data.token);
         setAuth(response.data.auth);
         alert(`Welcome, ${credentials.username}`);
-        history.push("/surveyTemplates");
+        history.push("/survey-templates");
       }
     });
   };
@@ -96,7 +95,7 @@ const RegAuthForm = ({ login }) => {
           localStorage.setItem("token", response.data.token);
           setAuth(response.data.auth);
           alert(response.data.msg);
-          history.push("/surveyTemplates");
+          history.push("/survey-templates");
         }
       })
       .catch((err) => {
@@ -109,10 +108,10 @@ const RegAuthForm = ({ login }) => {
       <Typography align="center" variant="h4">
         {login ? regAuth.loginLabel : regAuth.registerLabel}
       </Typography>
-      <Typography variant="h7" className={classes.spacing}>
-        <b>Username</b>
-      </Typography>
+      <Box pt={4} />
       <TextField
+        InputLabelProps={{ shrink: true }}
+        label="Username"
         error={"username" === fieldError}
         helperText={"username" === fieldError ? errorMessage : ""}
         type="text"
@@ -122,13 +121,13 @@ const RegAuthForm = ({ login }) => {
         onChange={onChangeValue}
         value={credentials.username}
       />
+      <Box pt={2} />
 
       {login ? null : (
         <>
-          <Typography variant="h7" className={classes.spacing}>
-            <b>Email</b>
-          </Typography>
           <TextField
+            InputLabelProps={{ shrink: true }}
+            label="Email"
             error={"email" === fieldError}
             helperText={"email" === fieldError ? errorMessage : ""}
             type="text"
@@ -138,13 +137,13 @@ const RegAuthForm = ({ login }) => {
             onChange={onChangeValue}
             value={credentials.email}
           />
+          <Box pt={2} />
         </>
       )}
 
-      <Typography variant="h7" className={classes.spacing}>
-        <b>Password</b>
-      </Typography>
       <TextField
+        InputLabelProps={{ shrink: true }}
+        label="Password"
         error={"password" === fieldError}
         helperText={"password" === fieldError ? errorMessage : ""}
         type="password"

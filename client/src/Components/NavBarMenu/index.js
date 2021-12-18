@@ -37,12 +37,12 @@ const NavBarMenuAuth = ({ handleLogout }) => {
             <img src={logo} style={{ width: "100%", height: "100%" }} />
           </div>
         </Link>
-        <Link style={{ textDecoration: "none" }} to="/surveyTemplates">
+        <Link style={{ textDecoration: "none" }} to="/survey-templates">
           <Button color="inherit">
             <Typography color="white">Survey Templates</Typography>
           </Button>
         </Link>
-        <Link style={{ textDecoration: "none" }} to="/reportAnalytics">
+        <Link style={{ textDecoration: "none" }} to="/report-analytics">
           <Button color="inherit">
             <Typography color="white">Report Analytics</Typography>
           </Button>
