@@ -30,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper sx={{padding: "5em 5em 0em"}}>
       <Grid container display="flex" justifyContent="space-around">
         <Grid item xs={6} container>
           <Grid container direction="column" alignItems="left">
@@ -46,7 +46,7 @@ const Home = () => {
               <br /> your own survey!
             </Typography>
             <Box pt={5} />
-            <Link to='/createSurveyTemplate' style={{ textDecoration: "none" }}>
+            <Link to='/survey-templates/create-survey-template' style={{ textDecoration: "none" }}>
             <Button className={classes.button}>Create a Survey</Button>
             </Link>
           </Grid>

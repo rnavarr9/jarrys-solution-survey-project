@@ -105,7 +105,7 @@ const CreateSurveyTemplate = () => {
         console.log({ res });
         alert("Survey Template Created!");
         resetLocalVariables();
-        history.push("/surveyTemplates");
+        history.push("/survey-templates");
       })
       .catch((err) => {
         console.log("ERR", err);

@@ -20,7 +20,7 @@ const Login = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper sx={{padding: "8em 5em 0em"}}>
       <Grid container display="flex" justifyContent="space-around">
         <Grid container item xs={6}>
           <Grid

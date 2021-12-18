@@ -1,26 +1,10 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import {
-  Home,
-  SurveyTemplates,
-  Users,
-  Login,
-  Register,
-  ProtectedRoute,
-  NavBarMenu,
-  Surveys,
-  ReportAnalytics
-} from "./Components";
-import { Survey } from "./Components/Surveys";
-import {
-  DisplaySurveyTemplate,
-  UpdateSurveyTemplate,
-  CreateSurveyTemplate,
-} from "./Components/SurveyTemplates";
-import { CreateUser, DisplayUser, UpdateUser } from "./Components/Users";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { NavBarMenu } from "./Components";
+import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Contexts/Auth";
 import { StoreProvider } from "./Contexts/Store";
+import ROUTES, { RenderRoutes } from "./Helpers/routes";
 
 import axios from "axios";
 
@@ -64,43 +48,12 @@ function App() {
             height: "100%",
             width: "100vw",
             zIndex: -10,
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         ></div>
         <Router>
           <NavBarMenu />
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/surveys" component={Surveys} />
-            <ProtectedRoute path="/users" component={Users} />
-            <ProtectedRoute path="/displayUser/:id" component={DisplayUser} />
-            <ProtectedRoute path="/createUser" component={CreateUser} />
-            <ProtectedRoute path="/updateUser/:id" component={UpdateUser} />
-            <ProtectedRoute
-              path="/surveyTemplates"
-              component={SurveyTemplates}
-            />
-            <ProtectedRoute
-              path="/displaySurveyTemplate/:surveyTemplateType/:id"
-              component={DisplaySurveyTemplate}
-            />
-            <ProtectedRoute
-              path="/updateSurveyTemplate/:surveyTemplateType/:id"
-              component={UpdateSurveyTemplate}
-            />
-            <ProtectedRoute
-              path="/createSurveyTemplate"
-              component={CreateSurveyTemplate}
-            />
-            <ProtectedRoute
-              path="/reportAnalytics"
-              component={ReportAnalytics}
-            />
-            <Route path="/survey/:id" component={Survey} />
-            <Route path="/" component={Home} />
-          </Switch>
+          <RenderRoutes routes={ROUTES} />
         </Router>
       </StoreProvider>
     </AuthProvider>

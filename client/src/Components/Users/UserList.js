@@ -34,13 +34,13 @@ const UserList = ({ users, deleteUser }) => {
                   <TableCell align="center">
                     <Link
                       style={{ textDecoration: "none", marginRight: "5px" }}
-                      to={`/displayUser/${user._id}`}
+                      to={`/users/display-user/${user._id}`}
                     >
                       <Button variant="outlined">Show</Button>
                     </Link>
                     <Link
                       style={{ textDecoration: "none", marginLeft: "5px" }}
-                      to={`/updateUser/${user._id}`}
+                      to={`/users/update-user/${user._id}`}
                     >
                       <Button variant="outlined">Update</Button>
                     </Link>
